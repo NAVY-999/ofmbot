@@ -55,22 +55,22 @@
     <!-- Quadrichromie Gemini : une base bleue, puis trois nappes radiales ancrées
          sur les autres sommets. Approche le mélange bilinéaire de l'original,
          qu'un simple dégradé linéaire ne sait pas rendre. -->
-    <radialGradient id="gemGreen" gradientUnits="userSpaceOnUse" cx="54" cy="98" r="52">
-      <stop offset="0" stop-color="#2FA75A" stop-opacity="1"></stop>
-      <stop offset=".42" stop-color="#2FA75A" stop-opacity=".55"></stop>
-      <stop offset="1" stop-color="#2FA75A" stop-opacity="0"></stop>
+    <radialGradient id="gemGreen" gradientUnits="userSpaceOnUse" cx="54" cy="100" r="48">
+      <stop offset="0" stop-color="#12A150" stop-opacity="1"></stop>
+      <stop offset=".45" stop-color="#12A150" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#12A150" stop-opacity="0"></stop>
     </radialGradient>
 
-    <radialGradient id="gemYellow" gradientUnits="userSpaceOnUse" cx="8" cy="54" r="52">
-      <stop offset="0" stop-color="#FBBC05" stop-opacity="1"></stop>
-      <stop offset=".42" stop-color="#FBBC05" stop-opacity=".55"></stop>
-      <stop offset="1" stop-color="#FBBC05" stop-opacity="0"></stop>
+    <radialGradient id="gemYellow" gradientUnits="userSpaceOnUse" cx="6" cy="54" r="48">
+      <stop offset="0" stop-color="#FFBB00" stop-opacity="1"></stop>
+      <stop offset=".45" stop-color="#FFBB00" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#FFBB00" stop-opacity="0"></stop>
     </radialGradient>
 
-    <radialGradient id="gemRed" gradientUnits="userSpaceOnUse" cx="54" cy="8" r="52">
-      <stop offset="0" stop-color="#EA4335" stop-opacity="1"></stop>
-      <stop offset=".42" stop-color="#EA4335" stop-opacity=".55"></stop>
-      <stop offset="1" stop-color="#EA4335" stop-opacity="0"></stop>
+    <radialGradient id="gemRed" gradientUnits="userSpaceOnUse" cx="54" cy="6" r="48">
+      <stop offset="0" stop-color="#F0322A" stop-opacity="1"></stop>
+      <stop offset=".45" stop-color="#F0322A" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#F0322A" stop-opacity="0"></stop>
     </radialGradient>
 
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
