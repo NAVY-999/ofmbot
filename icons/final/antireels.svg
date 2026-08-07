@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
+  <title>antireels — M1 Profondeur</title>
+  <defs>
+    <clipPath id="sqc" clipPathUnits="objectBoundingBox">
+      <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"></path>
+    </clipPath>
+
+    <path id="sqPath" d="M54,0 C83.7,0 97,3.56 101.8,8.32 C106.7,13.18 108,26.46 108,54 C108,81.54 106.7,94.82 101.8,99.68 C97,104.44 83.7,108 54,108 C24.3,108 11,104.44 6.16,99.68 C1.3,94.82 0,81.54 0,54 C0,26.46 1.3,13.18 6.16,8.32 C11,3.56 24.3,0 54,0 Z"></path>
+
+    <!-- tuiles -->
+    <linearGradient id="gTile1" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="98" y2="108">
+      <stop offset="0" stop-color="#2A2C33"></stop>
+      <stop offset=".55" stop-color="#17181C"></stop>
+      <stop offset="1" stop-color="#0B0C0E"></stop>
+    </linearGradient>
+
+    <linearGradient id="gTile2" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="98" y2="108">
+      <stop offset="0" stop-color="#211E22"></stop>
+      <stop offset="1" stop-color="#0A0A0C"></stop>
+    </linearGradient>
+
+    <linearGradient id="gTile3" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="54" y2="108">
+      <stop offset="0" stop-color="#33353D"></stop>
+      <stop offset=".5" stop-color="#16171B"></stop>
+      <stop offset="1" stop-color="#101115"></stop>
+    </linearGradient>
+
+    <!-- lueur crimson derrière la marque (M2) -->
+    <radialGradient id="gGlow" gradientUnits="userSpaceOnUse" cx="54" cy="56" r="48">
+      <stop offset="0" stop-color="#FF2E52" stop-opacity=".34"></stop>
+      <stop offset=".55" stop-color="#D01F3C" stop-opacity=".12"></stop>
+      <stop offset="1" stop-color="#D01F3C" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <!-- balayage spéculaire (M3) -->
+    <radialGradient id="gSpec" gradientUnits="userSpaceOnUse" cx="30" cy="4" r="78">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".16"></stop>
+      <stop offset=".62" stop-color="#FFFFFF" stop-opacity=".03"></stop>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <!-- ombre interne basse (M3) -->
+    <linearGradient id="gInner" gradientUnits="userSpaceOnUse" x1="54" y1="58" x2="54" y2="108">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"></stop>
+      <stop offset="1" stop-color="#000000" stop-opacity=".42"></stop>
+    </linearGradient>
+
+    <!-- liseré lumineux haut -->
+    <linearGradient id="gEdge" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="54" y2="70">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".26"></stop>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".04"></stop>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <!-- accents -->
+    <linearGradient id="gRed" gradientUnits="userSpaceOnUse" x1="24" y1="16" x2="88" y2="94">
+      <stop offset="0" stop-color="#FF6178"></stop>
+      <stop offset=".5" stop-color="#E5334E"></stop>
+      <stop offset="1" stop-color="#A81232"></stop>
+    </linearGradient>
+
+    <linearGradient id="gGlyph" gradientUnits="userSpaceOnUse" x1="54" y1="30" x2="54" y2="80">
+      <stop offset="0" stop-color="#FFFFFF"></stop>
+      <stop offset="1" stop-color="#BFC4CC"></stop>
+    </linearGradient>
+
+    <linearGradient id="gGlyphDim" gradientUnits="userSpaceOnUse" x1="54" y1="28" x2="54" y2="78">
+      <stop offset="0" stop-color="#E2E6EB"></stop>
+      <stop offset="1" stop-color="#A9AFB9"></stop>
+    </linearGradient>
+
+    <filter id="blurSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.6"></feGaussianBlur>
+    </filter>
+
+    <!-- découpe du bouton lecture par la barre -->
+    <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"></polygon>
+    </clipPath>
+    <clipPath id="cutB" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
+    </clipPath>
+  <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="url(#gGlyphDim)" stroke="url(#gGlyphDim)" stroke-width="5" stroke-linejoin="round"/></g></g><g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="url(#gGlyph)" stroke="url(#gGlyph)" stroke-width="5" stroke-linejoin="round"/></g></g><path d="M78 28 L32 80" stroke="url(#gRed)" stroke-width="5.8" stroke-linecap="round" fill="none"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+</svg>
