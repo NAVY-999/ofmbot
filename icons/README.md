@@ -107,6 +107,28 @@ en blanc, ils donnaient deux carrés dans lesquels les C disparaissaient à 48 d
   « BURGER KING » (`Verdana`, repli `DejaVu Sans`). Les PNG, eux, sont rastérisés : ils ne
   dépendent de rien. C'est ce que tu installes.
 
+## Tracer une marque exactement
+
+Redessiner un logo à la main depuis une capture, en estimant les coordonnées à l'œil,
+donne toujours un à-peu-près. Snapchat, WhatsApp et Pinterest en sont passés par là avant
+d'être refaits autrement.
+
+`extract-mask.mjs` extrait la forme **des pixels de la capture** au lieu de la retracer :
+
+1. il repère le panneau de couleur unie qui entoure le logo,
+2. il sépare la marque du fond par seuillage sur le canal qui les oppose
+   (`lightOnColor` pour un logo clair sur fond coloré, `darkOnLight` pour un contour sombre),
+3. il étiquette les composantes connexes et écarte celles qui pèsent moins de 5 % de la plus
+   grosse — boutons d'interface, texte de la barre d'état,
+4. il recadre au carré avec 7 % de marge et sort un masque blanc sur noir en 600 px.
+
+Le masque est ensuite embarqué en base64 dans `pack.html` et la couleur passe à travers sa
+luminance. La forme est donc exacte, au pixel près.
+
+**À utiliser pour toute nouvelle marque un peu dessinée.** Il suffit d'une capture du logo
+en grand sur fond uni. Les formes géométriques simples — Instagram, YouTube, les losanges
+Paysafe — restent en tracé vectoriel, plus léger et sans perte à l'agrandissement.
+
 ## Regénérer
 
 `pack.html` contient le tracé des cinq icônes et sert de planche de référence. Les exports
