@@ -1,0 +1,606 @@
+<title>M.A.E.V.A + AntiReels — thème sombre, effet moderne</title>
+
+<style>
+  :root {
+    --paper:     #EDEEF0;
+    --surface:   #FFFFFF;
+    --surface-2: #F4F5F7;
+    --ink:       #15181C;
+    --ink-soft:  #5B626B;
+    --line:      #D8DBE0;
+    --line-soft: #E6E8EC;
+    --accent:    #D42945;
+    --shadow:    0 1px 2px rgba(15,20,28,.05), 0 10px 30px -14px rgba(15,20,28,.22);
+
+    --sans: ui-sans-serif, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #0C0E11;
+      --surface:   #14171B;
+      --surface-2: #1B1F24;
+      --ink:       #E8EAED;
+      --ink-soft:  #949BA3;
+      --line:      #232830;
+      --line-soft: #1E2229;
+      --accent:    #FF5C78;
+      --shadow:    0 1px 2px rgba(0,0,0,.45), 0 10px 30px -14px rgba(0,0,0,.75);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:     #0C0E11;
+    --surface:   #14171B;
+    --surface-2: #1B1F24;
+    --ink:       #E8EAED;
+    --ink-soft:  #949BA3;
+    --line:      #232830;
+    --line-soft: #1E2229;
+    --accent:    #FF5C78;
+    --shadow:    0 1px 2px rgba(0,0,0,.45), 0 10px 30px -14px rgba(0,0,0,.75);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .spec {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1 {
+    font-size: clamp(1.95rem, 5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+    font-weight: 800;
+    text-wrap: balance;
+    margin: 14px 0 0;
+  }
+
+  h2 { font-size: 1.4rem; letter-spacing: -.022em; font-weight: 700; margin: 0; }
+  h3 { font-size: 1rem;   letter-spacing: -.01em;  font-weight: 700; margin: 0; }
+  p  { margin: 0; }
+
+  header.masthead {
+    padding: 64px 0 38px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lede {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+    margin-top: 18px;
+  }
+
+  header .spec { display: block; margin-top: 24px; }
+
+  /* ---------- icon tile ---------- */
+
+  .tile {
+    width: var(--u);
+    height: var(--u);
+    clip-path: url(#sqc);
+    display: block;
+    flex: none;
+  }
+  .tile svg { display: block; width: 100%; height: 100%; }
+
+  .safe-ring { opacity: 0; }
+  body.show-safe .safe-ring { opacity: 1; }
+
+  /* ---------- matrix ---------- */
+
+  .matrix-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 46px 0 22px;
+  }
+
+  .toggle {
+    font: inherit;
+    font-size: .8125rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 6px 13px;
+    cursor: pointer;
+  }
+  .toggle[aria-pressed="true"] {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+  .toggle .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    border: 1.5px dashed currentColor;
+  }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .matrix {
+    --u: 96px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 130px repeat(4, minmax(120px, 1fr));
+    min-width: 660px;
+  }
+
+  .mcell {
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .mcell.col-head {
+    padding: 18px 12px 14px;
+    gap: 4px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .col-head .tag {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--accent);
+  }
+  .col-head .nm { font-size: .875rem; font-weight: 600; }
+
+  .mcell.row-head {
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    padding-left: 24px;
+    background: var(--surface-2);
+  }
+  .row-head .nm { font-size: .9rem; font-weight: 700; letter-spacing: -.01em; }
+  .row-head .sub { font-size: .75rem; color: var(--ink-soft); }
+
+  .mcell.corner { background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  .matrix-grid > .mcell:nth-last-child(-n+5) { border-bottom: 0; }
+
+  .mcell.is-current { background: color-mix(in srgb, var(--ink) 3%, transparent); }
+
+  /* ---------- treatment notes ---------- */
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .note .tag {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--accent);
+  }
+  .note p { font-size: .875rem; color: var(--ink-soft); }
+  .note ul {
+    margin: 4px 0 0; padding-left: 17px;
+    font-size: .8125rem; color: var(--ink-soft);
+  }
+  .note li { margin-bottom: 3px; }
+  .note b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- home screens ---------- */
+
+  section.insitu { margin-top: 76px; }
+
+  .section-head { display: flex; flex-direction: column; gap: 10px; padding-bottom: 26px; }
+  .section-head p { max-width: 60ch; color: var(--ink-soft); }
+
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .screen {
+    --u: 62px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 26px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background:
+      radial-gradient(95% 55% at 28% 14%, #1E4E57 0%, transparent 62%),
+      radial-gradient(85% 55% at 78% 88%, #12333B 0%, transparent 66%),
+      linear-gradient(168deg, #0C242B 0%, #050E13 100%);
+  }
+
+  .screen-tag {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: #7FA3AC;
+    align-self: flex-start;
+  }
+
+  .app { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+  .app span {
+    font-size: .75rem;
+    color: #EAF1F3;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  }
+
+  /* ---------- next ---------- */
+
+  section.next { margin-top: 76px; }
+
+  .ask {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ask ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: .9rem; }
+  .ask li { margin-bottom: 5px; }
+  .ask b { color: var(--ink); font-weight: 600; }
+  .ask code {
+    font-family: var(--mono); font-size: .8125rem;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 4px; padding: 1px 5px; color: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .notes, .screens { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<!-- ================= defs ================= -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <clipPath id="sqc" clipPathUnits="objectBoundingBox">
+      <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"/>
+    </clipPath>
+
+    <path id="sqPath" d="M54,0 C83.7,0 97,3.56 101.8,8.32 C106.7,13.18 108,26.46 108,54 C108,81.54 106.7,94.82 101.8,99.68 C97,104.44 83.7,108 54,108 C24.3,108 11,104.44 6.16,99.68 C1.3,94.82 0,81.54 0,54 C0,26.46 1.3,13.18 6.16,8.32 C11,3.56 24.3,0 54,0 Z"/>
+
+    <!-- tuiles -->
+    <linearGradient id="gTile1" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="98" y2="108">
+      <stop offset="0"   stop-color="#2A2C33"/>
+      <stop offset=".55" stop-color="#17181C"/>
+      <stop offset="1"   stop-color="#0B0C0E"/>
+    </linearGradient>
+
+    <linearGradient id="gTile2" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="98" y2="108">
+      <stop offset="0" stop-color="#211E22"/>
+      <stop offset="1" stop-color="#0A0A0C"/>
+    </linearGradient>
+
+    <linearGradient id="gTile3" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="54" y2="108">
+      <stop offset="0" stop-color="#33353D"/>
+      <stop offset=".5" stop-color="#16171B"/>
+      <stop offset="1" stop-color="#101115"/>
+    </linearGradient>
+
+    <!-- lueur crimson derrière la marque (M2) -->
+    <radialGradient id="gGlow" gradientUnits="userSpaceOnUse" cx="54" cy="56" r="48">
+      <stop offset="0"   stop-color="#FF2E52" stop-opacity=".34"/>
+      <stop offset=".55" stop-color="#D01F3C" stop-opacity=".12"/>
+      <stop offset="1"   stop-color="#D01F3C" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- balayage spéculaire (M3) -->
+    <radialGradient id="gSpec" gradientUnits="userSpaceOnUse" cx="30" cy="4" r="78">
+      <stop offset="0"   stop-color="#FFFFFF" stop-opacity=".16"/>
+      <stop offset=".62" stop-color="#FFFFFF" stop-opacity=".03"/>
+      <stop offset="1"   stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ombre interne basse (M3) -->
+    <linearGradient id="gInner" gradientUnits="userSpaceOnUse" x1="54" y1="58" x2="54" y2="108">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity=".42"/>
+    </linearGradient>
+
+    <!-- liseré lumineux haut -->
+    <linearGradient id="gEdge" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="54" y2="70">
+      <stop offset="0"  stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1"  stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- accents -->
+    <linearGradient id="gRed" gradientUnits="userSpaceOnUse" x1="24" y1="16" x2="88" y2="94">
+      <stop offset="0" stop-color="#FF6178"/>
+      <stop offset=".5" stop-color="#E5334E"/>
+      <stop offset="1" stop-color="#A81232"/>
+    </linearGradient>
+
+    <linearGradient id="gGlyph" gradientUnits="userSpaceOnUse" x1="54" y1="30" x2="54" y2="80">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BFC4CC"/>
+    </linearGradient>
+
+    <linearGradient id="gGlyphDim" gradientUnits="userSpaceOnUse" x1="54" y1="28" x2="54" y2="78">
+      <stop offset="0" stop-color="#E2E6EB"/>
+      <stop offset="1" stop-color="#A9AFB9"/>
+    </linearGradient>
+
+    <filter id="blurSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.6"/>
+    </filter>
+
+    <!-- découpe du bouton lecture par la barre -->
+    <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"/>
+    </clipPath>
+    <clipPath id="cutB" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">M.A.E.V.A · AntiReels — refonte</p>
+    <h1>Le même thème.<br>Fabriqué autrement.</h1>
+    <p class="lede">
+      Tuile noire, cercle crimson, glyphe blanc : l'identité ne bouge pas. Ce qui change, c'est la
+      matière — dégradés, lumière rasante, profondeur. Trois intensités, de la plus sobre à la plus
+      appuyée, à comparer avec tes icônes actuelles.
+    </p>
+    <span class="spec">canevas 108 dp · zone sûre 72 dp · masque squircle · export PNG 512 px</span>
+  </header>
+
+  <div class="matrix-head">
+    <h2>Les deux apps, quatre versions</h2>
+    <button type="button" class="toggle" id="safeBtn" aria-pressed="false">
+      <span class="dot"></span> Zone sûre 72 dp
+    </button>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-grid" id="grid"></div>
+  </div>
+
+  <div class="notes" id="notes"></div>
+
+  <section class="insitu">
+    <div class="section-head">
+      <p class="eyebrow">Mise en situation</p>
+      <h2>Sur ton fond d'écran</h2>
+      <p>
+        À taille réelle, sur un fond sombre comme le tien. C'est le seul test qui compte : la
+        moitié des effets modernes disparaissent à 48 dp, et l'autre moitié devient trop bruyante.
+      </p>
+    </div>
+    <div class="screens" id="screens"></div>
+  </section>
+
+  <section class="next">
+    <div class="section-head">
+      <p class="eyebrow">Ensuite</p>
+      <h2>Ce qu'il me faut pour livrer</h2>
+    </div>
+    <div class="ask">
+      <ul>
+        <li><b>La version retenue</b> — M1, M2 ou M3. Tu peux panacher : par exemple M1 sur
+            M.A.E.V.A et M2 sur AntiReels, ou le liseré de M3 sans la lueur de M2.</li>
+        <li><b>La forme du M.</b> Je l'ai redessiné en géométrique lourd d'après ta capture. Si
+            l'app a une police de marque précise, envoie-la — je recale le tracé dessus.</li>
+        <li><b>La découpe d'AntiReels.</b> La barre rouge coupe vraiment le bouton lecture : les deux
+            morceaux changent de valeur et s'écartent d'un demi-point de part et d'autre. J'ai gardé
+            l'écart minime pour que la silhouette du triangle reste lisible à 48 dp — plus large, on
+            ne reconnaît plus un bouton lecture. Dis-moi si tu veux la coupe plus franche.</li>
+        <li><b>Le format.</b> Par défaut je livre deux <code>PNG 512×512</code> à poser via Nova ou
+            Lawnchair. Les sources <code>SVG</code> suivent, pour regénérer à n'importe quelle taille.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const SAFE = '<circle class="safe-ring" cx="54" cy="54" r="36" fill="none" stroke="#FF5C78" stroke-width="1.2" stroke-dasharray="4 3"/>';
+
+  /* ---- couches de tuile ---- */
+  function tileBg(v) {
+    if (v === 'flat') return '<rect width="108" height="108" fill="#1A1A1D"/>';
+    if (v === 'm1')   return '<rect width="108" height="108" fill="url(#gTile1)"/>';
+    if (v === 'm2')   return '<rect width="108" height="108" fill="url(#gTile2)"/>' +
+                             '<rect width="108" height="108" fill="url(#gGlow)"/>';
+    return '<rect width="108" height="108" fill="url(#gTile3)"/>' +
+           '<rect width="108" height="108" fill="url(#gSpec)"/>' +
+           '<rect width="108" height="108" fill="url(#gInner)"/>';
+  }
+
+  function tileEdge(v) {
+    if (v === 'flat') return '';
+    return '<use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/>';
+  }
+
+  /* ---- marques ---- */
+  const M_PATH = 'M32 72 L32 36 L43 36 L54 55 L65 36 L76 36 L76 72 L67 72 L67 50 ' +
+                 'L57.5 66.5 L50.5 66.5 L41 50 L41 72 Z';
+  const PLAY   = 'M37.5 35 L37.5 73 L71 54 Z';
+
+  function markMaeva(v) {
+    const red   = v === 'flat' ? '#E5334E' : 'url(#gRed)';
+    const white = v === 'flat' ? '#EDEDED' : 'url(#gGlyph)';
+    const bloom = v === 'm2'
+      ? '<circle cx="54" cy="54" r="41" fill="none" stroke="#FF3D5C" stroke-width="3.4" ' +
+        'filter="url(#blurSoft)" opacity=".65"/>'
+      : '';
+    return bloom +
+      '<circle cx="54" cy="54" r="41" fill="none" stroke="' + red + '" stroke-width="3.3"/>' +
+      '<path d="' + M_PATH + '" fill="' + white + '"/>';
+  }
+
+  function markAntiReels(v) {
+    const red   = v === 'flat' ? '#E5334E' : 'url(#gRed)';
+    const white = v === 'flat' ? '#F2F2F2' : 'url(#gGlyph)';
+    const grey  = v === 'flat' ? '#A9A9AE' : 'url(#gGlyphDim)';
+    const bloom = v === 'm2'
+      ? '<path d="M78 28 L32 80" stroke="#FF3D5C" stroke-width="7.5" stroke-linecap="round" ' +
+        'fill="none" filter="url(#blurSoft)" opacity=".7"/>'
+      : '';
+    return bloom +
+      '<g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)">' +
+        '<path d="' + PLAY + '" fill="' + grey + '" stroke="' + grey +
+        '" stroke-width="5" stroke-linejoin="round"/>' +
+      '</g></g>' +
+      '<g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)">' +
+        '<path d="' + PLAY + '" fill="' + white + '" stroke="' + white +
+        '" stroke-width="5" stroke-linejoin="round"/>' +
+      '</g></g>' +
+      '<path d="M78 28 L32 80" stroke="' + red + '" stroke-width="5.8" stroke-linecap="round" fill="none"/>';
+  }
+
+  const APPS = [
+    { key: 'maeva',     name: 'M.A.E.V.A', sub: 'cercle + monogramme', mark: markMaeva },
+    { key: 'antireels', name: 'AntiReels', sub: 'lecture barrée',      mark: markAntiReels }
+  ];
+
+  const VARIANTS = [
+    { key: 'flat', tag: 'Réf.', name: 'Actuel' },
+    { key: 'm1',   tag: 'M1',   name: 'Profondeur' },
+    { key: 'm2',   tag: 'M2',   name: 'Lueur' },
+    { key: 'm3',   tag: 'M3',   name: 'Verre' }
+  ];
+
+  function icon(app, v) {
+    return '<span class="tile"><svg viewBox="0 0 108 108">' +
+      tileBg(v) + app.mark(v) + tileEdge(v) + SAFE +
+    '</svg></span>';
+  }
+
+  /* ---- matrice ---- */
+  let html = '<div class="mcell corner"></div>';
+  VARIANTS.forEach(v => {
+    html += '<div class="mcell col-head' + (v.key === 'flat' ? ' is-current' : '') + '">' +
+              '<span class="tag">' + v.tag + '</span>' +
+              '<span class="nm">' + v.name + '</span>' +
+            '</div>';
+  });
+  APPS.forEach(app => {
+    html += '<div class="mcell row-head">' +
+              '<span class="nm">' + app.name + '</span>' +
+              '<span class="sub">' + app.sub + '</span>' +
+            '</div>';
+    VARIANTS.forEach(v => {
+      html += '<div class="mcell' + (v.key === 'flat' ? ' is-current' : '') + '">' +
+                icon(app, v.key) + '</div>';
+    });
+  });
+  document.getElementById('grid').innerHTML = html;
+
+  /* ---- notes ---- */
+  const NOTES = [
+    {
+      tag: 'M1', name: 'Profondeur',
+      p: 'Le strict nécessaire pour que la tuile cesse d’être un aplat. Rien ne brille, rien ne déborde.',
+      li: ['Tuile en dégradé diagonal <b>#2A2C33 → #0B0C0E</b>',
+           'Liseré lumineux sur l’arête haute, 1 dp',
+           'Cercle et barre en dégradé crimson clair → sombre',
+           'Glyphe blanc dégradé vers le gris froid']
+    },
+    {
+      tag: 'M2', name: 'Lueur',
+      p: 'M1 plus une lueur crimson diffuse derrière la marque, comme si le rouge éclairait la tuile.',
+      li: ['Halo radial rouge au centre de la tuile',
+           'Duplicata flouté du cercle et de la barre',
+           '<b>Le plus visible à 48 dp</b> — la lueur survit à la réduction',
+           'Le noir de la tuile tire légèrement vers le rouge']
+    },
+    {
+      tag: 'M3', name: 'Verre',
+      p: 'Éclairage vertical franc : lumière rasante en haut, ombre interne en bas. La tuile prend un volume.',
+      li: ['Balayage spéculaire elliptique en haut à gauche',
+           'Ombre interne dégradée sur le tiers bas',
+           'Contraste haut/bas plus marqué que M1',
+           'À vérifier en petit : le volume peut se lire comme un flou']
+    }
+  ];
+
+  document.getElementById('notes').innerHTML = NOTES.map(n => `
+    <div class="note">
+      <span class="tag">${n.tag}</span>
+      <h3>${n.name}</h3>
+      <p>${n.p}</p>
+      <ul>${n.li.map(x => '<li>' + x + '</li>').join('')}</ul>
+    </div>
+  `).join('');
+
+  /* ---- écrans d'accueil ---- */
+  document.getElementById('screens').innerHTML = VARIANTS.filter(v => v.key !== 'flat').map(v => `
+    <div class="screen">
+      <span class="screen-tag">${v.tag} · ${v.name}</span>
+      ${APPS.map(a => `<div class="app">${icon(a, v.key)}<span>${a.name}</span></div>`).join('')}
+    </div>
+  `).join('');
+
+  /* ---- zone sûre ---- */
+  const safeBtn = document.getElementById('safeBtn');
+  safeBtn.addEventListener('click', () => {
+    const on = safeBtn.getAttribute('aria-pressed') === 'true';
+    safeBtn.setAttribute('aria-pressed', String(!on));
+    document.body.classList.toggle('show-safe', !on);
+  });
+</script>
