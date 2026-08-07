@@ -320,11 +320,28 @@
       <stop offset="1" stop-color="#A9AFB9"/>
     </linearGradient>
 
-    <!-- Perce le P d'arrière-plan à l'endroit du contrepoinçon du P avant, pour que
-         le trou du logo laisse voir la tuile et non la couleur du P de derrière. -->
-    <clipPath id="ppNotch" clipPathUnits="userSpaceOnUse">
-      <path clip-rule="evenodd"
-            d="M-40 -40 H90 V90 H-40 Z M28 14.5 A7.5 7.5 0 1 1 28 29.5 A7.5 7.5 0 1 1 28 14.5 Z"/>
+    <!-- PayPal : panses pleines, sans contrepoinçon. Trois tons — P arrière, P avant,
+         et le recouvrement des deux, qui a sa propre teinte dans le logo d'origine.
+         Dégradés en objectBoundingBox : la marque est posée dans un groupe transformé. -->
+    <linearGradient id="gPpRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"   stop-color="#FF6178"/>
+      <stop offset=".5"  stop-color="#E5334E"/>
+      <stop offset="1"   stop-color="#A81232"/>
+    </linearGradient>
+
+    <linearGradient id="gPpWhite" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BFC4CC"/>
+    </linearGradient>
+
+    <linearGradient id="gPpOver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FEDCE3"/>
+      <stop offset="1" stop-color="#F0A6B5"/>
+    </linearGradient>
+
+    <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
+      <path transform="translate(13,12)"
+            d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z"/>
     </clipPath>
 
     <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
@@ -505,17 +522,17 @@
         'font-size="25" font-weight="700" font-style="italic" letter-spacing="-.6">Pay</text>';
   }
 
-  /* Le « P » PayPal : hampe + panse, contrepoinçon détouré. */
-  const P_PATH = 'M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z ' +
-                 'M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z';
+  /* Le « P » PayPal : hampe pleine hauteur, panse pleine greffée en haut.
+     Pas de contrepoinçon — le P se lit par la silhouette, comme dans le logo. */
+  const P_PATH = 'M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z';
 
   function markPaypal() {
-    return '<g transform="translate(54,54) scale(.95) translate(-21,-27.5)">' +
-             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gRed)" ' +
-               'clip-path="url(#ppNotch)"/>' +
-             '<g transform="translate(11,7)">' +
-               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gGlyph)"/>' +
+    return '<g transform="translate(54,54) scale(1.02) skewX(-8) translate(-25.5,-31)">' +
+             '<path d="' + P_PATH + '" fill="url(#gPpRed)"/>' +
+             '<g transform="translate(13,12)">' +
+               '<path d="' + P_PATH + '" fill="url(#gPpWhite)"/>' +
              '</g>' +
+             '<path d="' + P_PATH + '" fill="url(#gPpOver)" clip-path="url(#ppFront)"/>' +
            '</g>';
   }
 

@@ -36,10 +36,27 @@
       <stop offset="1" stop-color="#A9AFB9"></stop>
     </linearGradient>
 
-    <!-- Perce le P d'arrière-plan à l'endroit du contrepoinçon du P avant, pour que
-         le trou du logo laisse voir la tuile et non la couleur du P de derrière. -->
-    <clipPath id="ppNotch" clipPathUnits="userSpaceOnUse">
-      <path clip-rule="evenodd" d="M-40 -40 H90 V90 H-40 Z M28 14.5 A7.5 7.5 0 1 1 28 29.5 A7.5 7.5 0 1 1 28 14.5 Z"></path>
+    <!-- PayPal : panses pleines, sans contrepoinçon. Trois tons — P arrière, P avant,
+         et le recouvrement des deux, qui a sa propre teinte dans le logo d'origine.
+         Dégradés en objectBoundingBox : la marque est posée dans un groupe transformé. -->
+    <linearGradient id="gPpRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6178"></stop>
+      <stop offset=".5" stop-color="#E5334E"></stop>
+      <stop offset="1" stop-color="#A81232"></stop>
+    </linearGradient>
+
+    <linearGradient id="gPpWhite" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"></stop>
+      <stop offset="1" stop-color="#BFC4CC"></stop>
+    </linearGradient>
+
+    <linearGradient id="gPpOver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FEDCE3"></stop>
+      <stop offset="1" stop-color="#F0A6B5"></stop>
+    </linearGradient>
+
+    <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
+      <path transform="translate(13,12)" d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z"></path>
     </clipPath>
 
     <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
@@ -49,5 +66,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><g transform="translate(54,54) scale(.95) translate(-21,-27.5)"><path d="M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z" fill-rule="evenodd" fill="url(#gRed)" clip-path="url(#ppNotch)"/><g transform="translate(11,7)"><path d="M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z" fill-rule="evenodd" fill="url(#gGlyph)"/></g></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><g transform="translate(54,54) scale(1.02) skewX(-8) translate(-25.5,-31)"><path d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z" fill="url(#gPpRed)"/><g transform="translate(13,12)"><path d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z" fill="url(#gPpWhite)"/></g><path d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z" fill="url(#gPpOver)" clip-path="url(#ppFront)"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>
