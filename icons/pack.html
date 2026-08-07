@@ -1,4 +1,4 @@
-<title>Le pack M1 — douze icônes, et comment les poser</title>
+<title>Le pack M1 — vingt-et-une icônes, et comment les poser</title>
 
 <style>
   :root {
@@ -358,6 +358,21 @@
       <stop offset="1"   stop-color="#F0322A" stop-opacity="0"/>
     </radialGradient>
 
+    <!-- Famille sociale : nappe jaune-orangé en diagonale, plus un halo clair
+         en haut à gauche qui donne le fondu soyeux des fonds d'écran fournis. -->
+    <linearGradient id="orBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
+      <stop offset="0"   stop-color="#FFE93B"/>
+      <stop offset=".3"  stop-color="#FFC400"/>
+      <stop offset=".64" stop-color="#FF8A00"/>
+      <stop offset="1"   stop-color="#F0490A"/>
+    </linearGradient>
+
+    <radialGradient id="orBloom" gradientUnits="userSpaceOnUse" cx="33" cy="28" r="56">
+      <stop offset="0"   stop-color="#FFF6B0" stop-opacity=".8"/>
+      <stop offset=".45" stop-color="#FFD84A" stop-opacity=".3"/>
+      <stop offset="1"   stop-color="#FFD84A" stop-opacity="0"/>
+    </radialGradient>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"/>
     </clipPath>
@@ -405,15 +420,14 @@
 
   <header class="masthead">
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
-    <h1>Douze icônes,<br>deux familles.</h1>
+    <h1>Vingt-et-une icônes,<br>trois familles.</h1>
     <p class="lede">
-      Une seule tuile charbon pour les douze, et <b>la forme d'aucun logo ne bouge</b> :
-      on ne redessine pas une marque, on la repeint. Deux peintures, selon la famille.
-      <b>Les neuf apps de paiement</b> passent en glyphe blanc et accent crimson, le crimson
-      allant à l'élément qui coupe, entoure ou avance : le cercle du M, la barre d'AntiReels,
-      le « I » de CIC, le P d'arrière-plan de PayPal. <b>Les trois apps d'IA</b> reçoivent la
-      quadrichromie de Gemini — rouge en haut, jaune à gauche, vert en bas, bleu à droite —
-      appliquée telle quelle à l'étoile, au nœud OpenAI et à l'astérisque Claude.
+      Une seule tuile charbon pour les vingt-et-une, et <b>la forme d'aucun logo ne bouge</b> :
+      on ne redessine pas une marque, on la repeint. Trois peintures, une par famille.
+      <b>Paiement</b> — glyphe blanc, accent crimson sur l'élément qui coupe, entoure ou avance.
+      <b>IA</b> — la quadrichromie de Gemini, rouge en haut, jaune à gauche, vert en bas, bleu
+      à droite. <b>Social</b> — un dégradé jaune-orangé en diagonale, avec un halo clair en haut
+      à gauche repris des fonds d'écran fournis.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -642,13 +656,20 @@
               '<rect width="108" height="108" fill="url(#gemYellow)"/>' +
               '<rect width="108" height="108" fill="url(#gemRed)"/>';
 
-  /* Peint GEM à travers un masque, pour que la couleur suive la marque.
-     Un masque et non un détourage : il accepte aussi les tracés au trait. */
-  function gemPaint(id, shape) {
+  const ORA = '<rect width="108" height="108" fill="url(#orBase)"/>' +
+              '<rect width="108" height="108" fill="url(#orBloom)"/>';
+
+  /* Peint une nappe à travers un masque, pour que la couleur suive la marque.
+     Un masque et non un détourage : il accepte les tracés au trait comme les
+     contre-formes en noir, qui laissent alors voir la tuile. */
+  function paint(id, shape, ink) {
     return '<defs><mask id="' + id + '" maskUnits="userSpaceOnUse" ' +
              'x="0" y="0" width="108" height="108">' + shape + '</mask></defs>' +
-           '<g mask="url(#' + id + ')">' + GEM + '</g>';
+           '<g mask="url(#' + id + ')">' + ink + '</g>';
   }
+
+  const gemPaint = (id, shape) => paint(id, shape, GEM);
+  const oraPaint = (id, shape) => paint(id, shape, ORA);
 
   const STAR = 'M54 14 C57 37, 71 51, 94 54 C71 57, 57 71, 54 94 ' +
                'C51 71, 37 57, 14 54 C37 51, 51 37, 54 14 Z';
@@ -690,6 +711,106 @@
       '<circle cx="54" cy="54" r="6.5" fill="#fff"/>');
   }
 
+  /* ---- famille sociale : marque peinte en jaune-orangé ---- */
+
+  function markSnapchat() {
+    return oraPaint('mkSnap', '<path fill="#fff" d="M54 19 C39 19, 29 30, 29 44 ' +
+      'L29 58 C29 63.5, 23.5 61.5, 20.5 64.5 C17.5 67.5, 19.5 73, 25 74 ' +
+      'L30 75 C33.5 75.5, 31.5 84, 36 84 C40 84, 41 76.5, 45 77.5 ' +
+      'C48.5 78.4, 49.5 86, 54 86 C58.5 86, 59.5 78.4, 63 77.5 ' +
+      'C67 76.5, 68 84, 72 84 C76.5 84, 74.5 75.5, 78 75 ' +
+      'L83 74 C88.5 73, 90.5 67.5, 87.5 64.5 C84.5 61.5, 79 63.5, 79 58 ' +
+      'L79 44 C79 30, 69 19, 54 19 Z"/>');
+  }
+
+  /* WhatsApp : bulle pleine, combiné détouré en noir dans le masque. */
+  function markWhatsapp() {
+    return oraPaint('mkWa',
+      '<g transform="translate(2.85,5.95) scale(1.55)">' +
+        '<path fill="#fff" d="M14 50 L16.55 40.5 A19 19 0 1 1 27.13 49.07 Z"/>' +
+        '<path fill="#000" transform="translate(21,19)" d="M6.62 10.79c1.44 2.83 3.76 ' +
+          '5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 ' +
+          '.45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 ' +
+          '1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>' +
+      '</g>');
+  }
+
+  function markInstagram() {
+    return oraPaint('mkIg',
+      '<rect x="24" y="24" width="60" height="60" rx="18" fill="none" stroke="#fff" stroke-width="7"/>' +
+      '<circle cx="54" cy="54" r="15" fill="none" stroke="#fff" stroke-width="7"/>' +
+      '<circle cx="70.5" cy="37.5" r="4.2" fill="#fff"/>');
+  }
+
+  function markTelegram() {
+    return oraPaint('mkTg', '<g transform="translate(20.2,19.1) scale(2.75)">' +
+      '<path fill="#fff" d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 ' +
+      '13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 ' +
+      '12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></g>');
+  }
+
+  function markDiscord() {
+    return oraPaint('mkDc', '<g transform="translate(19,19) scale(2.92)">' +
+      '<path fill="#fff" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 ' +
+      '00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 ' +
+      '0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 ' +
+      '00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 ' +
+      '18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 ' +
+      '0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 ' +
+      '00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 ' +
+      '01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 ' +
+      '01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 ' +
+      '01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 ' +
+      '01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 ' +
+      '00-.407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 ' +
+      '00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 ' +
+      '00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 ' +
+      '00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 ' +
+      '0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 ' +
+      '1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 ' +
+      '0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 ' +
+      '1.3332-.9459 2.4189-2.1568 2.4189Z"/></g>');
+  }
+
+  /* Spotify : disque plein, trois arcs détourés en noir. */
+  function markSpotify() {
+    const arc = (d, w) => '<path d="' + d + '" fill="none" stroke="#000" stroke-width="' +
+                          w + '" stroke-linecap="round"/>';
+    return oraPaint('mkSp',
+      '<circle cx="54" cy="54" r="34" fill="#fff"/>' +
+      arc('M34 45 Q54 35.5 74 46.5', 6.6) +
+      arc('M38 56 Q54 48 70 57.5', 5.6) +
+      arc('M42 66 Q54 59.5 66 67.5', 4.6));
+  }
+
+  function markYoutube() {
+    return oraPaint('mkYt',
+      '<rect x="16" y="30" width="76" height="48" rx="13" fill="#fff"/>' +
+      '<path d="M47 41.5 L70 54 L47 66.5 Z" fill="#000"/>');
+  }
+
+  function markPinterest() {
+    return oraPaint('mkPi',
+      '<circle cx="54" cy="54" r="34" fill="#fff"/>' +
+      '<path fill="#000" fill-rule="evenodd" transform="translate(-5,-1)" ' +
+        'd="M44 30 L60 30 A14 14 0 0 1 60 58 L52 58 L52 80 L44 80 Z ' +
+           'M58 38 A6 6 0 1 1 58 50 A6 6 0 1 1 58 38 Z"/>');
+  }
+
+  /* Burger King : les deux pains, et le mot au milieu — sans lui, deux dômes
+     ne se reconnaissent pas. */
+  function markBurgerking() {
+    return oraPaint('mkBk',
+      '<path fill="#fff" d="M22 44 A32 22 0 0 1 86 44 Z"/>' +
+      '<path fill="#fff" d="M22 72 A32 17 0 0 0 86 72 Z"/>' +
+      '<text x="54" y="57" text-anchor="middle" fill="#fff" ' +
+        'font-family="Verdana, DejaVu Sans, Liberation Sans, Arial, sans-serif" ' +
+        'font-size="13.5" font-weight="700" letter-spacing="-.4">BURGER</text>' +
+      '<text x="54" y="69.5" text-anchor="middle" fill="#fff" ' +
+        'font-family="Verdana, DejaVu Sans, Liberation Sans, Arial, sans-serif" ' +
+        'font-size="13.5" font-weight="700" letter-spacing="-.4">KING</text>');
+  }
+
   const APPS = [
     { key: 'maeva',       name: 'M.A.E.V.A',    sub: 'existant', mark: markMaeva },
     { key: 'antireels',   name: 'AntiReels',    sub: 'existant', mark: markAntiReels },
@@ -702,7 +823,16 @@
     { key: 'wallet2',     name: 'Porte-cartes', sub: 'existant', mark: markHolder },
     { key: 'claude',      name: 'Claude',       sub: 'IA',       mark: markClaude },
     { key: 'chatgpt',     name: 'ChatGPT',      sub: 'IA',       mark: markChatgpt },
-    { key: 'gemini',      name: 'Gemini',       sub: 'IA',       mark: markGemini }
+    { key: 'gemini',      name: 'Gemini',       sub: 'IA',       mark: markGemini },
+    { key: 'snapchat',    name: 'Snapchat',     sub: 'social',   mark: markSnapchat },
+    { key: 'whatsapp',    name: 'WhatsApp',     sub: 'social',   mark: markWhatsapp },
+    { key: 'instagram',   name: 'Instagram',    sub: 'social',   mark: markInstagram },
+    { key: 'telegram',    name: 'Telegram',     sub: 'social',   mark: markTelegram },
+    { key: 'discord',     name: 'Discord',      sub: 'social',   mark: markDiscord },
+    { key: 'spotify',     name: 'Spotify',      sub: 'social',   mark: markSpotify },
+    { key: 'youtube',     name: 'YouTube',      sub: 'social',   mark: markYoutube },
+    { key: 'pinterest',   name: 'Pinterest',    sub: 'social',   mark: markPinterest },
+    { key: 'burgerking',  name: 'Burger King',  sub: 'social',   mark: markBurgerking }
   ];
 
   function icon(app) {
@@ -719,7 +849,8 @@
   `).join('');
 
   const cell = a => `<div class="app">${icon(a)}<span>${a.name}</span></div>`;
-  const ROWS = [[0, 3], [3, 6], [6, 9], [9, 12]];
+  const ROWS = [];
+  for (let i = 0; i < APPS.length; i += 3) ROWS.push([i, i + 3]);
   document.getElementById('screen').innerHTML = ROWS.map(([a, b]) =>
     `<div class="screen-row">${APPS.slice(a, b).map(cell).join('')}</div>`
   ).join('');

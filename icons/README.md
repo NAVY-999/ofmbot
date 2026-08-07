@@ -64,6 +64,10 @@ un coin, et la pastille de notification ne suit pas toujours.
   jaune `#FBBC05` à gauche, vert `#2FA75A` en bas, bleu `#3B82F6` à droite. Obtenue par trois
   nappes radiales sur une base bleue, appliquée à la marque via un masque : un masque et non
   un détourage, pour qu'il accepte aussi les tracés au trait comme le nœud OpenAI.
+- **Famille sociale** (9 icônes) : dégradé diagonal `#FFE93B → #FFC400 → #FF8A00 → #F0490A`,
+  plus un halo clair en haut à gauche, repris des fonds d'écran fournis. Les contre-formes —
+  triangle de YouTube, arcs de Spotify, P de Pinterest, combiné de WhatsApp — sont peintes en
+  noir dans le masque, ce qui laisse voir la tuile à travers.
 
 ### La règle pour les prochaines apps
 
@@ -99,8 +103,9 @@ en blanc, ils donnaient deux carrés dans lesquels les C disparaissaient à 48 d
   cercle deviendrait minuscule. Elles restent largement dans le squircle, donc rien n'est coupé —
   mais un launcher masquant en **cercle** les rognerait. Les trois autres icônes tiennent
   dans le cercle.
-- **`cicpay.svg` dépend d'une police** pour le mot « Pay » (`Verdana`, repli `DejaVu Sans`).
-  Les PNG, eux, sont rastérisés : ils ne dépendent de rien. C'est ce que tu installes.
+- **`cicpay.svg` et `burgerking.svg` dépendent d'une police** pour les mots « Pay » et
+  « BURGER KING » (`Verdana`, repli `DejaVu Sans`). Les PNG, eux, sont rastérisés : ils ne
+  dépendent de rien. C'est ce que tu installes.
 
 ## Regénérer
 
