@@ -335,14 +335,22 @@
       <stop offset="1" stop-color="#BFC4CC"/>
     </linearGradient>
 
+    <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
+         assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <linearGradient id="gW1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EDEFF3"/>
+    </linearGradient>
+
+    <linearGradient id="gW2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B2BAC5"/>
+      <stop offset="1" stop-color="#8F98A4"/>
+    </linearGradient>
+
     <linearGradient id="gPpOver" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FEDCE3"/>
       <stop offset="1" stop-color="#F0A6B5"/>
     </linearGradient>
-
-    <clipPath id="walletBody" clipPathUnits="userSpaceOnUse">
-      <rect x="22" y="44" width="64" height="38" rx="9"/>
-    </clipPath>
 
     <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
       <path transform="translate(13,12)"
@@ -369,7 +377,7 @@
       Tuile charbon, glyphe blanc, accent crimson — les mêmes dégradés partout, appliqués à
       des marques qu'on ne redessine pas. Le crimson va à l'élément qui coupe, qui entoure
       ou qui avance : le cercle du M, la barre d'AntiReels, le « I » de CIC, le P
-      d'arrière-plan de PayPal, la carte qui dépasse du portefeuille.
+      d'arrière-plan de PayPal, la couche du bas de Wallet.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -555,24 +563,25 @@
            '</g>';
   }
 
-  /* Google Wallet : deux cartes en éventail derrière, le portefeuille devant,
-     et la bande incurvée qui traverse son bas. */
+  /* Google Wallet : quatre couches empilées dans un même carré arrondi, chacune
+     décalée vers le bas, la dernière avec un bord ondulé. Les quatre couleurs
+     Google deviennent une gradation gris → blanc → rose → crimson. */
   function markWallet() {
-    return '<rect x="38" y="24" width="32" height="18" rx="3.5" fill="url(#gGlyphDim)"/>' +
-           '<rect x="31" y="31" width="46" height="18" rx="4" fill="url(#gRed)"/>' +
-           '<rect x="22" y="44" width="64" height="38" rx="9" fill="url(#gGlyph)"/>' +
-           '<path d="M22 69 Q54 59 86 73 L86 86 L22 86 Z" fill="url(#gRed)" ' +
-             'clip-path="url(#walletBody)"/>';
+    return '<rect x="20" y="25" width="68" height="58" rx="11" fill="url(#gGlyphDim)"/>' +
+           '<rect x="20" y="36" width="68" height="47" rx="11" fill="url(#gGlyph)"/>' +
+           '<rect x="20" y="46" width="68" height="37" rx="11" fill="url(#gPpOver)"/>' +
+           '<path d="M20 58 C34 64, 64 74, 88 60 L88 72 A11 11 0 0 1 77 83 ' +
+             'L31 83 A11 11 0 0 1 20 72 Z" fill="url(#gRed)"/>';
   }
 
-  /* PaysafeCard et Skrill partagent le même symbole — losange + chevron. Sans
+  /* PaysafeCard et Skrill partagent le même symbole — losange plus triangle. Sans
      leurs couleurs de marque, plus rien ne les sépare : on inverse donc le
      crimson d'une icône à l'autre. */
-  function arrowMark(diamond, chevron) {
-    return '<path d="M36 36 L54 54 L36 72 L18 54 Z" fill="' + diamond + '" stroke="' +
-             diamond + '" stroke-width="3" stroke-linejoin="round"/>' +
-           '<path d="M62 36 L90 54 L62 72 L72 54 Z" fill="' + chevron + '" stroke="' +
-             chevron + '" stroke-width="3" stroke-linejoin="round"/>';
+  function arrowMark(diamond, triangle) {
+    return '<path d="M40.5 34 L60.5 54 L40.5 74 L20.5 54 Z" fill="' + diamond +
+             '" stroke="' + diamond + '" stroke-width="2" stroke-linejoin="round"/>' +
+           '<path d="M65.5 34 L87.5 54 L65.5 74 Z" fill="' + triangle +
+             '" stroke="' + triangle + '" stroke-width="2" stroke-linejoin="round"/>';
   }
 
   function markPaysafe() { return arrowMark('url(#gGlyph)', 'url(#gRed)'); }

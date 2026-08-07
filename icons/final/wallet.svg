@@ -50,14 +50,22 @@
       <stop offset="1" stop-color="#BFC4CC"></stop>
     </linearGradient>
 
+    <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
+         assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <linearGradient id="gW1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"></stop>
+      <stop offset="1" stop-color="#EDEFF3"></stop>
+    </linearGradient>
+
+    <linearGradient id="gW2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B2BAC5"></stop>
+      <stop offset="1" stop-color="#8F98A4"></stop>
+    </linearGradient>
+
     <linearGradient id="gPpOver" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FEDCE3"></stop>
       <stop offset="1" stop-color="#F0A6B5"></stop>
     </linearGradient>
-
-    <clipPath id="walletBody" clipPathUnits="userSpaceOnUse">
-      <rect x="22" y="44" width="64" height="38" rx="9"></rect>
-    </clipPath>
 
     <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
       <path transform="translate(13,12)" d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z"></path>
@@ -70,5 +78,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><rect x="38" y="24" width="32" height="18" rx="3.5" fill="url(#gGlyphDim)"/><rect x="31" y="31" width="46" height="18" rx="4" fill="url(#gRed)"/><rect x="22" y="44" width="64" height="38" rx="9" fill="url(#gGlyph)"/><path d="M22 69 Q54 59 86 73 L86 86 L22 86 Z" fill="url(#gRed)" clip-path="url(#walletBody)"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><rect x="20" y="25" width="68" height="58" rx="11" fill="url(#gGlyphDim)"/><rect x="20" y="36" width="68" height="47" rx="11" fill="url(#gGlyph)"/><rect x="20" y="46" width="68" height="37" rx="11" fill="url(#gPpOver)"/><path d="M20 58 C34 64, 64 74, 88 60 L88 72 A11 11 0 0 1 77 83 L31 83 A11 11 0 0 1 20 72 Z" fill="url(#gRed)"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>
