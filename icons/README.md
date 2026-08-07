@@ -59,12 +59,18 @@ un coin, et la pastille de notification ne suit pas toujours.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
-- Accent unique : crimson `#FF6178 → #E5334E → #A81232`, sur **les cinq icônes**.
+- Crimson `#FF6178 → #E5334E → #A81232` pour M.A.E.V.A, AntiReels et les deux CIC.
+- PayPal garde ses propres bleus `#9BA9EC → #5F72CB` et `#FFFFFF → #D3DBF2`.
 
-Les couleurs de marque d'origine sont abandonnées — c'est ce qui fait qu'une rangée se lit
-comme un ensemble plutôt que comme cinq logos côte à côte. Le crimson va toujours à
-l'élément qui coupe ou qui entoure : le cercle de M.A.E.V.A, la barre d'AntiReels, le « I »
-de CIC, le P d'arrière-plan de PayPal. Tout le reste est blanc.
+### La règle pour les prochaines apps
+
+**Le logo ne se retouche pas — seule la matière autour change.** Chaque marque garde sa
+forme et ses couleurs ; on lui applique la tuile charbon, le liseré et les dégradés, rien
+de plus. Ne dévier qu'en cas de nécessité réelle, et le dire.
+
+Les deux CIC sont la seule exception à ce jour, validée explicitement : leurs aplats bleu
+et turquoise, repassés en blanc, donnaient deux carrés pleins dans lesquels les C
+disparaissaient à 48 dp. Le mot « Pay » suit le même crimson pour rester cohérent avec eux.
 
 ### Deux limites connues
 
