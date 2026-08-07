@@ -216,20 +216,21 @@
 
   ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 11px; }
   ol.steps li {
-    display: grid;
-    grid-template-columns: 22px 1fr;
-    gap: 12px;
+    position: relative;
+    padding-left: 26px;
     font-size: .9rem;
     color: var(--ink-soft);
   }
   ol.steps li::before {
     counter-increment: s;
     content: counter(s);
+    position: absolute;
+    left: 0;
+    top: 3px;
     font-family: var(--mono);
     font-size: .6875rem;
     font-weight: 700;
     color: var(--accent);
-    padding-top: 3px;
   }
   ol.steps b { color: var(--ink); font-weight: 600; }
 
