@@ -390,8 +390,8 @@
       <stop offset="1" stop-color="#5E656F"/>
     </linearGradient>
 
-    <clipPath id="wallPanel" clipPathUnits="userSpaceOnUse">
-      <rect x="18" y="22" width="72" height="64" rx="10"/>
+    <clipPath id="sqSelf" clipPathUnits="userSpaceOnUse">
+      <use href="#sqPath"/>
     </clipPath>
 
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
@@ -836,27 +836,26 @@
     '<path d="' + d + '" fill="none" stroke="' + fill + '" stroke-width="' + w +
     '" stroke-linecap="' + (cap || 'round') + '"/>';
 
+  /* Quatre pales arrondies en croix, pas deux barres croisées. */
   function markXicon() {
-    return line('M34 34 L74 74', 16, S1) +
-           line('M74 34 L34 74', 16, S2) +
-           '<circle cx="54" cy="54" r="7.5" fill="' + S1 + '"/>';
+    let blades = '';
+    for (let i = 0; i < 4; i++)
+      blades += '<ellipse cx="54" cy="33" rx="10.5" ry="19" fill="' + (i % 2 ? S2 : S1) +
+                '" transform="rotate(' + (45 + i * 90) + ' 54 54)"/>';
+    return blades + '<circle cx="54" cy="54" r="8.5" fill="' + S1 + '"/>';
   }
 
-  /* Wallhabit : la main qui tape, sur un appareil de briques. */
+  /* Wallhabit : le mur occupe toute la tuile, la main se pose dessus. */
   function markWallhabit() {
     let bricks = '';
-    for (let r = 0; r < 5; r++) {
-      const y = 23 + r * 13, off = (r % 2) * 12;
-      for (let i = -1; i < 4; i++) {
-        const x = 18 + off + i * 24;
-        bricks += '<rect x="' + x + '" y="' + y + '" width="22" height="11" rx="2.5" ' +
-                  'fill="none" stroke="' + S3 + '" stroke-width="2.4"/>';
-      }
+    for (let r = 0; r < 9; r++) {
+      const y = -2 + r * 14, off = (r % 2) * 14;
+      for (let i = -1; i < 5; i++)
+        bricks += '<rect x="' + (off + i * 28 - 6) + '" y="' + y + '" width="25" height="11" ' +
+                  'rx="2.5" fill="' + S3 + '"/>';
     }
-    return '<g clip-path="url(#wallPanel)">' + bricks + '</g>' +
-      '<rect x="18" y="22" width="72" height="64" rx="10" fill="none" stroke="' + S3 +
-      '" stroke-width="2.4"/>' +
-      '<g transform="translate(54,55) scale(2.7) translate(-12,-12)">' +
+    return '<g clip-path="url(#sqSelf)" opacity=".5">' + bricks + '</g>' +
+      '<g transform="translate(56,56) scale(3.15) translate(-12,-12)">' +
       '<path fill="' + S1 + '" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 ' +
       '2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 ' +
       '4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 ' +
@@ -870,13 +869,24 @@
       'l4.6 5.4 h33.2 a6 6 0 0 1 6 6 v29 a6 6 0 0 1 -6 6 h-58 a6 6 0 0 1 -6 -6 z"/>';
   }
 
+  /* Cadran plein et aiguilles sombres : sur fond charbon, un anneau vide se
+     confondait avec l'horloge. */
   function markAlarm() {
-    return '<circle cx="34" cy="40" r="9.5" fill="' + S2 + '"/>' +
-           '<circle cx="74" cy="40" r="9.5" fill="' + S2 + '"/>' +
-           '<rect x="49" y="28" width="10" height="7" rx="2.5" fill="' + S2 + '"/>' +
-           line('M38 80 L31 89', 5.5, S2) + line('M70 80 L77 89', 5.5, S2) +
-           '<circle cx="54" cy="60" r="25" fill="none" stroke="' + S1 + '" stroke-width="5.5"/>' +
-           line('M54 60 L54 45', 4, S1) + line('M54 60 L65 65', 4, S1);
+    let ticks = '';
+    for (let i = 0; i < 12; i++) {
+      const a = i * Math.PI / 6;
+      const c = Math.cos(a), sn = Math.sin(a);
+      ticks += line('M' + (54 + c * 19).toFixed(1) + ' ' + (60 + sn * 19).toFixed(1) +
+                    ' L' + (54 + c * 22).toFixed(1) + ' ' + (60 + sn * 22).toFixed(1), 2.4, S3);
+    }
+    return '<circle cx="33" cy="37" r="12" fill="' + S2 + '"/>' +
+           '<circle cx="75" cy="37" r="12" fill="' + S2 + '"/>' +
+           '<rect x="48" y="26" width="12" height="8" rx="3" fill="' + S2 + '"/>' +
+           line('M37 80 L30 90', 6, S2) + line('M71 80 L78 90', 6, S2) +
+           '<circle cx="54" cy="60" r="27" fill="' + S2 + '"/>' +
+           '<circle cx="54" cy="60" r="22.5" fill="' + S1 + '"/>' + ticks +
+           line('M54 60 L54 47', 3.6, S3) + line('M54 60 L63 65', 3.6, S3) +
+           '<circle cx="54" cy="60" r="2.6" fill="' + S3 + '"/>';
   }
 
   function markCalc() {
@@ -889,23 +899,30 @@
                        line('M74.5 65.5 L65.5 74.5', 3.6, S1));
   }
 
+  /* Onze barres de hauteurs inégales : une vraie forme d'onde, pas un chevron. */
   function markRecorder() {
-    const h = [18, 32, 46, 60, 46, 32, 18];
+    const h = [13, 27, 41, 58, 33, 66, 29, 47, 22, 35, 15];
     return h.map((v, i) =>
-      '<rect x="' + (25 + i * 9) + '" y="' + (54 - v / 2) + '" width="6.5" height="' + v +
-      '" rx="3.25" fill="' + (i === 3 ? S1 : i % 2 ? S1 : S2) + '"/>').join('');
+      '<rect x="' + (23 + i * 6.2) + '" y="' + (54 - v / 2) + '" width="4.4" height="' + v +
+      '" rx="2.2" fill="' + (v > 38 ? S1 : S2) + '"/>').join('');
   }
 
+  /* Un vrai engrenage : dents trapézoïdales et moyeu percé. En rayons simples,
+     la marque se lisait comme un soleil. */
   function markSettings() {
-    let teeth = '';
+    const pt = (deg, rad) => {
+      const t = deg * Math.PI / 180;
+      return (54 + Math.cos(t) * rad).toFixed(2) + ' ' + (54 + Math.sin(t) * rad).toFixed(2);
+    };
+    let d = '';
     for (let i = 0; i < 8; i++) {
-      const a = i * Math.PI / 4;
-      const c = Math.cos(a), sn = Math.sin(a);
-      teeth += line('M' + (54 + c * 25).toFixed(1) + ' ' + (54 + sn * 25).toFixed(1) +
-                    ' L' + (54 + c * 34).toFixed(1) + ' ' + (54 + sn * 34).toFixed(1), 9, S1);
+      const a = i * 45;
+      d += (i ? 'L' : 'M') + pt(a - 17, 24) + ' L' + pt(a - 11, 35) +
+           ' L' + pt(a + 11, 35) + ' L' + pt(a + 17, 24) + ' ';
     }
-    return teeth +
-      '<circle cx="54" cy="54" r="22" fill="none" stroke="' + S1 + '" stroke-width="11"/>';
+    d += 'Z M54 42 A12 12 0 1 0 54 66 A12 12 0 1 0 54 42 Z';
+    return '<path d="' + d + '" fill-rule="evenodd" fill="' + S1 + '" stroke="' + S1 +
+           '" stroke-width="3" stroke-linejoin="round"/>';
   }
 
   function markClock() {
@@ -930,14 +947,13 @@
            '<circle cx="77" cy="44" r="3.4" fill="' + S3 + '"/>';
   }
 
+  /* Cinq pétales larges, comme la fleur d'origine. */
   function markGallery() {
     let petals = '';
-    for (let i = 0; i < 6; i++) {
-      const a = i * 60;
-      petals += '<ellipse cx="54" cy="36" rx="11.5" ry="17.5" fill="' + S1 +
-                '" transform="rotate(' + a + ' 54 54)"/>';
-    }
-    return petals + '<circle cx="54" cy="54" r="8.5" fill="' + S3 + '"/>';
+    for (let i = 0; i < 5; i++)
+      petals += '<ellipse cx="54" cy="32" rx="13.5" ry="19.5" fill="' + S1 +
+                '" transform="rotate(' + (i * 72) + ' 54 54)"/>';
+    return petals + '<circle cx="54" cy="54" r="9" fill="' + S3 + '"/>';
   }
 
   function markCalendar() {
@@ -960,16 +976,14 @@
       '3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></g>';
   }
 
-  /* Deux bulles décalées, comme le logo Messages. */
-  const bubble = (x, y, w, h, r) =>
-    'M' + (x + r) + ' ' + y + ' h' + (w - 2 * r) + ' a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + r +
-    ' v' + (h - 2 * r) + ' a' + r + ' ' + r + ' 0 0 1 -' + r + ' ' + r +
-    ' h-' + (w - 2 * r - 8) + ' l-12 11 v-11 a' + r + ' ' + r + ' 0 0 1 -' + r + ' -' + r +
-    ' v-' + (h - 2 * r) + ' a' + r + ' ' + r + ' 0 0 1 ' + r + ' -' + r + ' z';
-
+  /* Deux bulles décalées, chacune avec sa pointe en bas à gauche. */
   function markMessages() {
-    return '<path d="' + bubble(20, 24, 52, 34, 11) + '" fill="' + S2 + '"/>' +
-           '<path d="' + bubble(38, 44, 50, 32, 11) + '" fill="' + S1 + '"/>';
+    const bub = (x, y, w, h, fill) =>
+      '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="11" fill="' +
+        fill + '"/>' +
+      '<path d="M' + (x + 4) + ' ' + (y + h - 7) + ' L' + (x - 2) + ' ' + (y + h + 10) +
+        ' L' + (x + 20) + ' ' + (y + h - 1) + ' Z" fill="' + fill + '"/>';
+    return bub(24, 24, 50, 31, S2) + bub(40, 46, 48, 30, S1);
   }
 
   const APPS = [

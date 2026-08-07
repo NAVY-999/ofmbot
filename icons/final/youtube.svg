@@ -105,8 +105,8 @@
       <stop offset="1" stop-color="#5E656F"></stop>
     </linearGradient>
 
-    <clipPath id="wallPanel" clipPathUnits="userSpaceOnUse">
-      <rect x="18" y="22" width="72" height="64" rx="10"></rect>
+    <clipPath id="sqSelf" clipPathUnits="userSpaceOnUse">
+      <use href="#sqPath"></use>
     </clipPath>
 
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
