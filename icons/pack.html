@@ -1,0 +1,583 @@
+<title>Le pack M1 — cinq icônes, et comment les poser</title>
+
+<style>
+  :root {
+    --paper:     #EDEEF0;
+    --surface:   #FFFFFF;
+    --surface-2: #F4F5F7;
+    --ink:       #15181C;
+    --ink-soft:  #5B626B;
+    --line:      #D8DBE0;
+    --line-soft: #E6E8EC;
+    --accent:    #D42945;
+    --warn:      #9A6212;
+    --warn-bg:   #FDF6E7;
+    --shadow:    0 1px 2px rgba(15,20,28,.05), 0 10px 30px -14px rgba(15,20,28,.22);
+
+    --sans: ui-sans-serif, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #0C0E11;
+      --surface:   #14171B;
+      --surface-2: #1B1F24;
+      --ink:       #E8EAED;
+      --ink-soft:  #949BA3;
+      --line:      #232830;
+      --line-soft: #1E2229;
+      --accent:    #FF5C78;
+      --warn:      #E8B75C;
+      --warn-bg:   #241D0E;
+      --shadow:    0 1px 2px rgba(0,0,0,.45), 0 10px 30px -14px rgba(0,0,0,.75);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:     #0C0E11;
+    --surface:   #14171B;
+    --surface-2: #1B1F24;
+    --ink:       #E8EAED;
+    --ink-soft:  #949BA3;
+    --line:      #232830;
+    --line-soft: #1E2229;
+    --accent:    #FF5C78;
+    --warn:      #E8B75C;
+    --warn-bg:   #241D0E;
+    --shadow:    0 1px 2px rgba(0,0,0,.45), 0 10px 30px -14px rgba(0,0,0,.75);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .spec {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1 {
+    font-size: clamp(1.95rem, 5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+    font-weight: 800;
+    text-wrap: balance;
+    margin: 14px 0 0;
+  }
+
+  h2 { font-size: 1.4rem;   letter-spacing: -.022em; font-weight: 700; margin: 0; }
+  h3 { font-size: 1.05rem;  letter-spacing: -.012em; font-weight: 700; margin: 0; }
+  p  { margin: 0; }
+
+  header.masthead { padding: 64px 0 38px; border-bottom: 1px solid var(--line); }
+  .lede { max-width: 60ch; color: var(--ink-soft); font-size: 1.0625rem; margin-top: 18px; }
+  header .spec { display: block; margin-top: 24px; }
+
+  .section-head { display: flex; flex-direction: column; gap: 10px; padding: 62px 0 26px; }
+  .section-head p { max-width: 62ch; color: var(--ink-soft); }
+
+  /* ---------- tiles ---------- */
+
+  .tile { width: var(--u); height: var(--u); clip-path: url(#sqc); display: block; flex: none; }
+  .tile svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- sheet ---------- */
+
+  .sheet {
+    --u: 104px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px 20px 26px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+
+  .sheet-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-width: 116px;
+  }
+
+  .sheet-cell .nm { font-size: .8125rem; font-weight: 600; letter-spacing: -.005em; }
+  .sheet-cell .sub {
+    font-family: var(--mono);
+    font-size: .625rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: -10px;
+  }
+
+  /* ---------- home screen ---------- */
+
+  .screen {
+    --u: 62px;
+    max-width: 420px;
+    margin: 0 auto;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    padding: 34px 26px 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background:
+      radial-gradient(95% 55% at 28% 14%, #1E4E57 0%, transparent 62%),
+      radial-gradient(85% 55% at 78% 88%, #12333B 0%, transparent 66%),
+      linear-gradient(168deg, #0C242B 0%, #050E13 100%);
+  }
+
+  .screen-row { display: flex; justify-content: center; gap: 26px; }
+
+  .app { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 76px; }
+  .app span {
+    font-size: .6875rem;
+    color: #EAF1F3;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  /* ---------- install ---------- */
+
+  .callout {
+    display: flex;
+    gap: 14px;
+    background: var(--warn-bg);
+    border: 1px solid color-mix(in srgb, var(--warn) 32%, transparent);
+    border-radius: 11px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+  }
+  .callout .mark {
+    font-family: var(--mono);
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--warn);
+    flex: none;
+    padding-top: 2px;
+  }
+  .callout p { font-size: .9rem; color: var(--ink); max-width: 66ch; }
+  .callout b { font-weight: 700; }
+
+  .methods { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  .method {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 26px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .method.is-reco { border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); }
+
+  .method-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .method-head .tag {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--accent);
+  }
+  .method .who { font-size: .875rem; color: var(--ink-soft); }
+  .method .who b { color: var(--ink); font-weight: 600; }
+
+  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 11px; }
+  ol.steps li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    font-size: .9rem;
+    color: var(--ink-soft);
+  }
+  ol.steps li::before {
+    counter-increment: s;
+    content: counter(s);
+    font-family: var(--mono);
+    font-size: .6875rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+  ol.steps b { color: var(--ink); font-weight: 600; }
+
+  .cost {
+    font-size: .8125rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line-soft);
+    padding-top: 13px;
+    margin-top: 2px;
+  }
+  .cost b { color: var(--ink); font-weight: 600; }
+
+  code {
+    font-family: var(--mono); font-size: .8125rem;
+    background: var(--surface-2); border: 1px solid var(--line-soft);
+    border-radius: 4px; padding: 1px 5px; color: var(--ink);
+  }
+
+  /* ---------- files ---------- */
+
+  .files {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow-x: auto;
+    box-shadow: var(--shadow);
+  }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; }
+  th, td { text-align: left; padding: 13px 22px; border-bottom: 1px solid var(--line-soft); }
+  th {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--ink-soft);
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+  }
+  td { font-size: .875rem; color: var(--ink-soft); }
+  td:first-child { font-family: var(--mono); font-size: .8125rem; color: var(--ink); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  @media (max-width: 860px) {
+    .methods { grid-template-columns: 1fr; }
+    .sheet { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <clipPath id="sqc" clipPathUnits="objectBoundingBox">
+      <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"/>
+    </clipPath>
+
+    <path id="sqPath" d="M54,0 C83.7,0 97,3.56 101.8,8.32 C106.7,13.18 108,26.46 108,54 C108,81.54 106.7,94.82 101.8,99.68 C97,104.44 83.7,108 54,108 C24.3,108 11,104.44 6.16,99.68 C1.3,94.82 0,81.54 0,54 C0,26.46 1.3,13.18 6.16,8.32 C11,3.56 24.3,0 54,0 Z"/>
+
+    <!-- tuile M1 -->
+    <linearGradient id="gTile1" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="98" y2="108">
+      <stop offset="0"   stop-color="#2A2C33"/>
+      <stop offset=".55" stop-color="#17181C"/>
+      <stop offset="1"   stop-color="#0B0C0E"/>
+    </linearGradient>
+
+    <linearGradient id="gEdge" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="54" y2="70">
+      <stop offset="0"  stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1"  stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="gRed" gradientUnits="userSpaceOnUse" x1="24" y1="16" x2="88" y2="94">
+      <stop offset="0" stop-color="#FF6178"/>
+      <stop offset=".5" stop-color="#E5334E"/>
+      <stop offset="1" stop-color="#A81232"/>
+    </linearGradient>
+
+    <linearGradient id="gGlyph" gradientUnits="userSpaceOnUse" x1="54" y1="30" x2="54" y2="80">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BFC4CC"/>
+    </linearGradient>
+
+    <linearGradient id="gGlyphDim" gradientUnits="userSpaceOnUse" x1="54" y1="28" x2="54" y2="78">
+      <stop offset="0" stop-color="#E2E6EB"/>
+      <stop offset="1" stop-color="#A9AFB9"/>
+    </linearGradient>
+
+    <!-- accents de marque, remontés en luminosité pour tenir sur fond charbon -->
+    <linearGradient id="gNavy" gradientUnits="userSpaceOnUse" x1="28" y1="28" x2="52" y2="72">
+      <stop offset="0" stop-color="#4E7CE2"/>
+      <stop offset="1" stop-color="#2949A2"/>
+    </linearGradient>
+
+    <linearGradient id="gTeal" gradientUnits="userSpaceOnUse" x1="58" y1="28" x2="86" y2="72">
+      <stop offset="0" stop-color="#2ACFBC"/>
+      <stop offset="1" stop-color="#12897F"/>
+    </linearGradient>
+
+    <linearGradient id="gCicRed" gradientUnits="userSpaceOnUse" x1="50" y1="34" x2="58" y2="72">
+      <stop offset="0" stop-color="#FF6B45"/>
+      <stop offset="1" stop-color="#D93A22"/>
+    </linearGradient>
+
+    <linearGradient id="gPpBack" gradientUnits="userSpaceOnUse" x1="30" y1="24" x2="70" y2="82">
+      <stop offset="0" stop-color="#8FA1EA"/>
+      <stop offset="1" stop-color="#5468C0"/>
+    </linearGradient>
+
+    <linearGradient id="gPpFront" gradientUnits="userSpaceOnUse" x1="40" y1="30" x2="80" y2="86">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C3CCEC"/>
+    </linearGradient>
+
+    <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"/>
+    </clipPath>
+    <clipPath id="cutB" clipPathUnits="userSpaceOnUse">
+      <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
+    <h1>Cinq icônes,<br>une seule matière.</h1>
+    <p class="lede">
+      CIC, CIC Pay et PayPal rejoignent M.A.E.V.A et AntiReels. Même tuile charbon, même liseré,
+      même profondeur — seules les couleurs de marque changent d'une icône à l'autre. Elles sont
+      remontées en luminosité pour tenir sur fond sombre : le bleu CIC d'origine disparaîtrait.
+    </p>
+    <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
+  </header>
+
+  <div class="section-head">
+    <h2>La planche</h2>
+  </div>
+  <div class="sheet" id="sheet"></div>
+
+  <div class="section-head">
+    <p class="eyebrow">Mise en situation</p>
+    <h2>Ton écran d'accueil</h2>
+    <p>Les cinq à taille réelle, sur un fond proche du tien.</p>
+  </div>
+  <div class="screen" id="screen"></div>
+
+  <div class="section-head">
+    <p class="eyebrow">Installation</p>
+    <h2>Comment poser les icônes</h2>
+    <p>
+      Je ne peux pas le faire à ta place : je n'ai aucun accès à ton téléphone. Voilà les deux
+      chemins possibles — celui que tu prends dépend d'une seule chose, ton launcher.
+    </p>
+  </div>
+
+  <div class="callout">
+    <span class="mark">Clé</span>
+    <p>
+      <b>Ni le Pixel Launcher ni One UI Home (Samsung) ne permettent de remplacer l'icône d'une app.</b>
+      C'est une limite du launcher, pas d'Android. Les thèmes Samsung n'appliquent que des packs
+      complets, jamais une image que tu choisis. Donc : soit tu changes de launcher (méthode A),
+      soit tu passes par des raccourcis (méthode B).
+    </p>
+  </div>
+
+  <div class="methods">
+    <div class="method is-reco">
+      <div class="method-head">
+        <span class="tag">Méthode A — recommandée</span>
+      </div>
+      <h3>Changer de launcher</h3>
+      <p class="who">Pour <b>Nova Launcher</b>, <b>Lawnchair</b> ou <b>Niagara</b>. L'icône est
+         vraiment remplacée, proprement, sans badge ni doublon.</p>
+      <ol class="steps">
+        <li>Installer le launcher depuis le Play Store, l'ouvrir une fois, puis le définir comme
+            <b>application d'accueil par défaut</b> quand Android le propose.</li>
+        <li>Copier les cinq PNG sur le téléphone — le dossier <code>Téléchargements</code> convient,
+            il suffit qu'ils soient visibles par la galerie.</li>
+        <li>Appui long sur l'app sur l'écran d'accueil → <b>Modifier</b> (Nova) ou <b>Edit</b> (Lawnchair).</li>
+        <li>Toucher <b>l'icône affichée</b> dans la fenêtre qui s'ouvre — c'est elle le bouton, pas
+            le nom de l'app.</li>
+        <li>Choisir <b>Images</b> ou <b>Galerie</b> dans la liste des sources, puis sélectionner le PNG.</li>
+        <li>Valider. Répéter pour les quatre autres.</li>
+      </ol>
+      <p class="cost"><b>Ce que ça coûte :</b> changer de launcher remplace tout ton écran
+         d'accueil. Tu devras reposer tes widgets et réorganiser tes pages une fois. Après ça,
+         plus rien à refaire.</p>
+    </div>
+
+    <div class="method">
+      <div class="method-head">
+        <span class="tag">Méthode B — sans rien changer</span>
+      </div>
+      <h3>Passer par des raccourcis</h3>
+      <p class="who">Pour garder <b>ton launcher actuel</b>. Une app tierce crée un raccourci qui
+         porte la nouvelle icône et ouvre l'app d'origine.</p>
+      <ol class="steps">
+        <li>Installer <b>X Icon Changer</b> ou <b>Shortcut Maker</b> depuis le Play Store.</li>
+        <li>Ouvrir l'app, choisir <b>CIC</b> dans la liste des applications installées.</li>
+        <li>Toucher l'icône, choisir <b>Galerie</b> / <b>Photos</b>, sélectionner le PNG.</li>
+        <li>Valider : le raccourci se pose sur l'écran d'accueil avec la nouvelle icône.</li>
+        <li>Retirer l'ancienne icône de l'écran d'accueil — l'app reste dans le tiroir, tu ne
+            désinstalles rien.</li>
+      </ol>
+      <p class="cost"><b>Ce que ça coûte :</b> c'est un raccourci, pas l'app. Certains launchers
+         ajoutent une petite flèche dans un coin, et la pastille de notification ne suit pas
+         toujours. Pour CIC et PayPal, l'app s'ouvre normalement.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <p class="eyebrow">Livraison</p>
+    <h2>Les fichiers</h2>
+    <p>
+      Le masque squircle est déjà appliqué et les coins sont transparents — rien à recadrer.
+      Une précision : les barres CIC sont plus larges que le cercle de 72 dp, parce qu'un logo
+      horizontal réduit à ce cercle deviendrait minuscule. Elles restent largement dans le squircle,
+      donc rien n'est coupé — mais si tu passes un jour à un launcher qui masque en <b>cercle</b>,
+      ces deux-là sont à refaire. Les trois autres tiennent dans le cercle.
+    </p>
+  </div>
+
+  <div class="files">
+    <table>
+      <thead>
+        <tr><th>Fichier</th><th>Format</th><th>Pour quoi</th></tr>
+      </thead>
+      <tbody id="filesBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- couches communes M1 ---------- */
+  const BG   = '<rect width="108" height="108" fill="url(#gTile1)"/>';
+  const EDGE = '<use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/>';
+
+  /* ---------- marques ---------- */
+
+  const M_PATH = 'M32 72 L32 36 L43 36 L54 55 L65 36 L76 36 L76 72 L67 72 L67 50 ' +
+                 'L57.5 66.5 L50.5 66.5 L41 50 L41 72 Z';
+  const PLAY   = 'M37.5 35 L37.5 73 L71 54 Z';
+
+  function markMaeva() {
+    return '<circle cx="54" cy="54" r="41" fill="none" stroke="url(#gRed)" stroke-width="3.3"/>' +
+           '<path d="' + M_PATH + '" fill="url(#gGlyph)"/>';
+  }
+
+  function markAntiReels() {
+    return '<g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)">' +
+             '<path d="' + PLAY + '" fill="url(#gGlyphDim)" stroke="url(#gGlyphDim)" ' +
+             'stroke-width="5" stroke-linejoin="round"/></g></g>' +
+           '<g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)">' +
+             '<path d="' + PLAY + '" fill="url(#gGlyph)" stroke="url(#gGlyph)" ' +
+             'stroke-width="5" stroke-linejoin="round"/></g></g>' +
+           '<path d="M78 28 L32 80" stroke="url(#gRed)" stroke-width="5.8" ' +
+           'stroke-linecap="round" fill="none"/>';
+  }
+
+  /* Un « C » = arc épais ouvert à droite. */
+  function letterC(cx, cy, r, w) {
+    const a  = 55 * Math.PI / 180;
+    const x  = (cx + r * Math.cos(a)).toFixed(2);
+    const y1 = (cy - r * Math.sin(a)).toFixed(2);
+    const y2 = (cy + r * Math.sin(a)).toFixed(2);
+    return '<path d="M' + x + ' ' + y1 + ' A' + r + ' ' + r + ' 0 1 0 ' + x + ' ' + y2 + '" ' +
+           'fill="none" stroke="#FFFFFF" stroke-width="' + w + '"/>';
+  }
+
+  /* Barre CIC : bloc navy + « I » rouge + bloc teal. Le blanc du logo devient le fond. */
+  function cicBar(x, y, w, h, cw) {
+    const seg  = (w - cw) / 2;                 // largeur d'un bloc coloré
+    const midX = x + seg + cw / 2;             // centre de la zone médiane
+    const barW = Math.max(4, cw * 0.42);
+    const r    = h * 0.21, sw = h * 0.13;
+    return '<rect x="' + x + '" y="' + y + '" width="' + seg + '" height="' + h +
+             '" rx="1.6" fill="url(#gNavy)"/>' +
+           letterC(x + seg / 2, y + h / 2, r, sw) +
+           '<rect x="' + (midX - barW / 2) + '" y="' + y + '" width="' + barW + '" height="' + h +
+             '" rx="1" fill="url(#gCicRed)"/>' +
+           '<rect x="' + (x + seg + cw) + '" y="' + y + '" width="' + seg + '" height="' + h +
+             '" rx="1.6" fill="url(#gTeal)"/>' +
+           letterC(x + seg + cw + seg / 2, y + h / 2, r, sw);
+  }
+
+  function markCic()    { return cicBar(17, 35, 74, 38, 14); }
+
+  function markCicPay() {
+    return cicBar(21, 24, 66, 32, 12) +
+      '<text x="54" y="84" text-anchor="middle" fill="url(#gTeal)" ' +
+        'font-family="Verdana, DejaVu Sans, Liberation Sans, Arial, sans-serif" ' +
+        'font-size="25" font-weight="700" font-style="italic" letter-spacing="-.6">Pay</text>';
+  }
+
+  /* Le « P » PayPal : hampe + panse, contrepoinçon détouré. */
+  const P_PATH = 'M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z ' +
+                 'M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z';
+
+  function markPaypal() {
+    return '<g transform="translate(54,54) skewX(-10) scale(.95) translate(-21.5,-28)">' +
+             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpBack)"/>' +
+             '<g transform="translate(12,8)">' +
+               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpFront)"/>' +
+             '</g>' +
+           '</g>';
+  }
+
+  const APPS = [
+    { key: 'maeva',     name: 'M.A.E.V.A', sub: 'existant', mark: markMaeva },
+    { key: 'antireels', name: 'AntiReels', sub: 'existant', mark: markAntiReels },
+    { key: 'cic',       name: 'CIC',       sub: 'nouveau',  mark: markCic },
+    { key: 'cicpay',    name: 'CIC Pay',   sub: 'nouveau',  mark: markCicPay },
+    { key: 'paypal',    name: 'PayPal',    sub: 'nouveau',  mark: markPaypal }
+  ];
+
+  function icon(app) {
+    return '<span class="tile"><svg viewBox="0 0 108 108">' +
+      BG + app.mark() + EDGE + '</svg></span>';
+  }
+
+  document.getElementById('sheet').innerHTML = APPS.map(a => `
+    <div class="sheet-cell">
+      ${icon(a)}
+      <span class="nm">${a.name}</span>
+      <span class="sub">${a.sub}</span>
+    </div>
+  `).join('');
+
+  const cell = a => `<div class="app">${icon(a)}<span>${a.name}</span></div>`;
+  document.getElementById('screen').innerHTML =
+    `<div class="screen-row">${APPS.slice(0, 2).map(cell).join('')}</div>` +
+    `<div class="screen-row">${APPS.slice(2).map(cell).join('')}</div>`;
+
+  const FILES = [
+    ['maeva.png',      '512 × 512', 'À utiliser par défaut'],
+    ['antireels.png',  '512 × 512', 'À utiliser par défaut'],
+    ['cic.png',        '512 × 512', 'À utiliser par défaut'],
+    ['cicpay.png',     '512 × 512', 'À utiliser par défaut'],
+    ['paypal.png',     '512 × 512', 'À utiliser par défaut'],
+    ['*-192.png',      '192 × 192', 'Si le launcher redimensionne mal'],
+    ['*.svg',          'vectoriel', 'Sources, regénérables à toute taille']
+  ];
+
+  document.getElementById('filesBody').innerHTML = FILES.map(f =>
+    `<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`
+  ).join('');
+</script>

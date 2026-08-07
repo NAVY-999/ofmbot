@@ -1,9 +1,9 @@
-# Icônes — M.A.E.V.A & AntiReels
+# Pack d'icônes — écran d'accueil Android
 
-Refonte des icônes de l'écran d'accueil Android. L'identité d'origine est conservée
-(tuile sombre, accent crimson, glyphe blanc) ; seule la matière change.
+Refonte des icônes de l'écran d'accueil. Traitement retenu : **M1 « Profondeur »** —
+tuile charbon en dégradé, liseré lumineux sur l'arête haute, marques en dégradé.
 
-**Version retenue : M1 « Profondeur ».**
+Cinq apps : M.A.E.V.A, AntiReels, CIC, CIC Pay, PayPal.
 
 ## Fichiers à installer
 
@@ -11,40 +11,73 @@ Dans `final/` :
 
 | Fichier | Usage |
 |---|---|
-| `maeva.png`, `antireels.png` | 512 × 512, fond transparent — **à utiliser par défaut** |
-| `maeva-192.png`, `antireels-192.png` | 192 × 192, pour les launchers qui redimensionnent mal |
-| `maeva.svg`, `antireels.svg` | sources vectorielles, regénérables à n'importe quelle taille |
+| `maeva.png` `antireels.png` `cic.png` `cicpay.png` `paypal.png` | 512 × 512, fond transparent — **à utiliser par défaut** |
+| `*-192.png` | 192 × 192, pour les launchers qui redimensionnent mal |
+| `*.svg` | sources vectorielles, regénérables à n'importe quelle taille |
 
-Le masque squircle est déjà appliqué et les coins sont transparents : les icônes
-se posent telles quelles, sans recadrage.
+Le masque squircle est déjà appliqué et les coins sont transparents : les icônes se
+posent telles quelles, sans recadrage.
 
 ## Poser une icône
 
-Android ne permet pas de remplacer une icône depuis les réglages système. Il faut
-un launcher qui l'accepte — Nova, Lawnchair ou Niagara.
+Android ne permet pas de remplacer une icône depuis les réglages système, et **ni le
+Pixel Launcher ni One UI Home (Samsung) ne le permettent non plus**. Les thèmes Samsung
+n'appliquent que des packs complets, jamais une image choisie. D'où deux méthodes.
 
-1. Copier les PNG sur le téléphone (n'importe quel dossier visible par la galerie).
-2. Appui long sur l'app → **Modifier**.
-3. Toucher l'icône affichée dans la boîte de dialogue.
-4. Choisir **Images** / **Galerie**, puis le PNG correspondant.
+### Méthode A — changer de launcher (recommandée)
 
-Compter une vingtaine de secondes par app.
+Remplace vraiment l'icône, sans badge ni doublon.
+
+1. Installer **Nova Launcher**, **Lawnchair** ou **Niagara**, l'ouvrir une fois, puis le
+   définir comme application d'accueil par défaut.
+2. Copier les PNG sur le téléphone (`Téléchargements` convient — il suffit qu'ils soient
+   visibles par la galerie).
+3. Appui long sur l'app → **Modifier** (Nova) ou **Edit** (Lawnchair).
+4. Toucher **l'icône affichée** dans la fenêtre — c'est elle le bouton, pas le nom.
+5. Choisir **Images** / **Galerie**, sélectionner le PNG.
+6. Valider, puis répéter pour les autres.
+
+Coût : changer de launcher remplace tout l'écran d'accueil. Widgets et pages sont à
+reposer une fois.
+
+### Méthode B — garder son launcher
+
+Une app tierce crée un raccourci qui porte la nouvelle icône et ouvre l'app d'origine.
+
+1. Installer **X Icon Changer** ou **Shortcut Maker**.
+2. Choisir l'app dans la liste, toucher l'icône, puis **Galerie** → le PNG.
+3. Valider : le raccourci se pose sur l'écran d'accueil.
+4. Retirer l'ancienne icône de l'écran d'accueil (l'app reste dans le tiroir, rien n'est
+   désinstallé).
+
+Coût : c'est un raccourci, pas l'app. Certains launchers ajoutent une petite flèche dans
+un coin, et la pastille de notification ne suit pas toujours.
 
 ## Spécifications
 
-- Canevas **108 dp**, zone sûre **72 dp** — tout le dessin tient dans le cercle central,
-  donc rien n'est coupé quel que soit le masque du launcher (cercle, squircle, carré arrondi).
+- Canevas **108 dp**, masque **squircle** pré-appliqué.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
-- Accents en dégradé crimson `#FF6178 → #A81232`.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
+- Accents M.A.E.V.A / AntiReels : crimson `#FF6178 → #A81232`.
+- Accents CIC : bleu `#4E7CE2 → #2949A2`, rouge `#FF6B45 → #D93A22`,
+  turquoise `#2ACFBC → #12897F`. Les couleurs de marque sont **remontées en luminosité** :
+  le bleu marine et le vert sapin d'origine disparaîtraient sur fond charbon.
+
+### Deux limites connues
+
+- **Les barres CIC dépassent le cercle de 72 dp.** Un logo horizontal ramené à ce cercle
+  deviendrait minuscule. Elles restent largement dans le squircle, donc rien n'est coupé —
+  mais un launcher masquant en **cercle** les rognerait. Les trois autres icônes tiennent
+  dans le cercle.
+- **`cicpay.svg` dépend d'une police** pour le mot « Pay » (`Verdana`, repli `DejaVu Sans`).
+  Les PNG, eux, sont rastérisés : ils ne dépendent de rien. C'est ce que tu installes.
 
 ## Regénérer
 
-Les icônes sont dessinées dans `maeva-antireels.html`, qui sert aussi de planche de
-comparaison des trois traitements (M1 Profondeur, M2 Lueur, M3 Verre). Les exports
-sont produits depuis cette page, donc modifier le tracé dans le HTML puis réexporter
-garde tout synchronisé.
+`pack.html` contient le tracé des cinq icônes et sert de planche de référence. Les exports
+sont produits depuis cette page, donc modifier un tracé puis réexporter garde tout
+synchronisé.
 
-`export/` contient les six variantes (les trois traitements × deux apps), conservées
-comme alternatives.
+`maeva-antireels.html` conserve la comparaison des trois traitements (M1 Profondeur,
+M2 Lueur, M3 Verre) ; `export/` en garde les six variantes.

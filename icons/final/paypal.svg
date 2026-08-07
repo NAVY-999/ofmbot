@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
-  <title>M.A.E.V.A — M1 Profondeur</title>
+  <title>PayPal — M1 Profondeur</title>
   <defs>
     <clipPath id="sqc" clipPathUnits="objectBoundingBox">
       <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"></path>
@@ -69,5 +69,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><circle cx="54" cy="54" r="41" fill="none" stroke="url(#gRed)" stroke-width="3.3"/><path d="M32 72 L32 36 L43 36 L54 55 L65 36 L76 36 L76 72 L67 72 L67 50 L57.5 66.5 L50.5 66.5 L41 50 L41 72 Z" fill="url(#gGlyph)"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><g transform="translate(54,54) skewX(-10) scale(.95) translate(-21.5,-28)"><path d="M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z" fill-rule="evenodd" fill="url(#gPpBack)"/><g transform="translate(12,8)"><path d="M0 0 L16 0 A15 15 0 0 1 16 30 L10 30 L10 48 L0 48 Z M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z" fill-rule="evenodd" fill="url(#gPpFront)"/></g></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>
