@@ -320,32 +320,6 @@
       <stop offset="1" stop-color="#A9AFB9"/>
     </linearGradient>
 
-    <!-- accents de marque, remontés en luminosité pour tenir sur fond charbon -->
-    <linearGradient id="gNavy" gradientUnits="userSpaceOnUse" x1="28" y1="28" x2="52" y2="72">
-      <stop offset="0" stop-color="#4E7CE2"/>
-      <stop offset="1" stop-color="#2949A2"/>
-    </linearGradient>
-
-    <linearGradient id="gTeal" gradientUnits="userSpaceOnUse" x1="58" y1="28" x2="86" y2="72">
-      <stop offset="0" stop-color="#2ACFBC"/>
-      <stop offset="1" stop-color="#12897F"/>
-    </linearGradient>
-
-    <linearGradient id="gCicRed" gradientUnits="userSpaceOnUse" x1="50" y1="34" x2="58" y2="72">
-      <stop offset="0" stop-color="#FF6B45"/>
-      <stop offset="1" stop-color="#D93A22"/>
-    </linearGradient>
-
-    <linearGradient id="gPpBack" gradientUnits="userSpaceOnUse" x1="30" y1="24" x2="70" y2="82">
-      <stop offset="0" stop-color="#8FA1EA"/>
-      <stop offset="1" stop-color="#5468C0"/>
-    </linearGradient>
-
-    <linearGradient id="gPpFront" gradientUnits="userSpaceOnUse" x1="40" y1="30" x2="80" y2="86">
-      <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#C3CCEC"/>
-    </linearGradient>
-
     <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
       <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"/>
     </clipPath>
@@ -361,9 +335,11 @@
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
     <h1>Cinq icônes,<br>une seule matière.</h1>
     <p class="lede">
-      CIC, CIC Pay et PayPal rejoignent M.A.E.V.A et AntiReels. Même tuile charbon, même liseré,
-      même profondeur — seules les couleurs de marque changent d'une icône à l'autre. Elles sont
-      remontées en luminosité pour tenir sur fond sombre : le bleu CIC d'origine disparaîtrait.
+      CIC, CIC Pay et PayPal rejoignent M.A.E.V.A et AntiReels. Une seule palette pour les cinq :
+      tuile charbon, glyphe blanc, accent crimson. Les couleurs de marque sont abandonnées — c'est
+      ce qui fait qu'une rangée se lit comme un ensemble plutôt que comme cinq logos côte à côte.
+      Le crimson va toujours à l'élément qui coupe ou qui entoure : le cercle de M.A.E.V.A, la barre
+      d'AntiReels, le « I » de CIC, le P d'arrière-plan de PayPal.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -449,7 +425,7 @@
     <h2>Les fichiers</h2>
     <p>
       Le masque squircle est déjà appliqué et les coins sont transparents — rien à recadrer.
-      Une précision : les barres CIC sont plus larges que le cercle de 72 dp, parce qu'un logo
+      Une précision : les marques CIC sont plus larges que le cercle de 72 dp, parce qu'un « C I C »
       horizontal réduit à ce cercle deviendrait minuscule. Elles restent largement dans le squircle,
       donc rien n'est coupé — mais si tu passes un jour à un launcher qui masque en <b>cercle</b>,
       ces deux-là sont à refaire. Les trois autres tiennent dans le cercle.
@@ -501,30 +477,23 @@
     const y1 = (cy - r * Math.sin(a)).toFixed(2);
     const y2 = (cy + r * Math.sin(a)).toFixed(2);
     return '<path d="M' + x + ' ' + y1 + ' A' + r + ' ' + r + ' 0 1 0 ' + x + ' ' + y2 + '" ' +
-           'fill="none" stroke="#FFFFFF" stroke-width="' + w + '"/>';
+           'fill="none" stroke="url(#gGlyph)" stroke-width="' + w + '"/>';
   }
 
-  /* Barre CIC : bloc navy + « I » rouge + bloc teal. Le blanc du logo devient le fond. */
-  function cicBar(x, y, w, h, cw) {
-    const seg  = (w - cw) / 2;                 // largeur d'un bloc coloré
-    const midX = x + seg + cw / 2;             // centre de la zone médiane
-    const barW = Math.max(4, cw * 0.42);
-    const r    = h * 0.21, sw = h * 0.13;
-    return '<rect x="' + x + '" y="' + y + '" width="' + seg + '" height="' + h +
-             '" rx="1.6" fill="url(#gNavy)"/>' +
-           letterC(x + seg / 2, y + h / 2, r, sw) +
-           '<rect x="' + (midX - barW / 2) + '" y="' + y + '" width="' + barW + '" height="' + h +
-             '" rx="1" fill="url(#gCicRed)"/>' +
-           '<rect x="' + (x + seg + cw) + '" y="' + y + '" width="' + seg + '" height="' + h +
-             '" rx="1.6" fill="url(#gTeal)"/>' +
-           letterC(x + seg + cw + seg / 2, y + h / 2, r, sw);
+  /* « C | C » : les deux C en blanc, le « I » central en crimson — même rôle
+     que le cercle de M.A.E.V.A ou la barre d'AntiReels. */
+  function cicMark(cy, r, w, cL, cR, barW, barH) {
+    return letterC(cL, cy, r, w) +
+           '<rect x="' + (54 - barW / 2) + '" y="' + (cy - barH / 2) + '" width="' + barW +
+             '" height="' + barH + '" rx="' + (barW * 0.28).toFixed(2) + '" fill="url(#gRed)"/>' +
+           letterC(cR, cy, r, w);
   }
 
-  function markCic()    { return cicBar(17, 35, 74, 38, 14); }
+  function markCic() { return cicMark(54, 14, 7.5, 32.7, 81.25, 7, 35.5); }
 
   function markCicPay() {
-    return cicBar(21, 24, 66, 32, 12) +
-      '<text x="54" y="84" text-anchor="middle" fill="url(#gTeal)" ' +
+    return cicMark(40, 11, 6, 36.7, 76, 6, 28) +
+      '<text x="54" y="84" text-anchor="middle" fill="url(#gRed)" ' +
         'font-family="Verdana, DejaVu Sans, Liberation Sans, Arial, sans-serif" ' +
         'font-size="25" font-weight="700" font-style="italic" letter-spacing="-.6">Pay</text>';
   }
@@ -535,9 +504,9 @@
 
   function markPaypal() {
     return '<g transform="translate(54,54) skewX(-10) scale(.95) translate(-21.5,-28)">' +
-             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpBack)"/>' +
+             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gRed)"/>' +
              '<g transform="translate(12,8)">' +
-               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpFront)"/>' +
+               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gGlyph)"/>' +
              '</g>' +
            '</g>';
   }

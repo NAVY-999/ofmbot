@@ -59,15 +59,17 @@ un coin, et la pastille de notification ne suit pas toujours.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
-- Accents M.A.E.V.A / AntiReels : crimson `#FF6178 → #A81232`.
-- Accents CIC : bleu `#4E7CE2 → #2949A2`, rouge `#FF6B45 → #D93A22`,
-  turquoise `#2ACFBC → #12897F`. Les couleurs de marque sont **remontées en luminosité** :
-  le bleu marine et le vert sapin d'origine disparaîtraient sur fond charbon.
+- Accent unique : crimson `#FF6178 → #E5334E → #A81232`, sur **les cinq icônes**.
+
+Les couleurs de marque d'origine sont abandonnées — c'est ce qui fait qu'une rangée se lit
+comme un ensemble plutôt que comme cinq logos côte à côte. Le crimson va toujours à
+l'élément qui coupe ou qui entoure : le cercle de M.A.E.V.A, la barre d'AntiReels, le « I »
+de CIC, le P d'arrière-plan de PayPal. Tout le reste est blanc.
 
 ### Deux limites connues
 
-- **Les barres CIC dépassent le cercle de 72 dp.** Un logo horizontal ramené à ce cercle
-  deviendrait minuscule. Elles restent largement dans le squircle, donc rien n'est coupé —
+- **Les marques CIC dépassent le cercle de 72 dp.** Un « C I C » horizontal ramené à ce
+  cercle deviendrait minuscule. Elles restent largement dans le squircle, donc rien n'est coupé —
   mais un launcher masquant en **cercle** les rognerait. Les trois autres icônes tiennent
   dans le cercle.
 - **`cicpay.svg` dépend d'une police** pour le mot « Pay » (`Verdana`, repli `DejaVu Sans`).
