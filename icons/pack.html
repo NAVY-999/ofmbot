@@ -320,16 +320,12 @@
       <stop offset="1" stop-color="#A9AFB9"/>
     </linearGradient>
 
-    <!-- PayPal garde ses propres couleurs : le logo n'est pas retouché, seule la tuile l'est -->
-    <linearGradient id="gPpBack" gradientUnits="userSpaceOnUse" x1="30" y1="24" x2="70" y2="82">
-      <stop offset="0" stop-color="#9BA9EC"/>
-      <stop offset="1" stop-color="#5F72CB"/>
-    </linearGradient>
-
-    <linearGradient id="gPpFront" gradientUnits="userSpaceOnUse" x1="40" y1="30" x2="80" y2="86">
-      <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#D3DBF2"/>
-    </linearGradient>
+    <!-- Perce le P d'arrière-plan à l'endroit du contrepoinçon du P avant, pour que
+         le trou du logo laisse voir la tuile et non la couleur du P de derrière. -->
+    <clipPath id="ppNotch" clipPathUnits="userSpaceOnUse">
+      <path clip-rule="evenodd"
+            d="M-40 -40 H90 V90 H-40 Z M28 14.5 A7.5 7.5 0 1 1 28 29.5 A7.5 7.5 0 1 1 28 14.5 Z"/>
+    </clipPath>
 
     <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
       <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"/>
@@ -346,10 +342,11 @@
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
     <h1>Cinq icônes,<br>une seule matière.</h1>
     <p class="lede">
-      La règle : <b>le logo ne bouge pas, seule la matière autour change.</b> Tuile charbon,
-      liseré lumineux, dégradés — et chaque marque garde ses propres couleurs. PayPal reste bleu.
-      Seuls les deux CIC font exception, passés en crimson à la demande : leurs aplats bleu et
-      turquoise devenaient illisibles une fois réduits.
+      La règle : <b>la forme du logo ne bouge pas, la palette devient celle du pack.</b>
+      Tuile charbon, glyphe blanc, accent crimson — les mêmes dégradés que M.A.E.V.A et
+      AntiReels, appliqués à des marques qu'on ne redessine pas. Le crimson va à l'élément
+      qui coupe ou qui entoure : le cercle du M, la barre d'AntiReels, le « I » de CIC,
+      le P d'arrière-plan de PayPal.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -513,10 +510,11 @@
                  'M17 8 A7 7 0 1 1 17 22 A7 7 0 1 1 17 8 Z';
 
   function markPaypal() {
-    return '<g transform="translate(54,54) skewX(-10) scale(.95) translate(-21.5,-28)">' +
-             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpBack)"/>' +
-             '<g transform="translate(12,8)">' +
-               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gPpFront)"/>' +
+    return '<g transform="translate(54,54) scale(.95) translate(-21,-27.5)">' +
+             '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gRed)" ' +
+               'clip-path="url(#ppNotch)"/>' +
+             '<g transform="translate(11,7)">' +
+               '<path d="' + P_PATH + '" fill-rule="evenodd" fill="url(#gGlyph)"/>' +
              '</g>' +
            '</g>';
   }

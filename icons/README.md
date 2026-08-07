@@ -59,18 +59,25 @@ un coin, et la pastille de notification ne suit pas toujours.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
-- Crimson `#FF6178 → #E5334E → #A81232` pour M.A.E.V.A, AntiReels et les deux CIC.
-- PayPal garde ses propres bleus `#9BA9EC → #5F72CB` et `#FFFFFF → #D3DBF2`.
+- Accent crimson `#FF6178 → #E5334E → #A81232`, sur **les cinq icônes**.
 
 ### La règle pour les prochaines apps
 
-**Le logo ne se retouche pas — seule la matière autour change.** Chaque marque garde sa
-forme et ses couleurs ; on lui applique la tuile charbon, le liseré et les dégradés, rien
-de plus. Ne dévier qu'en cas de nécessité réelle, et le dire.
+**La forme du logo ne bouge pas ; la palette devient celle du pack.** On ne redessine
+aucune marque — on la repeint. Tuile charbon, glyphe blanc, accent crimson, les mêmes
+dégradés partout.
 
-Les deux CIC sont la seule exception à ce jour, validée explicitement : leurs aplats bleu
-et turquoise, repassés en blanc, donnaient deux carrés pleins dans lesquels les C
-disparaissaient à 48 dp. Le mot « Pay » suit le même crimson pour rester cohérent avec eux.
+Le crimson va toujours à l'élément qui coupe ou qui entoure, le blanc au reste :
+
+| Icône | Crimson | Blanc |
+|---|---|---|
+| M.A.E.V.A | le cercle | le M |
+| AntiReels | la barre | le bouton lecture |
+| CIC / CIC Pay | le « I » (et le mot « Pay ») | les deux C |
+| PayPal | le P d'arrière-plan | le P avant |
+
+Seule entorse à la forme, validée explicitement : CIC a perdu ses blocs pleins. Repassés
+en blanc, ils donnaient deux carrés dans lesquels les C disparaissaient à 48 dp.
 
 ### Deux limites connues
 

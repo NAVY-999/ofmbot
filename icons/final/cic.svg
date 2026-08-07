@@ -36,16 +36,11 @@
       <stop offset="1" stop-color="#A9AFB9"></stop>
     </linearGradient>
 
-    <!-- PayPal garde ses propres couleurs : le logo n'est pas retouché, seule la tuile l'est -->
-    <linearGradient id="gPpBack" gradientUnits="userSpaceOnUse" x1="30" y1="24" x2="70" y2="82">
-      <stop offset="0" stop-color="#9BA9EC"></stop>
-      <stop offset="1" stop-color="#5F72CB"></stop>
-    </linearGradient>
-
-    <linearGradient id="gPpFront" gradientUnits="userSpaceOnUse" x1="40" y1="30" x2="80" y2="86">
-      <stop offset="0" stop-color="#FFFFFF"></stop>
-      <stop offset="1" stop-color="#D3DBF2"></stop>
-    </linearGradient>
+    <!-- Perce le P d'arrière-plan à l'endroit du contrepoinçon du P avant, pour que
+         le trou du logo laisse voir la tuile et non la couleur du P de derrière. -->
+    <clipPath id="ppNotch" clipPathUnits="userSpaceOnUse">
+      <path clip-rule="evenodd" d="M-40 -40 H90 V90 H-40 Z M28 14.5 A7.5 7.5 0 1 1 28 29.5 A7.5 7.5 0 1 1 28 14.5 Z"></path>
+    </clipPath>
 
     <clipPath id="cutA" clipPathUnits="userSpaceOnUse">
       <polygon points="144.5,-47.1 -34.5,155.1 115.7,288.1 294.7,85.9"></polygon>
