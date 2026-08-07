@@ -1,4 +1,4 @@
-<title>Le pack M1 — cinq icônes, et comment les poser</title>
+<title>Le pack M1 — huit icônes, et comment les poser</title>
 
 <style>
   :root {
@@ -108,8 +108,8 @@
   .sheet {
     --u: 104px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px 4px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -275,7 +275,8 @@
 
   @media (max-width: 860px) {
     .methods { grid-template-columns: 1fr; }
-    .sheet { grid-template-columns: repeat(5, 1fr); }
+    .sheet { --u: 76px; grid-template-columns: repeat(2, 1fr); gap: 22px 4px; }
+    .sheet-cell { min-width: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -339,6 +340,10 @@
       <stop offset="1" stop-color="#F0A6B5"/>
     </linearGradient>
 
+    <clipPath id="walletBody" clipPathUnits="userSpaceOnUse">
+      <rect x="22" y="44" width="64" height="38" rx="9"/>
+    </clipPath>
+
     <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
       <path transform="translate(13,12)"
             d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z"/>
@@ -357,13 +362,14 @@
 
   <header class="masthead">
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
-    <h1>Cinq icônes,<br>une seule matière.</h1>
+    <h1>Huit icônes,<br>une seule matière.</h1>
     <p class="lede">
+      Wallet, PaysafeCard et Skrill rejoignent les cinq premières.
       La règle : <b>la forme du logo ne bouge pas, la palette devient celle du pack.</b>
-      Tuile charbon, glyphe blanc, accent crimson — les mêmes dégradés que M.A.E.V.A et
-      AntiReels, appliqués à des marques qu'on ne redessine pas. Le crimson va à l'élément
-      qui coupe ou qui entoure : le cercle du M, la barre d'AntiReels, le « I » de CIC,
-      le P d'arrière-plan de PayPal.
+      Tuile charbon, glyphe blanc, accent crimson — les mêmes dégradés partout, appliqués à
+      des marques qu'on ne redessine pas. Le crimson va à l'élément qui coupe, qui entoure
+      ou qui avance : le cercle du M, la barre d'AntiReels, le « I » de CIC, le P
+      d'arrière-plan de PayPal, la carte qui dépasse du portefeuille.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -372,6 +378,19 @@
     <h2>La planche</h2>
   </div>
   <div class="sheet" id="sheet"></div>
+
+  <div class="callout" style="margin-top:22px">
+    <span class="mark">Arbitrage</span>
+    <p>
+      <b>PaysafeCard et Skrill ont exactement le même symbole</b> — losange plus chevron.
+      Dans la réalité, seule la couleur les sépare : bleu contre violet. Repassés tous les
+      deux sur la palette du pack, ils deviendraient impossibles à distinguer sur l'écran
+      d'accueil. J'ai donc <b>inversé le crimson</b> de l'une à l'autre : chevron crimson
+      pour PaysafeCard, losange crimson pour Skrill. La forme reste intacte et l'œil les
+      sépare au premier coup. Si tu préfères leur rendre leurs teintes de marque, c'est
+      l'autre solution — dis-le-moi.
+    </p>
+  </div>
 
   <div class="section-head">
     <p class="eyebrow">Mise en situation</p>
@@ -459,7 +478,7 @@
   <div class="files">
     <table>
       <thead>
-        <tr><th>Fichier</th><th>Format</th><th>Pour quoi</th></tr>
+        <tr><th>Fichier</th><th>Format</th><th>App</th></tr>
       </thead>
       <tbody id="filesBody"></tbody>
     </table>
@@ -536,12 +555,38 @@
            '</g>';
   }
 
+  /* Google Wallet : deux cartes en éventail derrière, le portefeuille devant,
+     et la bande incurvée qui traverse son bas. */
+  function markWallet() {
+    return '<rect x="38" y="24" width="32" height="18" rx="3.5" fill="url(#gGlyphDim)"/>' +
+           '<rect x="31" y="31" width="46" height="18" rx="4" fill="url(#gRed)"/>' +
+           '<rect x="22" y="44" width="64" height="38" rx="9" fill="url(#gGlyph)"/>' +
+           '<path d="M22 69 Q54 59 86 73 L86 86 L22 86 Z" fill="url(#gRed)" ' +
+             'clip-path="url(#walletBody)"/>';
+  }
+
+  /* PaysafeCard et Skrill partagent le même symbole — losange + chevron. Sans
+     leurs couleurs de marque, plus rien ne les sépare : on inverse donc le
+     crimson d'une icône à l'autre. */
+  function arrowMark(diamond, chevron) {
+    return '<path d="M36 36 L54 54 L36 72 L18 54 Z" fill="' + diamond + '" stroke="' +
+             diamond + '" stroke-width="3" stroke-linejoin="round"/>' +
+           '<path d="M62 36 L90 54 L62 72 L72 54 Z" fill="' + chevron + '" stroke="' +
+             chevron + '" stroke-width="3" stroke-linejoin="round"/>';
+  }
+
+  function markPaysafe() { return arrowMark('url(#gGlyph)', 'url(#gRed)'); }
+  function markSkrill()  { return arrowMark('url(#gRed)', 'url(#gGlyph)'); }
+
   const APPS = [
-    { key: 'maeva',     name: 'M.A.E.V.A', sub: 'existant', mark: markMaeva },
-    { key: 'antireels', name: 'AntiReels', sub: 'existant', mark: markAntiReels },
-    { key: 'cic',       name: 'CIC',       sub: 'nouveau',  mark: markCic },
-    { key: 'cicpay',    name: 'CIC Pay',   sub: 'nouveau',  mark: markCicPay },
-    { key: 'paypal',    name: 'PayPal',    sub: 'nouveau',  mark: markPaypal }
+    { key: 'maeva',       name: 'M.A.E.V.A',    sub: 'existant', mark: markMaeva },
+    { key: 'antireels',   name: 'AntiReels',    sub: 'existant', mark: markAntiReels },
+    { key: 'cic',         name: 'CIC',          sub: 'existant', mark: markCic },
+    { key: 'cicpay',      name: 'CIC Pay',      sub: 'existant', mark: markCicPay },
+    { key: 'paypal',      name: 'PayPal',       sub: 'existant', mark: markPaypal },
+    { key: 'wallet',      name: 'Wallet',       sub: 'nouveau',  mark: markWallet },
+    { key: 'paysafecard', name: 'PaysafeCard',  sub: 'nouveau',  mark: markPaysafe },
+    { key: 'skrill',      name: 'Skrill',       sub: 'nouveau',  mark: markSkrill }
   ];
 
   function icon(app) {
@@ -558,19 +603,15 @@
   `).join('');
 
   const cell = a => `<div class="app">${icon(a)}<span>${a.name}</span></div>`;
-  document.getElementById('screen').innerHTML =
-    `<div class="screen-row">${APPS.slice(0, 2).map(cell).join('')}</div>` +
-    `<div class="screen-row">${APPS.slice(2).map(cell).join('')}</div>`;
+  const ROWS = [[0, 2], [2, 5], [5, 8]];
+  document.getElementById('screen').innerHTML = ROWS.map(([a, b]) =>
+    `<div class="screen-row">${APPS.slice(a, b).map(cell).join('')}</div>`
+  ).join('');
 
-  const FILES = [
-    ['maeva.png',      '512 × 512', 'À utiliser par défaut'],
-    ['antireels.png',  '512 × 512', 'À utiliser par défaut'],
-    ['cic.png',        '512 × 512', 'À utiliser par défaut'],
-    ['cicpay.png',     '512 × 512', 'À utiliser par défaut'],
-    ['paypal.png',     '512 × 512', 'À utiliser par défaut'],
-    ['*-192.png',      '192 × 192', 'Si le launcher redimensionne mal'],
-    ['*.svg',          'vectoriel', 'Sources, regénérables à toute taille']
-  ];
+  const FILES = APPS.map(a => [a.key + '.png', '512 × 512', a.name]).concat([
+    ['*-192.png', '192 × 192', 'Si le launcher redimensionne mal'],
+    ['*.svg',     'vectoriel', 'Sources, regénérables à toute taille']
+  ]);
 
   document.getElementById('filesBody').innerHTML = FILES.map(f =>
     `<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`

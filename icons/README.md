@@ -75,6 +75,13 @@ Le crimson va toujours à l'élément qui coupe ou qui entoure, le blanc au rest
 | AntiReels | la barre | le bouton lecture |
 | CIC / CIC Pay | le « I » (et le mot « Pay ») | les deux C |
 | PayPal | le P d'arrière-plan | le P avant |
+| Wallet | la carte qui dépasse, la bande du bas | le portefeuille |
+| PaysafeCard | le chevron | le losange |
+| Skrill | le losange | le chevron |
+
+**PaysafeCard et Skrill partagent le même symbole** ; dans la réalité seule la couleur les
+sépare. Le crimson est donc inversé de l'une à l'autre — sinon les deux icônes seraient
+identiques sur l'écran d'accueil. La forme n'est pas touchée.
 
 Seule entorse à la forme, validée explicitement : CIC a perdu ses blocs pleins. Repassés
 en blanc, ils donnaient deux carrés dans lesquels les C disparaissaient à 48 dp.

@@ -55,6 +55,10 @@
       <stop offset="1" stop-color="#F0A6B5"></stop>
     </linearGradient>
 
+    <clipPath id="walletBody" clipPathUnits="userSpaceOnUse">
+      <rect x="22" y="44" width="64" height="38" rx="9"></rect>
+    </clipPath>
+
     <clipPath id="ppFront" clipPathUnits="userSpaceOnUse">
       <path transform="translate(13,12)" d="M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z"></path>
     </clipPath>
