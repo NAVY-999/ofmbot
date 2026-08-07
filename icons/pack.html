@@ -1,4 +1,4 @@
-<title>Le pack M1 — huit icônes, et comment les poser</title>
+<title>Le pack M1 — neuf icônes, et comment les poser</title>
 
 <style>
   :root {
@@ -108,8 +108,8 @@
   .sheet {
     --u: 104px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 26px 4px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 4px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -337,6 +337,15 @@
 
     <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
          assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <clipPath id="holder" clipPathUnits="userSpaceOnUse">
+      <rect x="18" y="28" width="72" height="56" rx="9"/>
+    </clipPath>
+
+    <linearGradient id="gHold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6E9EE"/>
+      <stop offset="1" stop-color="#C0C6D0"/>
+    </linearGradient>
+
     <linearGradient id="gW1" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFFFFF"/>
       <stop offset="1" stop-color="#EDEFF3"/>
@@ -370,7 +379,7 @@
 
   <header class="masthead">
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
-    <h1>Huit icônes,<br>une seule matière.</h1>
+    <h1>Neuf icônes,<br>une seule matière.</h1>
     <p class="lede">
       Wallet, PaysafeCard et Skrill rejoignent les cinq premières.
       La règle : <b>la forme du logo ne bouge pas, la palette devient celle du pack.</b>
@@ -587,15 +596,28 @@
   function markPaysafe() { return arrowMark('url(#gGlyph)', 'url(#gRed)'); }
   function markSkrill()  { return arrowMark('url(#gRed)', 'url(#gGlyph)'); }
 
+  /* Porte-cartes : le corps clair, trois cartes empilées dedans, et le rabat
+     blanc à bord oblique qui recouvre la droite. */
+  function markHolder() {
+    return '<rect x="18" y="28" width="72" height="56" rx="9" fill="url(#gHold)"/>' +
+           '<g clip-path="url(#holder)">' +
+             '<rect x="25" y="35" width="55" height="43" rx="4" fill="url(#gW2)"/>' +
+             '<rect x="25" y="42" width="55" height="36" rx="4" fill="url(#gPpOver)"/>' +
+             '<rect x="25" y="49" width="55" height="29" rx="4" fill="url(#gRed)"/>' +
+             '<path d="M61 26 L92 26 L92 86 L48 86 Z" fill="url(#gW1)"/>' +
+           '</g>';
+  }
+
   const APPS = [
     { key: 'maeva',       name: 'M.A.E.V.A',    sub: 'existant', mark: markMaeva },
     { key: 'antireels',   name: 'AntiReels',    sub: 'existant', mark: markAntiReels },
     { key: 'cic',         name: 'CIC',          sub: 'existant', mark: markCic },
     { key: 'cicpay',      name: 'CIC Pay',      sub: 'existant', mark: markCicPay },
     { key: 'paypal',      name: 'PayPal',       sub: 'existant', mark: markPaypal },
-    { key: 'wallet',      name: 'Wallet',       sub: 'nouveau',  mark: markWallet },
-    { key: 'paysafecard', name: 'PaysafeCard',  sub: 'nouveau',  mark: markPaysafe },
-    { key: 'skrill',      name: 'Skrill',       sub: 'nouveau',  mark: markSkrill }
+    { key: 'wallet',      name: 'Wallet',       sub: 'existant',  mark: markWallet },
+    { key: 'paysafecard', name: 'PaysafeCard',  sub: 'existant',  mark: markPaysafe },
+    { key: 'skrill',      name: 'Skrill',       sub: 'existant', mark: markSkrill },
+    { key: 'wallet2',     name: 'Porte-cartes', sub: 'nouveau',  mark: markHolder }
   ];
 
   function icon(app) {
@@ -612,7 +634,7 @@
   `).join('');
 
   const cell = a => `<div class="app">${icon(a)}<span>${a.name}</span></div>`;
-  const ROWS = [[0, 2], [2, 5], [5, 8]];
+  const ROWS = [[0, 3], [3, 6], [6, 9]];
   document.getElementById('screen').innerHTML = ROWS.map(([a, b]) =>
     `<div class="screen-row">${APPS.slice(a, b).map(cell).join('')}</div>`
   ).join('');

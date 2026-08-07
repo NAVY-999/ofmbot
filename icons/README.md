@@ -76,8 +76,9 @@ Le crimson va toujours à l'élément qui coupe ou qui entoure, le blanc au rest
 | CIC / CIC Pay | le « I » (et le mot « Pay ») | les deux C |
 | PayPal | le P d'arrière-plan | le P avant |
 | Wallet | la couche du bas, au bord ondulé | les couches empilées au-dessus |
-| PaysafeCard | le chevron | le losange |
-| Skrill | le losange | le chevron |
+| PaysafeCard | le triangle | le losange |
+| Skrill | le losange | le triangle |
+| Porte-cartes | la carte du dessous | le corps et le rabat |
 
 **PaysafeCard et Skrill partagent le même symbole** ; dans la réalité seule la couleur les
 sépare. Le crimson est donc inversé de l'une à l'autre — sinon les deux icônes seraient

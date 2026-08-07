@@ -52,6 +52,15 @@
 
     <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
          assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <clipPath id="holder" clipPathUnits="userSpaceOnUse">
+      <rect x="18" y="28" width="72" height="56" rx="9"></rect>
+    </clipPath>
+
+    <linearGradient id="gHold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6E9EE"></stop>
+      <stop offset="1" stop-color="#C0C6D0"></stop>
+    </linearGradient>
+
     <linearGradient id="gW1" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFFFFF"></stop>
       <stop offset="1" stop-color="#EDEFF3"></stop>
