@@ -88,6 +88,27 @@
       <stop offset="1" stop-color="#FFD84A" stop-opacity="0"></stop>
     </radialGradient>
 
+    <!-- Famille système : trois valeurs de blanc, pour séparer les plans d'un
+         même dessin sans introduire de couleur. -->
+    <linearGradient id="gS1" gradientUnits="userSpaceOnUse" x1="54" y1="18" x2="54" y2="92">
+      <stop offset="0" stop-color="#FFFFFF"></stop>
+      <stop offset="1" stop-color="#D6DAE1"></stop>
+    </linearGradient>
+
+    <linearGradient id="gS2" gradientUnits="userSpaceOnUse" x1="54" y1="18" x2="54" y2="92">
+      <stop offset="0" stop-color="#C7CDD6"></stop>
+      <stop offset="1" stop-color="#9BA2AD"></stop>
+    </linearGradient>
+
+    <linearGradient id="gS3" gradientUnits="userSpaceOnUse" x1="54" y1="18" x2="54" y2="92">
+      <stop offset="0" stop-color="#848B96"></stop>
+      <stop offset="1" stop-color="#5E656F"></stop>
+    </linearGradient>
+
+    <clipPath id="wallPanel" clipPathUnits="userSpaceOnUse">
+      <rect x="18" y="22" width="72" height="64" rx="10"></rect>
+    </clipPath>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"></rect>
     </clipPath>
