@@ -59,7 +59,11 @@ un coin, et la pastille de notification ne suit pas toujours.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
-- Accent crimson `#FF6178 → #E5334E → #A81232`, sur **les cinq icônes**.
+- **Famille paiement** (9 icônes) : accent crimson `#FF6178 → #E5334E → #A81232`.
+- **Famille IA** (Claude, ChatGPT, Gemini) : quadrichromie Gemini — rouge `#EA4335` en haut,
+  jaune `#FBBC05` à gauche, vert `#2FA75A` en bas, bleu `#3B82F6` à droite. Obtenue par trois
+  nappes radiales sur une base bleue, appliquée à la marque via un masque : un masque et non
+  un détourage, pour qu'il accepte aussi les tracés au trait comme le nœud OpenAI.
 
 ### La règle pour les prochaines apps
 
@@ -79,6 +83,8 @@ Le crimson va toujours à l'élément qui coupe ou qui entoure, le blanc au rest
 | PaysafeCard | le triangle | le losange |
 | Skrill | le losange | le triangle |
 | Porte-cartes | la carte du dessous | le corps et le rabat |
+
+La famille IA ne suit pas cette répartition : la marque entière reçoit le dégradé, sans blanc.
 
 **PaysafeCard et Skrill partagent le même symbole** ; dans la réalité seule la couleur les
 sépare. Le crimson est donc inversé de l'une à l'autre — sinon les deux icônes seraient

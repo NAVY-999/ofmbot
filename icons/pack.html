@@ -1,4 +1,4 @@
-<title>Le pack M1 — neuf icônes, et comment les poser</title>
+<title>Le pack M1 — douze icônes, et comment les poser</title>
 
 <style>
   :root {
@@ -337,6 +337,27 @@
 
     <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
          assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <!-- Quadrichromie Gemini : une base bleue, puis trois nappes radiales ancrées
+         sur les autres sommets. Approche le mélange bilinéaire de l'original,
+         qu'un simple dégradé linéaire ne sait pas rendre. -->
+    <radialGradient id="gemGreen" gradientUnits="userSpaceOnUse" cx="54" cy="98" r="52">
+      <stop offset="0"   stop-color="#2FA75A" stop-opacity="1"/>
+      <stop offset=".42" stop-color="#2FA75A" stop-opacity=".55"/>
+      <stop offset="1"   stop-color="#2FA75A" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="gemYellow" gradientUnits="userSpaceOnUse" cx="8" cy="54" r="52">
+      <stop offset="0"   stop-color="#FBBC05" stop-opacity="1"/>
+      <stop offset=".42" stop-color="#FBBC05" stop-opacity=".55"/>
+      <stop offset="1"   stop-color="#FBBC05" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="gemRed" gradientUnits="userSpaceOnUse" cx="54" cy="8" r="52">
+      <stop offset="0"   stop-color="#EA4335" stop-opacity="1"/>
+      <stop offset=".42" stop-color="#EA4335" stop-opacity=".55"/>
+      <stop offset="1"   stop-color="#EA4335" stop-opacity="0"/>
+    </radialGradient>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"/>
     </clipPath>
@@ -384,14 +405,15 @@
 
   <header class="masthead">
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
-    <h1>Neuf icônes,<br>une seule matière.</h1>
+    <h1>Douze icônes,<br>deux familles.</h1>
     <p class="lede">
-      Wallet, PaysafeCard et Skrill rejoignent les cinq premières.
-      La règle : <b>la forme du logo ne bouge pas, la palette devient celle du pack.</b>
-      Tuile charbon, glyphe blanc, accent crimson — les mêmes dégradés partout, appliqués à
-      des marques qu'on ne redessine pas. Le crimson va à l'élément qui coupe, qui entoure
-      ou qui avance : le cercle du M, la barre d'AntiReels, le « I » de CIC, le P
-      d'arrière-plan de PayPal, la couche du bas de Wallet.
+      Une seule tuile charbon pour les douze, et <b>la forme d'aucun logo ne bouge</b> :
+      on ne redessine pas une marque, on la repeint. Deux peintures, selon la famille.
+      <b>Les neuf apps de paiement</b> passent en glyphe blanc et accent crimson, le crimson
+      allant à l'élément qui coupe, entoure ou avance : le cercle du M, la barre d'AntiReels,
+      le « I » de CIC, le P d'arrière-plan de PayPal. <b>Les trois apps d'IA</b> reçoivent la
+      quadrichromie de Gemini — rouge en haut, jaune à gauche, vert en bas, bleu à droite —
+      appliquée telle quelle à l'étoile, au nœud OpenAI et à l'astérisque Claude.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -613,6 +635,62 @@
            '</g>';
   }
 
+  /* ---- sous-ensemble IA : la marque peinte en quadrichromie Gemini ---- */
+
+  const GEM = '<rect width="108" height="108" fill="#3B82F6"/>' +
+              '<rect width="108" height="108" fill="url(#gemGreen)"/>' +
+              '<rect width="108" height="108" fill="url(#gemYellow)"/>' +
+              '<rect width="108" height="108" fill="url(#gemRed)"/>';
+
+  /* Peint GEM à travers un masque, pour que la couleur suive la marque.
+     Un masque et non un détourage : il accepte aussi les tracés au trait. */
+  function gemPaint(id, shape) {
+    return '<defs><mask id="' + id + '" maskUnits="userSpaceOnUse" ' +
+             'x="0" y="0" width="108" height="108">' + shape + '</mask></defs>' +
+           '<g mask="url(#' + id + ')">' + GEM + '</g>';
+  }
+
+  const STAR = 'M54 14 C57 37, 71 51, 94 54 C71 57, 57 71, 54 94 ' +
+               'C51 71, 37 57, 14 54 C37 51, 51 37, 54 14 Z';
+
+  function markGemini() {
+    return gemPaint('mkGem', '<path d="' + STAR + '" fill="#fff"/>');
+  }
+
+  /* Le nœud OpenAI, tracé au trait : le contour de la marque pleine décrit
+     déjà les bords des six rubans, donc le détourer suffit. */
+  const OAI = 'M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.0379-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z';
+
+  function markChatgpt() {
+    return gemPaint('mkOai',
+      '<path d="' + OAI + '" transform="translate(16.5,16.5) scale(3.125)" ' +
+        'fill="none" stroke="#fff" stroke-width="1.05" stroke-linejoin="round"/>');
+  }
+
+  /* L'étoile Claude : onze lames effilées rayonnant d'un centre plein,
+     de longueurs inégales comme sur l'original. */
+  function claudeSpokes() {
+    const cx = 54, cy = 54, n = 11, R = 42, rIn = 3, wIn = 4.4, wOut = 2.1;
+    const lens = [1, .89, .97, .85, 1, .92, .98, .87, .95, .84, .99];
+    let d = '';
+    for (let i = 0; i < n; i++) {
+      const a = i * 2 * Math.PI / n - Math.PI / 2;
+      const ca = Math.cos(a), sa = Math.sin(a), px = -sa, py = ca;
+      const ro = R * lens[i];
+      const pt = (r, w, s) =>
+        (cx + ca * r + px * w * s).toFixed(2) + ' ' + (cy + sa * r + py * w * s).toFixed(2);
+      d += 'M' + pt(rIn, wIn, 1) + ' L' + pt(ro, wOut, 1) +
+           ' L' + pt(ro, wOut, -1) + ' L' + pt(rIn, wIn, -1) + ' Z ';
+    }
+    return d;
+  }
+
+  function markClaude() {
+    return gemPaint('mkCla',
+      '<path d="' + claudeSpokes() + '" fill="#fff"/>' +
+      '<circle cx="54" cy="54" r="6.5" fill="#fff"/>');
+  }
+
   const APPS = [
     { key: 'maeva',       name: 'M.A.E.V.A',    sub: 'existant', mark: markMaeva },
     { key: 'antireels',   name: 'AntiReels',    sub: 'existant', mark: markAntiReels },
@@ -622,7 +700,10 @@
     { key: 'wallet',      name: 'Wallet',       sub: 'existant',  mark: markWallet },
     { key: 'paysafecard', name: 'PaysafeCard',  sub: 'existant',  mark: markPaysafe },
     { key: 'skrill',      name: 'Skrill',       sub: 'existant', mark: markSkrill },
-    { key: 'wallet2',     name: 'Porte-cartes', sub: 'nouveau',  mark: markHolder }
+    { key: 'wallet2',     name: 'Porte-cartes', sub: 'existant', mark: markHolder },
+    { key: 'claude',      name: 'Claude',       sub: 'IA',       mark: markClaude },
+    { key: 'chatgpt',     name: 'ChatGPT',      sub: 'IA',       mark: markChatgpt },
+    { key: 'gemini',      name: 'Gemini',       sub: 'IA',       mark: markGemini }
   ];
 
   function icon(app) {
@@ -639,7 +720,7 @@
   `).join('');
 
   const cell = a => `<div class="app">${icon(a)}<span>${a.name}</span></div>`;
-  const ROWS = [[0, 3], [3, 6], [6, 9]];
+  const ROWS = [[0, 3], [3, 6], [6, 9], [9, 12]];
   document.getElementById('screen').innerHTML = ROWS.map(([a, b]) =>
     `<div class="screen-row">${APPS.slice(a, b).map(cell).join('')}</div>`
   ).join('');

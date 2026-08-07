@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
-  <title>Porte-cartes — M1 Profondeur</title>
+  <title>Claude — M1 Profondeur</title>
   <defs>
     <clipPath id="sqc" clipPathUnits="objectBoundingBox">
       <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"></path>
@@ -113,5 +113,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><rect x="18" y="28" width="72" height="56" rx="9" fill="url(#gHold)"/><g clip-path="url(#holder)"><rect x="25" y="35" width="55" height="43" rx="4" fill="url(#gW1)"/><rect x="25" y="42" width="55" height="36" rx="4" fill="url(#gPpOver)"/><rect x="25" y="49" width="55" height="29" rx="4" fill="url(#gRed)"/><path d="M61 26 L92 26 L92 86 L48 86 Z" fill="url(#gFlap)"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><defs><mask id="mkCla" maskUnits="userSpaceOnUse" x="0" y="0" width="108" height="108"><path d="M58.40 51.00 L56.10 12.00 L51.90 12.00 L49.60 51.00 Z M59.32 53.86 L75.98 23.69 L72.44 21.42 L51.92 49.10 Z M58.56 56.76 L91.93 38.99 L90.19 35.17 L54.90 48.75 Z M56.34 58.78 L89.04 61.16 L89.64 57.00 L57.60 50.07 Z M53.39 59.29 L84.37 83.09 L87.12 79.92 L59.15 52.64 Z M50.62 58.12 L62.87 91.67 L66.90 90.48 L59.07 55.64 Z M48.93 55.64 L40.39 92.90 L44.42 94.08 L57.38 58.12 Z M48.85 52.64 L25.01 76.34 L27.76 79.52 L54.61 59.29 Z M50.40 50.07 L14.21 57.60 L14.80 61.76 L51.66 58.78 Z M53.10 48.75 L22.78 37.43 L21.04 41.25 L49.44 56.76 Z M56.08 49.10 L33.29 17.89 L29.75 20.16 L48.68 53.86 Z " fill="#fff"/><circle cx="54" cy="54" r="6.5" fill="#fff"/></mask></defs><g mask="url(#mkCla)"><rect width="108" height="108" fill="#3B82F6"/><rect width="108" height="108" fill="url(#gemGreen)"/><rect width="108" height="108" fill="url(#gemYellow)"/><rect width="108" height="108" fill="url(#gemRed)"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>

@@ -52,6 +52,27 @@
 
     <!-- Les quatre couches de Wallet : gradation blanc → gris → rose → crimson,
          assez écartée en valeur pour que chaque bord reste lisible à 48 dp. -->
+    <!-- Quadrichromie Gemini : une base bleue, puis trois nappes radiales ancrées
+         sur les autres sommets. Approche le mélange bilinéaire de l'original,
+         qu'un simple dégradé linéaire ne sait pas rendre. -->
+    <radialGradient id="gemGreen" gradientUnits="userSpaceOnUse" cx="54" cy="98" r="52">
+      <stop offset="0" stop-color="#2FA75A" stop-opacity="1"></stop>
+      <stop offset=".42" stop-color="#2FA75A" stop-opacity=".55"></stop>
+      <stop offset="1" stop-color="#2FA75A" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <radialGradient id="gemYellow" gradientUnits="userSpaceOnUse" cx="8" cy="54" r="52">
+      <stop offset="0" stop-color="#FBBC05" stop-opacity="1"></stop>
+      <stop offset=".42" stop-color="#FBBC05" stop-opacity=".55"></stop>
+      <stop offset="1" stop-color="#FBBC05" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <radialGradient id="gemRed" gradientUnits="userSpaceOnUse" cx="54" cy="8" r="52">
+      <stop offset="0" stop-color="#EA4335" stop-opacity="1"></stop>
+      <stop offset=".42" stop-color="#EA4335" stop-opacity=".55"></stop>
+      <stop offset="1" stop-color="#EA4335" stop-opacity="0"></stop>
+    </radialGradient>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"></rect>
     </clipPath>
