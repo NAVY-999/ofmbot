@@ -713,25 +713,38 @@
 
   /* ---- famille sociale : marque peinte en jaune-orangé ---- */
 
+  /* Snapchat : c'est le contour du fantôme qui porte la couleur, pas son
+     remplissage — l'intérieur laisse voir la tuile. */
+  const GHOST =
+    'M54 18 C41 18, 33 27, 33 41 L33 51 ' +
+    'C33 56.5, 27 53.5, 22 55 C16 56.5, 13.5 62, 16.5 66 ' +
+    'C19.5 69.5, 26 69, 29 73 C32 77, 30 81, 32 84 ' +
+    'C34 87, 36 89, 39 89 C42 89, 43 83, 46 83 ' +
+    'C49 83, 51 89, 54 89 C57 89, 59 83, 62 83 ' +
+    'C65 83, 66 89, 69 89 C72 89, 74 87, 76 84 ' +
+    'C78 81, 76 77, 79 73 C82 69, 88.5 69.5, 91.5 66 ' +
+    'C94.5 62, 92 56.5, 86 55 C81 53.5, 75 56.5, 75 51 ' +
+    'L75 41 C75 27, 67 18, 54 18 Z';
+
   function markSnapchat() {
-    return oraPaint('mkSnap', '<path fill="#fff" d="M54 19 C39 19, 29 30, 29 44 ' +
-      'L29 58 C29 63.5, 23.5 61.5, 20.5 64.5 C17.5 67.5, 19.5 73, 25 74 ' +
-      'L30 75 C33.5 75.5, 31.5 84, 36 84 C40 84, 41 76.5, 45 77.5 ' +
-      'C48.5 78.4, 49.5 86, 54 86 C58.5 86, 59.5 78.4, 63 77.5 ' +
-      'C67 76.5, 68 84, 72 84 C76.5 84, 74.5 75.5, 78 75 ' +
-      'L83 74 C88.5 73, 90.5 67.5, 87.5 64.5 C84.5 61.5, 79 63.5, 79 58 ' +
-      'L79 44 C79 30, 69 19, 54 19 Z"/>');
+    return oraPaint('mkSnap', '<path d="' + GHOST + '" fill="none" stroke="#fff" ' +
+      'stroke-width="5.6" stroke-linejoin="round"/>');
   }
 
-  /* WhatsApp : bulle pleine, combiné détouré en noir dans le masque. */
+  /* WhatsApp : la bulle est un anneau, pas un disque — on perce l'intérieur,
+     et le combiné plein reprend la couleur. Ce sont les parties blanches du
+     logo d'origine qui deviennent dorées. */
   function markWhatsapp() {
     return oraPaint('mkWa',
       '<g transform="translate(2.85,5.95) scale(1.55)">' +
         '<path fill="#fff" d="M14 50 L16.55 40.5 A19 19 0 1 1 27.13 49.07 Z"/>' +
-        '<path fill="#000" transform="translate(21,19)" d="M6.62 10.79c1.44 2.83 3.76 ' +
-          '5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 ' +
-          '.45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 ' +
-          '1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>' +
+        '<circle cx="33" cy="31" r="15" fill="#000"/>' +
+        '<g transform="translate(33,31) scale(1.25) translate(-12,-12)">' +
+          '<path fill="#fff" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27' +
+            '.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 ' +
+            '1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 ' +
+            '3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>' +
+        '</g>' +
       '</g>');
   }
 
@@ -789,12 +802,14 @@
       '<path d="M47 41.5 L70 54 L47 66.5 Z" fill="#000"/>');
   }
 
+  /* Pinterest : un « P » calligraphique, pas typographique — une panse en anneau
+     ouvert en bas à gauche, d'où part une hampe effilée en pointe. */
   function markPinterest() {
-    return oraPaint('mkPi',
-      '<circle cx="54" cy="54" r="34" fill="#fff"/>' +
-      '<path fill="#000" fill-rule="evenodd" transform="translate(-5,-1)" ' +
-        'd="M44 30 L60 30 A14 14 0 0 1 60 58 L52 58 L52 80 L44 80 Z ' +
-           'M58 38 A6 6 0 1 1 58 50 A6 6 0 1 1 58 38 Z"/>');
+    return oraPaint('mkPi', '<g transform="translate(-3,7.25)">' +
+      '<path d="M40.6 49.5 A20 20 0 1 1 56.6 58" fill="none" stroke="#fff" ' +
+        'stroke-width="13" stroke-linecap="round"/>' +
+      '<path d="M50 42 L59 56 L42 82 Z" fill="#fff"/>' +
+      '</g>');
   }
 
   /* Burger King : les deux pains, et le mot au milieu — sans lui, deux dômes
