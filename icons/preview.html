@@ -1,0 +1,696 @@
+<title>Quatre directions d'icône — pack Android</title>
+
+<style>
+  :root {
+    --paper:      #E9EBEF;
+    --surface:    #FFFFFF;
+    --surface-2:  #F3F5F8;
+    --ink:        #16181D;
+    --ink-soft:   #5E646F;
+    --line:       #D5D9DF;
+    --line-soft:  #E3E6EB;
+    --dim:        #B3306B;
+    --shadow:     0 1px 2px rgba(20,24,32,.05), 0 8px 24px -12px rgba(20,24,32,.18);
+
+    --mask: inset(0 round 23%);
+
+    --sans: ui-sans-serif, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #0F1115;
+      --surface:   #171A1F;
+      --surface-2: #1E2228;
+      --ink:       #E6E9ED;
+      --ink-soft:  #99A0AB;
+      --line:      #272C33;
+      --line-soft: #21252B;
+      --dim:       #EC6C9F;
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:     #0F1115;
+    --surface:   #171A1F;
+    --surface-2: #1E2228;
+    --ink:       #E6E9ED;
+    --ink-soft:  #99A0AB;
+    --line:      #272C33;
+    --line-soft: #21252B;
+    --dim:       #EC6C9F;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- shared type ---------- */
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--dim);
+    margin: 0;
+  }
+
+  .spec {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .02em;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5.2vw, 3.1rem);
+    line-height: 1.04;
+    letter-spacing: -.035em;
+    font-weight: 800;
+    text-wrap: balance;
+    margin: 14px 0 0;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    letter-spacing: -.022em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    letter-spacing: -.012em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  p { margin: 0; }
+
+  .lede {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+    margin-top: 18px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  header.masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 64px 0 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .masthead .spec { margin-top: 26px; }
+
+  /* ---------- control bar ---------- */
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 28px;
+    padding: 14px 24px;
+    margin: 0 -24px 44px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ctrl-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ctrl-label {
+    font-family: var(--mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--ink-soft);
+  }
+
+  .seg {
+    display: flex;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .seg button {
+    font: inherit;
+    font-size: .8125rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    border-radius: 5px;
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+
+  .seg button[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  }
+
+  .toggle {
+    font: inherit;
+    font-size: .8125rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 6px 13px;
+    cursor: pointer;
+  }
+
+  .toggle[aria-pressed="true"] {
+    color: var(--dim);
+    border-color: color-mix(in srgb, var(--dim) 45%, var(--line));
+  }
+
+  .toggle .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px dashed currentColor;
+  }
+
+  button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--dim);
+    outline-offset: 2px;
+  }
+
+  /* ---------- icon tile ---------- */
+
+  .tile {
+    width: var(--u);
+    height: var(--u);
+    clip-path: var(--mask);
+    display: block;
+    flex: none;
+  }
+
+  .tile svg { display: block; width: 100%; height: 100%; }
+
+  .tile-wrap { display: block; line-height: 0; flex: none; }
+
+  .tile-wrap[data-shadow="1"] {
+    filter: drop-shadow(calc(var(--u) * .042) calc(var(--u) * .042) 0 #0A0A0A);
+  }
+
+  .safe-ring { opacity: 0; }
+  body.show-safe .safe-ring { opacity: 1; }
+
+  /* ---------- plates ---------- */
+
+  .plates {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .plate {
+    display: grid;
+    grid-template-columns: 216px 1fr;
+    gap: 36px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .plate-stage {
+    --u: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 0;
+    background: var(--surface-2);
+    border-radius: 10px;
+  }
+
+  .letter {
+    font-family: var(--mono);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--dim);
+  }
+
+  .plate-body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .plate-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .rule {
+    font-size: .95rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  .rule b { color: var(--ink); font-weight: 600; }
+
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sw {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: .6875rem;
+    letter-spacing: .03em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px 10px 3px 4px;
+  }
+
+  .sw i {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(128,128,128,.35);
+    display: block;
+  }
+
+  .caveat {
+    display: flex;
+    gap: 10px;
+    font-size: .875rem;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--dim);
+    padding-left: 14px;
+    max-width: 62ch;
+  }
+
+  /* ---------- in situ ---------- */
+
+  section.insitu { margin-top: 72px; }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 26px;
+  }
+
+  .section-head p { max-width: 58ch; color: var(--ink-soft); }
+
+  .walls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .wall {
+    --u: 56px;
+    border-radius: 14px;
+    padding: 30px 22px 24px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .wall-light {
+    background:
+      radial-gradient(120% 90% at 12% 8%, #FFE9CF 0%, transparent 58%),
+      radial-gradient(110% 90% at 92% 82%, #CFE0FF 0%, transparent 60%),
+      linear-gradient(160deg, #F7F2EC 0%, #E4E9F2 100%);
+  }
+
+  .wall-dark {
+    background:
+      radial-gradient(120% 90% at 18% 12%, #2A3358 0%, transparent 60%),
+      radial-gradient(110% 90% at 88% 88%, #3E2140 0%, transparent 62%),
+      linear-gradient(160deg, #131722 0%, #0A0C12 100%);
+  }
+
+  .wall-tag {
+    font-family: var(--mono);
+    font-size: .625rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    margin-bottom: 22px;
+  }
+
+  .wall-light .wall-tag { color: #6B6357; }
+  .wall-dark  .wall-tag { color: #8A8FA6; }
+
+  .row {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .app span {
+    font-size: .6875rem;
+    letter-spacing: .01em;
+  }
+
+  .wall-light .app span { color: #2E3138; text-shadow: 0 1px 2px rgba(255,255,255,.6); }
+  .wall-dark  .app span { color: #EEF0F5; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+
+  /* ---------- next steps ---------- */
+
+  section.next { margin-top: 76px; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    counter-reset: step;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .step::before {
+    counter-increment: step;
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: .6875rem;
+    letter-spacing: .1em;
+    color: var(--dim);
+  }
+
+  .step p { font-size: .9rem; color: var(--ink-soft); }
+  .step code {
+    font-family: var(--mono);
+    font-size: .8125rem;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--ink);
+  }
+
+  .ask {
+    margin-top: 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ask ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: .9rem; }
+  .ask li { margin-bottom: 4px; }
+
+  @media (max-width: 780px) {
+    .plate { grid-template-columns: 1fr; gap: 26px; }
+    .walls { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .plate-stage { --u: 120px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<!-- ================= glyph + gradient definitions ================= -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <clipPath id="sqc" clipPathUnits="objectBoundingBox">
+      <path d="M.5,0 C.775,0 .898,.033 .943,.077 C.988,.122 1,.245 1,.5 C1,.755 .988,.878 .943,.923 C.898,.967 .775,1 .5,1 C.225,1 .102,.967 .057,.923 C.012,.878 0,.755 0,.5 C0,.245 .012,.122 .057,.077 C.102,.033 .225,0 .5,0 Z"/>
+    </clipPath>
+
+    <linearGradient id="gGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="108" y2="108">
+      <stop offset="0" stop-color="#4BE88A"/>
+      <stop offset="1" stop-color="#0A7F45"/>
+    </linearGradient>
+  </defs>
+
+  <symbol id="wa-bubble" viewBox="0 0 64 64">
+    <path d="M14 50 L16.55 40.5 A19 19 0 1 1 27.13 49.07 Z"/>
+  </symbol>
+
+  <symbol id="wa-phone" viewBox="0 0 64 64">
+    <path transform="translate(21,19)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Pack d'icônes Android — écran d'accueil</p>
+    <h1>Quatre directions pour la même icône.</h1>
+    <p class="lede">
+      Même app, même glyphe, quatre traitements. Regarde-les en situation sur les deux fonds
+      d'écran plus bas, puis réponds-moi avec une lettre — je décline ensuite tout ton écran
+      d'accueil dans ce style.
+    </p>
+    <p class="spec">WhatsApp · canevas 108 dp · zone sûre 72 dp · export PNG 512 px</p>
+  </header>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Masque</span>
+      <div class="seg" id="maskSeg">
+        <button type="button" data-mask="inset(0 round 23%)" aria-pressed="true">Carré arrondi</button>
+        <button type="button" data-mask="url(#sqc)" aria-pressed="false">Squircle</button>
+        <button type="button" data-mask="circle(50%)" aria-pressed="false">Cercle</button>
+      </div>
+    </div>
+    <button type="button" class="toggle" id="safeBtn" aria-pressed="false">
+      <span class="dot"></span> Zone sûre 72 dp
+    </button>
+  </div>
+
+  <div class="plates" id="plates"></div>
+
+  <section class="insitu">
+    <div class="section-head">
+      <p class="eyebrow">Mise en situation</p>
+      <h2>Sur fond d'écran clair et sur fond d'écran sombre</h2>
+      <p>
+        C'est ici que se joue le vrai choix : une icône séduisante sur fond blanc peut disparaître
+        sur un fond sombre, et inversement. Les quatre styles côte à côte, à taille réelle.
+      </p>
+    </div>
+    <div class="walls">
+      <div class="wall wall-light">
+        <p class="wall-tag">Fond clair</p>
+        <div class="row" id="rowLight"></div>
+      </div>
+      <div class="wall wall-dark">
+        <p class="wall-tag">Fond sombre</p>
+        <div class="row" id="rowDark"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="next">
+    <div class="section-head">
+      <p class="eyebrow">Ensuite</p>
+      <h2>Comment ça s'installe sur Android</h2>
+      <p>
+        Android ne laisse pas remplacer une icône depuis les réglages système : il faut passer par
+        un launcher. Deux chemins, du plus simple au plus propre.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <h3>Un launcher qui accepte les icônes</h3>
+        <p>Nova, Lawnchair ou Niagara. Appui long sur l'app → <code>Modifier</code> → toucher
+           l'icône → choisir l'image dans la galerie. Environ 20 secondes par app.</p>
+      </div>
+      <div class="step">
+        <h3>Je livre les PNG</h3>
+        <p>Un fichier <code>512×512</code> par app, glyphe centré dans la zone sûre pour survivre
+           à n'importe quel masque. Tu copies le dossier sur le téléphone et tu pioches dedans.</p>
+      </div>
+      <div class="step">
+        <h3>Ou un vrai pack en un clic</h3>
+        <p>Je peux générer un icon pack installable (<code>appfilter.xml</code> + ressources) que le
+           launcher applique d'un coup. Plus long à produire, mais rien à faire app par app.</p>
+      </div>
+      <div class="step">
+        <h3>Le pack a besoin des noms exacts</h3>
+        <p>Pour cette version-là il me faut le nom de composant de chaque app
+           (<code>com.whatsapp/.Main</code>, etc.). Une capture de ton écran d'accueil suffit pour
+           que je les retrouve.</p>
+      </div>
+    </div>
+
+    <div class="ask">
+      <h3>Ce qu'il me faut de ta part</h3>
+      <ul>
+        <li>La lettre du style retenu — <b>A</b>, <b>B</b>, <b>C</b> ou <b>D</b>. Tu peux aussi
+            demander un mélange, par exemple le glyphe de D sur les fonds de B.</li>
+        <li>La liste des apps de ton écran d'accueil, ou simplement une capture d'écran.</li>
+        <li>Ton fond d'écran actuel s'il est clair ou sombre — ça tranche entre deux styles.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const STYLES = [
+    {
+      key: 'a',
+      letter: 'A',
+      name: 'Minimaliste monochrome',
+      rule: 'Une seule tuile encre pour <b>toutes</b> les apps, glyphe blanc plein, zéro couleur de marque. L’écran d’accueil devient une grille calme où seule la forme du glyphe distingue les apps.',
+      swatches: [['#17181B','Tuile'], ['#FAFAFA','Glyphe']],
+      caveat: 'Passé une quinzaine d’apps, la reconnaissance ralentit : tu lis la forme au lieu de reconnaître la couleur. Sur un fond d’écran clair, les tuiles forment des blocs sombres très présents.',
+      shadow: false,
+      svg: `<rect width="108" height="108" fill="#17181B"/>
+            <use href="#wa-bubble" x="8.5" y="11.5" width="88" height="88" fill="#FAFAFA"/>
+            <use href="#wa-phone"  x="8.5" y="11.5" width="88" height="88" fill="#17181B"/>`
+    },
+    {
+      key: 'b',
+      letter: 'B',
+      name: 'Dégradés modernes',
+      rule: 'Fond en dégradé à 135° dans la teinte de la marque, glyphe blanc, combiné détouré dans le dégradé. C’est le langage de Material You et d’iOS 18 — <b>familier sans être fade</b>.',
+      swatches: [['#4BE88A','Haut'], ['#0A7F45','Bas'], ['#FFFFFF','Glyphe']],
+      caveat: 'Le style le plus sûr des quatre : lisible sur n’importe quel fond, et chaque app garde sa couleur de marque donc rien ne se perd à l’usage.',
+      shadow: false,
+      svg: `<rect width="108" height="108" fill="url(#gGrad)"/>
+            <use href="#wa-bubble" x="8.5" y="11.5" width="88" height="88" fill="#FFFFFF"/>
+            <use href="#wa-phone"  x="8.5" y="11.5" width="88" height="88" fill="url(#gGrad)"/>`
+    },
+    {
+      key: 'c',
+      letter: 'C',
+      name: 'Néo-brutaliste',
+      rule: 'Aplat saturé, glyphe blanc cerné d’un contour noir épais, ombre portée dure décalée. Aucun dégradé, aucun flou : <b>tout est tranché</b>.',
+      swatches: [['#22D366','Aplat'], ['#0A0A0A','Contour'], ['#FFFFFF','Glyphe']],
+      caveat: 'L’ombre dure suit la découpe du masque, donc elle tient en cercle comme en carré. En revanche elle mange environ 4 % de la grille : les icônes paraissent légèrement décalées vers le haut à gauche.',
+      shadow: true,
+      svg: `<rect width="108" height="108" fill="#22D366"/>
+            <use href="#wa-bubble" x="8.5" y="11.5" width="88" height="88" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3.4" stroke-linejoin="round"/>
+            <use href="#wa-phone"  x="8.5" y="11.5" width="88" height="88" fill="#0A0A0A"/>`
+    },
+    {
+      key: 'd',
+      letter: 'D',
+      name: 'Pastel doux',
+      rule: 'Tuile désaturée très claire, glyphe dans une version profonde et grisée de la même teinte. Contraste volontairement bas pour que <b>l’écran respire</b>.',
+      swatches: [['#DCF0E2','Tuile'], ['#46785C','Glyphe']],
+      caveat: 'Superbe sur un fond d’écran clair ou photographique. Sur un fond noir, les tuiles pâles ressortent au contraire beaucoup — vérifie la colonne de droite avant de choisir.',
+      shadow: false,
+      svg: `<rect width="108" height="108" fill="#DCF0E2"/>
+            <use href="#wa-bubble" x="8.5" y="11.5" width="88" height="88" fill="#46785C"/>
+            <use href="#wa-phone"  x="8.5" y="11.5" width="88" height="88" fill="#DCF0E2"/>`
+    }
+  ];
+
+  const SAFE_RING = '<circle class="safe-ring" cx="54" cy="54" r="36" fill="none" stroke="#B3306B" stroke-width="1.2" stroke-dasharray="4 3"/>';
+
+  function tile(style) {
+    return `<span class="tile-wrap" data-shadow="${style.shadow ? 1 : 0}">
+      <span class="tile"><svg viewBox="0 0 108 108">${style.svg}${SAFE_RING}</svg></span>
+    </span>`;
+  }
+
+  function swatchRow(list) {
+    return list.map(([hex, label]) =>
+      `<span class="sw"><i style="background:${hex}"></i>${hex} · ${label}</span>`
+    ).join('');
+  }
+
+  document.getElementById('plates').innerHTML = STYLES.map(s => `
+    <article class="plate">
+      <div class="plate-stage">
+        ${tile(s)}
+        <span class="letter">STYLE ${s.letter}</span>
+      </div>
+      <div class="plate-body">
+        <div class="plate-head">
+          <h2>${s.name}</h2>
+          <span class="spec">108 dp · glyphe à 48 % du canevas</span>
+        </div>
+        <p class="rule">${s.rule}</p>
+        <div class="swatches">${swatchRow(s.swatches)}</div>
+        <p class="caveat">${s.caveat}</p>
+      </div>
+    </article>
+  `).join('');
+
+  const appCell = s => `<div class="app">${tile(s)}<span>WhatsApp</span></div>`;
+  document.getElementById('rowLight').innerHTML = STYLES.map(appCell).join('');
+  document.getElementById('rowDark').innerHTML  = STYLES.map(appCell).join('');
+
+  const seg = document.getElementById('maskSeg');
+  seg.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-mask]');
+    if (!btn) return;
+    seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    document.documentElement.style.setProperty('--mask', btn.dataset.mask);
+  });
+
+  const safeBtn = document.getElementById('safeBtn');
+  safeBtn.addEventListener('click', () => {
+    const on = safeBtn.getAttribute('aria-pressed') === 'true';
+    safeBtn.setAttribute('aria-pressed', String(!on));
+    document.body.classList.toggle('show-safe', !on);
+  });
+</script>
