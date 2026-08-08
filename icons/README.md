@@ -59,22 +59,24 @@ un coin, et la pastille de notification ne suit pas toujours.
 - Tuile en dégradé diagonal `#2A2C33 → #0B0C0E`.
 - Liseré lumineux de 1 dp sur l'arête haute, dégradé vers zéro à mi-hauteur.
 - Glyphes blancs dégradés vers le gris froid `#FFFFFF → #BFC4CC`.
-- **Toutes les marques** : blanc pur `#FFFFFF`, sans dégradé.
-
-Deux valeurs et rien entre les deux. Là où deux plans d'un même dessin se touchent, le
-second n'est pas grisé mais **percé** : on le remplit du même dégradé que la tuile
-(`url(#gTile1)`), ce qui le fait disparaître dedans. Aucun masque n'est nécessaire tant que
-la forme n'est pas transformée — pour PayPal et Wallhabit, qui le sont, le percement passe
-par un masque.
-
-Sont des percements et non des gris : la barre d'AntiReels, l'écart entre les deux P de
-PayPal, les couches de Wallet et du porte-cartes, les symboles de la calculatrice, les
-points et le bandeau du calendrier, les graduations et aiguilles du réveil, l'objectif de
-l'appareil photo, le pli et les lignes des notes, le cœur de la fleur, l'écart entre les
-deux bulles de Messages, et les briques derrière la main de Wallhabit.
-
-**PaysafeCard et Skrill** partagent le même symbole ; sans couleur, plus rien ne les
-distingue. L'une a donc le losange plein et le triangle ajouré, l'autre l'inverse.
+- **Famille paiement** (9 icônes) : accent crimson `#FF6178 → #E5334E → #A81232`.
+- **Famille IA** (Claude, ChatGPT, Gemini) : quadrichromie Gemini — rouge `#EA4335` en haut,
+  jaune `#FBBC05` à gauche, vert `#2FA75A` en bas, bleu `#3B82F6` à droite. Obtenue par trois
+  nappes radiales sur une base bleue, appliquée à la marque via un masque : un masque et non
+  un détourage, pour qu'il accepte aussi les tracés au trait comme le nœud OpenAI.
+- **Famille système** (14 icônes) : **blanc pur `#FFFFFF`**, sans dégradé ni gris.
+  Deux valeurs et rien entre les deux. Là où deux plans d'un même dessin se touchent, le
+  second n'est pas grisé mais **percé** : on le remplit du même dégradé que la tuile
+  (`url(#gTile1)`), ce qui le fait disparaître dedans. Aucun masque n'est nécessaire tant
+  que la forme n'est pas transformée ; Wallhabit, qui l'est, passe par un masque.
+  Sont des percements : les symboles de la calculatrice, les points et le bandeau du
+  calendrier, les graduations et aiguilles du réveil, l'objectif de l'appareil photo, le
+  pli et les lignes des notes, le cœur de la fleur, l'écart entre les deux bulles de
+  Messages, et les briques derrière la main de Wallhabit.
+- **Famille sociale** (9 icônes) : dégradé diagonal `#FFE93B → #FFC400 → #FF8A00 → #F0490A`,
+  plus un halo clair en haut à gauche, repris des fonds d'écran fournis. Les contre-formes —
+  triangle de YouTube, arcs de Spotify, P de Pinterest, combiné de WhatsApp — sont peintes en
+  noir dans le masque, ce qui laisse voir la tuile à travers.
 
 ### La règle pour les prochaines apps
 
