@@ -149,5 +149,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><path d="M40.5 34 L60.5 54 L40.5 74 L20.5 54 Z" fill="url(#gGlyph)" stroke="url(#gGlyph)" stroke-width="2" stroke-linejoin="round"/><path d="M65.5 34 L87.5 54 L65.5 74 Z" fill="url(#gRed)" stroke="url(#gRed)" stroke-width="2" stroke-linejoin="round"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><path d="M40.5 34 L60.5 54 L40.5 74 L20.5 54 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/><path d="M65.5 34 L87.5 54 L65.5 74 Z" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>

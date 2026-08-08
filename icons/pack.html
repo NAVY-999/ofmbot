@@ -1,4 +1,4 @@
-<title>Le pack M1 — trente-cinq icônes, et comment les poser</title>
+<title>Le pack M1 — trente-cinq icônes en noir et blanc</title>
 
 <style>
   :root {
@@ -441,15 +441,15 @@
 
   <header class="masthead">
     <p class="eyebrow">Pack M1 Profondeur — écran d'accueil</p>
-    <h1>Trente-cinq icônes,<br>quatre familles.</h1>
+    <h1>Trente-cinq icônes,<br>deux valeurs.</h1>
     <p class="lede">
-      Une seule tuile charbon pour les trente-cinq, et <b>la forme d'aucun logo ne bouge</b> :
-      on ne redessine pas une marque, on la repeint. Quatre peintures, une par famille.
-      <b>Paiement</b> — glyphe blanc, accent crimson sur l'élément qui coupe, entoure ou avance.
-      <b>IA</b> — la quadrichromie de Gemini, rouge en haut, jaune à gauche, vert en bas, bleu
-      à droite. <b>Social</b> — un dégradé jaune-orangé en diagonale, avec un halo clair en haut
-      à gauche repris des fonds d'écran fournis. <b>Système</b> — du blanc seul, décliné
-      en trois valeurs pour séparer les plans d'un même dessin sans introduire de couleur.
+      Trente-cinq icônes, une seule règle : <b>le fond noir et le logo en blanc pur.</b>
+      Deux valeurs, rien entre les deux. La forme d'aucun logo ne bouge — on ne redessine
+      pas une marque, on la repeint. Partout où deux plans d'un même dessin se touchent,
+      le second n'est pas grisé mais <b>percé</b> : c'est la tuile qui reparaît et sépare
+      les formes. La barre d'AntiReels, le creux entre les deux P de PayPal, les couches de
+      Wallet, l'objectif de l'appareil photo et les briques derrière la main de Wallhabit
+      sont tous des percements, pas des gris.
     </p>
     <span class="spec">canevas 108 dp · masque squircle pré-appliqué · PNG 512 px transparent</span>
   </header>
@@ -465,8 +465,8 @@
       <b>PaysafeCard et Skrill ont exactement le même symbole</b> — losange plus chevron.
       Dans la réalité, seule la couleur les sépare : bleu contre violet. Repassés tous les
       deux sur la palette du pack, ils deviendraient impossibles à distinguer sur l'écran
-      d'accueil. J'ai donc <b>inversé le crimson</b> de l'une à l'autre : chevron crimson
-      pour PaysafeCard, losange crimson pour Skrill. La forme reste intacte et l'œil les
+      d'accueil. En noir et blanc, la couleur ne peut plus les séparer : l'une a donc le losange
+      plein et le triangle ajouré, l'autre l'inverse. La forme reste intacte et l'œil les
       sépare au premier coup. Si tu préfères leur rendre leurs teintes de marque, c'est
       l'autre solution — dis-le-moi.
     </p>
@@ -578,19 +578,19 @@
   const PLAY   = 'M37.5 35 L37.5 73 L71 54 Z';
 
   function markMaeva() {
-    return '<circle cx="54" cy="54" r="41" fill="none" stroke="url(#gRed)" stroke-width="3.3"/>' +
-           '<path d="' + M_PATH + '" fill="url(#gGlyph)"/>';
+    return '<circle cx="54" cy="54" r="41" fill="none" stroke="' + PURE + '" stroke-width="3.3"/>' +
+           '<path d="' + M_PATH + '" fill="' + PURE + '"/>';
   }
 
   function markAntiReels() {
     return '<g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)">' +
-             '<path d="' + PLAY + '" fill="url(#gGlyphDim)" stroke="url(#gGlyphDim)" ' +
+             '<path d="' + PLAY + '" fill="' + PURE + '" stroke="' + PURE + '" ' +
              'stroke-width="5" stroke-linejoin="round"/></g></g>' +
            '<g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)">' +
-             '<path d="' + PLAY + '" fill="url(#gGlyph)" stroke="url(#gGlyph)" ' +
+             '<path d="' + PLAY + '" fill="' + PURE + '" stroke="' + PURE + '" ' +
              'stroke-width="5" stroke-linejoin="round"/></g></g>' +
-           '<path d="M78 28 L32 80" stroke="url(#gRed)" stroke-width="5.8" ' +
-           'stroke-linecap="round" fill="none"/>';
+           '<path d="M78 28 L32 80" stroke="' + TILE + '" stroke-width="6.5" ' +
+             'stroke-linecap="round" fill="none"/>';
   }
 
   /* Un « C » = arc épais ouvert à droite. */
@@ -600,7 +600,7 @@
     const y1 = (cy - r * Math.sin(a)).toFixed(2);
     const y2 = (cy + r * Math.sin(a)).toFixed(2);
     return '<path d="M' + x + ' ' + y1 + ' A' + r + ' ' + r + ' 0 1 0 ' + x + ' ' + y2 + '" ' +
-           'fill="none" stroke="url(#gGlyph)" stroke-width="' + w + '"/>';
+           'fill="none" stroke="' + PURE + '" stroke-width="' + w + '"/>';
   }
 
   /* « C | C » : les deux C en blanc, le « I » central en crimson — même rôle
@@ -608,7 +608,7 @@
   function cicMark(cy, r, w, cL, cR, barW, barH) {
     return letterC(cL, cy, r, w) +
            '<rect x="' + (54 - barW / 2) + '" y="' + (cy - barH / 2) + '" width="' + barW +
-             '" height="' + barH + '" rx="' + (barW * 0.28).toFixed(2) + '" fill="url(#gRed)"/>' +
+             '" height="' + barH + '" rx="' + (barW * 0.28).toFixed(2) + '" fill="' + PURE + '"/>' +
            letterC(cR, cy, r, w);
   }
 
@@ -616,7 +616,7 @@
 
   function markCicPay() {
     return cicMark(40, 11, 6, 36.7, 76, 6, 28) +
-      '<text x="54" y="84" text-anchor="middle" fill="url(#gRed)" ' +
+      '<text x="54" y="84" text-anchor="middle" fill="' + PURE + '" ' +
         'font-family="Verdana, DejaVu Sans, Liberation Sans, Arial, sans-serif" ' +
         'font-size="25" font-weight="700" font-style="italic" letter-spacing="-.6">Pay</text>';
   }
@@ -626,60 +626,66 @@
   const P_PATH = 'M0 0 L23 0 A15 15 0 0 1 23 30 L13 30 L13 50 L0 50 Z';
 
   function markPaypal() {
-    return '<g transform="translate(54,54) scale(1.02) skewX(-8) translate(-25.5,-31)">' +
-             '<path d="' + P_PATH + '" fill="url(#gPpRed)"/>' +
-             '<g transform="translate(13,12)">' +
-               '<path d="' + P_PATH + '" fill="url(#gPpWhite)"/>' +
-             '</g>' +
-             '<path d="' + P_PATH + '" fill="url(#gPpOver)" clip-path="url(#ppFront)"/>' +
-           '</g>';
+    return mono('mkPp', '<g transform="translate(54,54) scale(1.02) skewX(-8) ' +
+      'translate(-25.5,-31)">' +
+        '<path d="' + P_PATH + '" fill="#fff"/>' +
+        '<g transform="translate(13,12)">' +
+          '<path d="' + P_PATH + '" fill="#fff" stroke="#000" stroke-width="3.2"/>' +
+        '</g></g>');
   }
 
   /* Google Wallet : quatre couches empilées dans un même carré arrondi, chacune
      décalée vers le bas, la dernière avec un bord ondulé. Les quatre couleurs
      Google deviennent une gradation gris → blanc → rose → crimson. */
   function markWallet() {
-    return '<rect x="20" y="25" width="68" height="58" rx="11" fill="url(#gGlyphDim)"/>' +
-           '<rect x="20" y="36" width="68" height="47" rx="11" fill="url(#gGlyph)"/>' +
-           '<rect x="20" y="46" width="68" height="37" rx="11" fill="url(#gPpOver)"/>' +
+    return '<rect x="20" y="25" width="68" height="58" rx="11" fill="' + PURE + '"/>' +
+           '<rect x="20" y="36" width="68" height="47" rx="11" fill="' + TILE + '"/>' +
+           '<rect x="20" y="38.5" width="68" height="44.5" rx="11" fill="' + PURE + '"/>' +
+           '<rect x="20" y="49" width="68" height="34" rx="11" fill="' + TILE + '"/>' +
            '<path d="M20 58 C34 64, 64 74, 88 60 L88 72 A11 11 0 0 1 77 83 ' +
-             'L31 83 A11 11 0 0 1 20 72 Z" fill="url(#gRed)"/>';
+             'L31 83 A11 11 0 0 1 20 72 Z" fill="' + PURE + '"/>';
   }
 
   /* PaysafeCard et Skrill partagent le même symbole — losange plus triangle. Sans
      leurs couleurs de marque, plus rien ne les sépare : on inverse donc le
      crimson d'une icône à l'autre. */
-  function arrowMark(diamond, triangle) {
-    return '<path d="M40.5 34 L60.5 54 L40.5 74 L20.5 54 Z" fill="' + diamond +
-             '" stroke="' + diamond + '" stroke-width="2" stroke-linejoin="round"/>' +
-           '<path d="M65.5 34 L87.5 54 L65.5 74 Z" fill="' + triangle +
-             '" stroke="' + triangle + '" stroke-width="2" stroke-linejoin="round"/>';
+  function arrowMark(diamondSolid) {
+    const D = 'M40.5 34 L60.5 54 L40.5 74 L20.5 54 Z';
+    const T = 'M65.5 34 L87.5 54 L65.5 74 Z';
+    const solid = d => '<path d="' + d + '" fill="' + PURE + '" stroke="' + PURE +
+      '" stroke-width="2" stroke-linejoin="round"/>';
+    const hollow = d => '<path d="' + d + '" fill="none" stroke="' + PURE +
+      '" stroke-width="6" stroke-linejoin="round"/>';
+    return diamondSolid ? solid(D) + hollow(T) : hollow(D) + solid(T);
   }
 
-  function markPaysafe() { return arrowMark('url(#gGlyph)', 'url(#gRed)'); }
-  function markSkrill()  { return arrowMark('url(#gRed)', 'url(#gGlyph)'); }
+  function markPaysafe() { return arrowMark(true); }
+  function markSkrill()  { return arrowMark(false); }
 
   /* Porte-cartes : le corps clair, trois cartes empilées dedans, et le rabat
      blanc à bord oblique qui recouvre la droite. */
   function markHolder() {
-    return '<rect x="18" y="28" width="72" height="56" rx="9" fill="url(#gHold)"/>' +
+    return '<rect x="18" y="28" width="72" height="56" rx="9" fill="' + PURE + '"/>' +
            '<g clip-path="url(#holder)">' +
-             '<rect x="25" y="35" width="55" height="43" rx="4" fill="url(#gW1)"/>' +
-             '<rect x="25" y="42" width="55" height="36" rx="4" fill="url(#gPpOver)"/>' +
-             '<rect x="25" y="49" width="55" height="29" rx="4" fill="url(#gRed)"/>' +
-             '<path d="M61 26 L92 26 L92 86 L48 86 Z" fill="url(#gFlap)"/>' +
+             '<rect x="24" y="34" width="57" height="45" rx="4" fill="' + TILE + '"/>' +
+             '<rect x="26.5" y="36.5" width="52" height="42.5" rx="3" fill="' + PURE + '"/>' +
+             '<rect x="26.5" y="45" width="52" height="34" rx="3" fill="' + TILE + '"/>' +
+             '<path d="M63.5 26 L92 26 L92 86 L50.5 86 Z" fill="' + TILE + '"/>' +
+             '<path d="M61 26 L92 26 L92 86 L48 86 Z" fill="' + PURE + '"/>' +
            '</g>';
   }
 
   /* ---- sous-ensemble IA : la marque peinte en quadrichromie Gemini ---- */
 
-  const GEM = '<rect width="108" height="108" fill="#1B72E8"/>' +
-              '<rect width="108" height="108" fill="url(#gemGreen)"/>' +
-              '<rect width="108" height="108" fill="url(#gemYellow)"/>' +
-              '<rect width="108" height="108" fill="url(#gemRed)"/>';
+  /* Deux valeurs, rien d'autre : le blanc pur, et la tuile qui reparaît.
+     Un aplat rempli du même dégradé que le fond disparaît dedans — c'est ce qui
+     tient lieu de percement partout où deux formes blanches se toucheraient. */
+  const PURE = '#FFFFFF';
+  const TILE = 'url(#gTile1)';
 
-  const ORA = '<rect width="108" height="108" fill="url(#orBase)"/>' +
-              '<rect width="108" height="108" fill="url(#orBloom)"/>';
+  const GEM = '<rect width="108" height="108" fill="' + PURE + '"/>';
+
+  const ORA = '<rect width="108" height="108" fill="' + PURE + '"/>';
 
   /* Peint une nappe à travers un masque, pour que la couleur suive la marque.
      Un masque et non un détourage : il accepte les tracés au trait comme les
@@ -692,6 +698,7 @@
 
   const gemPaint = (id, shape) => paint(id, shape, GEM);
   const oraPaint = (id, shape) => paint(id, shape, ORA);
+  const mono = (id, shape) => paint(id, shape, '<rect width="108" height="108" fill="' + PURE + '"/>');
 
   const STAR = 'M54 14 C57 37, 71 51, 94 54 C71 57, 57 71, 54 94 ' +
                'C51 71, 37 57, 14 54 C37 51, 51 37, 54 14 Z';
@@ -830,7 +837,7 @@
 
   /* ---- famille système : dessin en blanc, trois valeurs ---- */
 
-  const S1 = 'url(#gS1)', S2 = 'url(#gS2)', S3 = 'url(#gS3)';
+  const S1 = PURE, S2 = PURE, S3 = TILE;
 
   const line = (d, w, fill, cap) =>
     '<path d="' + d + '" fill="none" stroke="' + fill + '" stroke-width="' + w +
@@ -852,17 +859,24 @@
       const y = -2 + r * 14, off = (r % 2) * 14;
       for (let i = -1; i < 5; i++)
         bricks += '<rect x="' + (off + i * 28 - 6) + '" y="' + y + '" width="25" height="11" ' +
-                  'rx="2.5" fill="' + S3 + '"/>';
+                  'rx="2.5" fill="none" stroke="#fff" stroke-width="2"/>';
     }
-    return '<g clip-path="url(#sqSelf)" opacity=".5">' + bricks + '</g>' +
+    const HAND = 'M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 ' +
+      '2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c' +
+      '-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.44-.72c' +
+      '-.37-.06-.76.06-1.03.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 ' +
+      '1.44-1.28l.75-5.27c.01-.05.01-.09.01-.14 0-.62-.38-1.16-.89-1.47z';
+    /* Le halo noir efface les briques derrière la main : sans lui, deux blancs
+       se touchent et la silhouette se perd. */
+    return mono('mkWh',
+      '<g clip-path="url(#sqSelf)">' + bricks + '</g>' +
       '<g transform="translate(56,56) scale(3.15) translate(-12,-12)">' +
-      '<path fill="' + S1 + '" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 ' +
-      '2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 ' +
-      '4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 ' +
-      '7.5v10.74l-3.44-.72c-.37-.06-.76.06-1.03.33l-.79.8 4.94 4.94c.27.27.65.44 ' +
-      '1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.05.01-.09.01-.14 ' +
-      '0-.62-.38-1.16-.89-1.47z"/></g>';
+        '<path d="' + HAND + '" fill="#000" stroke="#000" stroke-width="1.6" ' +
+          'stroke-linejoin="round"/>' +
+        '<path d="' + HAND + '" fill="#fff"/>' +
+      '</g>');
   }
+
 
   function markFiles() {
     return '<path fill="' + S1 + '" d="M20 40 a6 6 0 0 1 6 -6 h17 a4 4 0 0 1 3.2 1.6 ' +
@@ -1009,7 +1023,11 @@
         fill + '"/>' +
       '<path d="M' + (x + 4) + ' ' + (y + h - 7) + ' L' + (x - 2) + ' ' + (y + h + 10) +
         ' L' + (x + 20) + ' ' + (y + h - 1) + ' Z" fill="' + fill + '"/>';
-    return bub(24, 24, 50, 31, S2) + bub(40, 46, 48, 30, S1);
+    return bub(24, 24, 50, 31, PURE) +
+           '<g fill="' + TILE + '" stroke="' + TILE + '" stroke-width="5">' +
+             '<rect x="40" y="46" width="48" height="30" rx="11"/>' +
+             '<path d="M44 69 L38 86 L60 75 Z"/></g>' +
+           bub(40, 46, 48, 30, PURE);
   }
 
   const APPS = [

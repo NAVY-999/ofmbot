@@ -149,5 +149,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><rect x="24" y="24" width="50" height="31" rx="11" fill="url(#gS2)"/><path d="M28 48 L22 65 L44 54 Z" fill="url(#gS2)"/><rect x="40" y="46" width="48" height="30" rx="11" fill="url(#gS1)"/><path d="M44 69 L38 86 L60 75 Z" fill="url(#gS1)"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><rect x="24" y="24" width="50" height="31" rx="11" fill="#FFFFFF"/><path d="M28 48 L22 65 L44 54 Z" fill="#FFFFFF"/><g fill="url(#gTile1)" stroke="url(#gTile1)" stroke-width="5"><rect x="40" y="46" width="48" height="30" rx="11"/><path d="M44 69 L38 86 L60 75 Z"/></g><rect x="40" y="46" width="48" height="30" rx="11" fill="#FFFFFF"/><path d="M44 69 L38 86 L60 75 Z" fill="#FFFFFF"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>

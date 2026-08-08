@@ -149,5 +149,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><defs><mask id="mkIg" maskUnits="userSpaceOnUse" x="0" y="0" width="108" height="108"><rect x="24" y="24" width="60" height="60" rx="18" fill="none" stroke="#fff" stroke-width="7"/><circle cx="54" cy="54" r="15" fill="none" stroke="#fff" stroke-width="7"/><circle cx="70.5" cy="37.5" r="4.2" fill="#fff"/></mask></defs><g mask="url(#mkIg)"><rect width="108" height="108" fill="url(#orBase)"/><rect width="108" height="108" fill="url(#orBloom)"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><defs><mask id="mkIg" maskUnits="userSpaceOnUse" x="0" y="0" width="108" height="108"><rect x="24" y="24" width="60" height="60" rx="18" fill="none" stroke="#fff" stroke-width="7"/><circle cx="54" cy="54" r="15" fill="none" stroke="#fff" stroke-width="7"/><circle cx="70.5" cy="37.5" r="4.2" fill="#fff"/></mask></defs><g mask="url(#mkIg)"><rect width="108" height="108" fill="#FFFFFF"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>
