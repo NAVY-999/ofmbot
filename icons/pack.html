@@ -955,14 +955,22 @@
            '<circle cx="77" cy="44" r="3.4" fill="' + S3 + '"/>';
   }
 
-  /* Cinq pétales larges, comme la fleur d'origine. */
+  /* Six pétales en goutte, alternés sur deux valeurs, les clairs par-dessus les
+     autres — comme dans le logo, où trois pétales blancs recouvrent trois pétales
+     rosés. Le cœur orange devient la valeur sombre. */
+  const PETAL =
+    'M0 -2.4 C-5.4 -10.5, -12 -17.4, -12 -25 C-12 -32.6, -6.6 -37.4, 0 -37.4 ' +
+    'C6.6 -37.4, 12 -32.6, 12 -25 C12 -17.4, 5.4 -10.5, 0 -2.4 Z';
+
   function markGallery() {
-    let petals = '';
-    for (let i = 0; i < 5; i++)
-      petals += '<ellipse cx="54" cy="32" rx="13.5" ry="19.5" fill="' + S1 +
-                '" transform="rotate(' + (i * 72) + ' 54 54)"/>';
-    return petals + '<circle cx="54" cy="54" r="9" fill="' + S3 + '"/>';
+    const ring = (angles, fill) => angles.map(a =>
+      '<path d="' + PETAL + '" fill="' + fill +
+      '" transform="translate(54,54) rotate(' + a + ')"/>').join('');
+    return ring([60, 180, 300], S2) +
+           ring([0, 120, 240], S1) +
+           '<circle cx="54" cy="54" r="7.2" fill="' + S3 + '"/>';
   }
+
 
   /* Les points sont percés à travers le corps et le bandeau, pour laisser voir
      la tuile plutôt que d'être posés en gris dessus. */
