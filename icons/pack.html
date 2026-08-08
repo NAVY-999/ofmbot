@@ -889,15 +889,23 @@
            '<circle cx="54" cy="60" r="2.6" fill="' + S3 + '"/>';
   }
 
+  /* Pastilles blanches et symboles évidés : c'est la tuile qui passe au travers,
+     donc il faut un masque — un simple aplat noir ne suivrait pas le dégradé. */
   function markCalc() {
-    const key = (cx, cy, sym) =>
-      '<circle cx="' + cx + '" cy="' + cy + '" r="13" fill="' + S3 + '"/>' + sym;
-    return key(38, 40, line('M32 40 H44', 3.6, S1) + line('M38 34 V46', 3.6, S1)) +
-           key(70, 40, line('M64 40 H76', 3.6, S1)) +
-           key(38, 70, line('M32 66.5 H44', 3.4, S1) + line('M32 73.5 H44', 3.4, S1)) +
-           key(70, 70, line('M65.5 65.5 L74.5 74.5', 3.6, S1) +
-                       line('M74.5 65.5 L65.5 74.5', 3.6, S1));
+    const keys =
+      '<circle cx="38" cy="40" r="13.5" fill="#fff"/>' +
+      '<circle cx="70" cy="40" r="13.5" fill="#fff"/>' +
+      '<circle cx="38" cy="70" r="13.5" fill="#fff"/>' +
+      '<circle cx="70" cy="70" r="13.5" fill="#fff"/>' +
+      line('M31.5 40 H44.5', 4, '#000') + line('M38 33.5 V46.5', 4, '#000') +
+      line('M63.5 40 H76.5', 4, '#000') +
+      line('M31.5 66.5 H44.5', 3.8, '#000') + line('M31.5 73.5 H44.5', 3.8, '#000') +
+      line('M65.5 65.5 L74.5 74.5', 4, '#000') + line('M74.5 65.5 L65.5 74.5', 4, '#000');
+    return '<defs><mask id="mkCalc" maskUnits="userSpaceOnUse" x="0" y="0" ' +
+             'width="108" height="108">' + keys + '</mask></defs>' +
+           '<g mask="url(#mkCalc)"><rect width="108" height="108" fill="' + S1 + '"/></g>';
   }
+
 
   /* Onze barres de hauteurs inégales : une vraie forme d'onde, pas un chevron. */
   function markRecorder() {
@@ -956,17 +964,25 @@
     return petals + '<circle cx="54" cy="54" r="9" fill="' + S3 + '"/>';
   }
 
+  /* Les points sont percés à travers le corps et le bandeau, pour laisser voir
+     la tuile plutôt que d'être posés en gris dessus. */
   function markCalendar() {
     let dots = '';
     for (let r = 0; r < 2; r++)
       for (let c = 0; c < 3; c++)
         dots += '<circle cx="' + (38 + c * 16) + '" cy="' + (60 + r * 14) +
-                '" r="4" fill="' + S3 + '"/>';
-    return line('M39 22 V33', 5, S2) + line('M69 22 V33', 5, S2) +
-           '<rect x="22" y="28" width="64" height="58" rx="9" fill="' + S1 + '"/>' +
-           '<path fill="' + S3 + '" d="M22 37 a9 9 0 0 1 9 -9 h46 a9 9 0 0 1 9 9 v7 h-64 z"/>' +
-           dots;
+                '" r="4.2" fill="#000"/>';
+    return '<defs><mask id="mkCal" maskUnits="userSpaceOnUse" x="0" y="0" ' +
+             'width="108" height="108">' +
+             '<rect width="108" height="108" fill="#fff"/>' + dots +
+           '</mask></defs>' +
+           line('M39 22 V33', 5, S2) + line('M69 22 V33', 5, S2) +
+           '<g mask="url(#mkCal)">' +
+             '<rect x="22" y="28" width="64" height="58" rx="9" fill="' + S1 + '"/>' +
+             '<path fill="' + S3 + '" d="M22 37 a9 9 0 0 1 9 -9 h46 a9 9 0 0 1 9 9 v7 h-64 z"/>' +
+           '</g>';
   }
+
 
   function markPhone() {
     return '<g transform="translate(54,54) scale(2.7) translate(-12,-12)">' +
