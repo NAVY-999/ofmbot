@@ -955,21 +955,23 @@
            '<circle cx="77" cy="44" r="3.4" fill="' + S3 + '"/>';
   }
 
-  /* Six pétales en goutte, alternés sur deux valeurs, les clairs par-dessus les
-     autres — comme dans le logo, où trois pétales blancs recouvrent trois pétales
-     rosés. Le cœur orange devient la valeur sombre. */
+  /* Six pétales en goutte, tous blancs, et le cœur percé pour laisser voir la
+     tuile. Le percement passe par un masque : le fond est un dégradé, un rond
+     noir posé dessus se verrait. */
   const PETAL =
-    'M0 -2.4 C-5.4 -10.5, -12 -17.4, -12 -25 C-12 -32.6, -6.6 -37.4, 0 -37.4 ' +
-    'C6.6 -37.4, 12 -32.6, 12 -25 C12 -17.4, 5.4 -10.5, 0 -2.4 Z';
+    'M0 -2.6 C-4.4 -10.5, -9.7 -17.6, -9.7 -24.6 C-9.7 -31.6, -5.3 -36, 0 -36 ' +
+    'C5.3 -36, 9.7 -31.6, 9.7 -24.6 C9.7 -17.6, 4.4 -10.5, 0 -2.6 Z';
 
   function markGallery() {
-    const ring = (angles, fill) => angles.map(a =>
-      '<path d="' + PETAL + '" fill="' + fill +
-      '" transform="translate(54,54) rotate(' + a + ')"/>').join('');
-    return ring([60, 180, 300], S2) +
-           ring([0, 120, 240], S1) +
-           '<circle cx="54" cy="54" r="7.2" fill="' + S3 + '"/>';
+    const petals = [0, 60, 120, 180, 240, 300].map(a =>
+      '<path d="' + PETAL + '" fill="#fff" transform="translate(54,54) rotate(' + a + ')"/>'
+    ).join('');
+    return '<defs><mask id="mkGal" maskUnits="userSpaceOnUse" x="0" y="0" ' +
+             'width="108" height="108">' + petals +
+             '<circle cx="54" cy="54" r="7.2" fill="#000"/></mask></defs>' +
+           '<g mask="url(#mkGal)"><rect width="108" height="108" fill="' + S1 + '"/></g>';
   }
+
 
 
   /* Les points sont percés à travers le corps et le bandeau, pour laisser voir
