@@ -15,7 +15,8 @@ const JOBS = [
   { key: 'gmail',    file: '4367de47-1000024631.jpg', remap: true },
   { key: 'maps',     file: '943cd77a-1000024633.jpg', remap: true },
   { key: 'google',   file: 'd4ff4e30-1000024629.jpg', remap: true },
-  { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: false }
+  { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: false },
+  { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true }
 ];
 
 // rampe relevée sur les pixels mêmes de OneDrive, remontée d'un cran en clarté
@@ -135,7 +136,7 @@ for (const job of JOBS) {
       h *= 60; return h < 0 ? h + 360 : h;
     };
 
-    let cdf = null, phase = 0, mode = '', Lmed = 0.52;
+    let cdf = null, phase = 0, mode = '', Lmed = 0.52, coef = 0.85;
     const lums = [];
     if (remap) {
       const hist = new Float64Array(360);
@@ -149,6 +150,14 @@ for (const job of JOBS) {
       }
       lums.sort((a, b) => a - b);
       Lmed = lums.length ? lums[lums.length >> 1] : 0.52;
+      // L'ombrage est calibré sur l'étalement de clarté propre à la marque, pas au
+      // même taux pour toutes : les dégradés Google s'étalent sur 0,24, l'étoile
+      // d'Authenticator sur 0,14 seulement. À taux fixe, son triangle central —
+      // là où deux branches se croisent — ressortait plus clair que la branche
+      // elle-même, alors qu'il est plus sombre dans l'original.
+      const q10 = lums.length ? lums[Math.floor(lums.length * 0.10)] : 0.42;
+      const q90 = lums.length ? lums[Math.floor(lums.length * 0.90)] : 0.64;
+      coef = Math.max(0.6, Math.min(2.2, 0.207 / Math.max(0.02, q90 - q10)));
 
       // deux lissages : un large pour trouver l'arc vide, un serré pour la
       // répartition cumulée — large, il étalerait le pic du rouge de Gmail sur
@@ -236,7 +245,7 @@ for (const job of JOBS) {
         const [rr, gg, bb] = ramp(t);
         // l'ombrage d'origine est reporté, sinon la marque s'aplatit
         const L = (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
-        const k = Math.max(0.80, Math.min(1.26, 1.0 + (L - Lmed) * 0.85));
+        const k = Math.max(0.72, Math.min(1.28, 1.0 + (L - Lmed) * coef));
         r = rr * k; g = gg * k; b = bb * k;
       }
       idata.data[p*4] = clamp(r); idata.data[p*4+1] = clamp(g);
@@ -255,7 +264,7 @@ for (const job of JOBS) {
     return {
       png: dst.toDataURL('image/png'),
       info: key.padEnd(9) + ' panneau ' + y0 + '-' + y1 + ', ' + keepIds.size + '/' + comps.length +
-            ' comp' + (remap ? ', L méd ' + Lmed.toFixed(3) + ', ' + mode : '')
+            ' comp' + (remap ? ', L méd ' + Lmed.toFixed(3) + ', ' + mode + ', ombrage ×' + coef.toFixed(2) : '')
     };
   }, { b64, remap: job.remap, key: job.key, RAMP });
 

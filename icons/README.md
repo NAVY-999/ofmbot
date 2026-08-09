@@ -3,7 +3,7 @@
 Refonte des icônes de l'écran d'accueil. Traitement retenu : **M1 « Profondeur »** —
 tuile charbon en dégradé, liseré lumineux sur l'arête haute, marques en dégradé.
 
-Cinq apps : M.A.E.V.A, AntiReels, CIC, CIC Pay, PayPal.
+Quarante-cinq apps, réparties en sept familles de couleur.
 
 ## Fichiers à installer
 
@@ -64,11 +64,18 @@ un coin, et la pastille de notification ne suit pas toujours.
   jaune `#FBBC05` à gauche, vert `#2FA75A` en bas, bleu `#3B82F6` à droite. Obtenue par trois
   nappes radiales sur une base bleue, appliquée à la marque via un masque : un masque et non
   un détourage, pour qu'il accepte aussi les tracés au trait comme le nœud OpenAI.
-- **Famille système** (14 icônes) : **blanc pur `#FFFFFF`**, sans dégradé ni gris.
+- **Famille système** (16 icônes) : **blanc pur `#FFFFFF`**, sans dégradé ni gris.
   Deux valeurs et rien entre les deux. Là où deux plans d'un même dessin se touchent, le
   second n'est pas grisé mais **percé** : on le remplit du même dégradé que la tuile
   (`url(#gTile1)`), ce qui le fait disparaître dedans. Aucun masque n'est nécessaire tant
   que la forme n'est pas transformée ; Wallhabit, qui l'est, passe par un masque.
+  Notion et Notion Calendar rejoignent cette famille sans rien coûter : leurs marques
+  sont noires sur blanc, donc **l'inversion de la luminance suffit** — le noir devient le
+  blanc du glyphe, le blanc devient la tuile. Les contre-formes se percent d'elles-mêmes :
+  la face du cube, le panneau du N, le panneau du 31, et l'écart entre les deux plans du
+  calendrier. Elles sont aussi les deux seules marques sans la moindre teinte, ce qui rend
+  la famille bleue inapplicable : il n'y a rien à faire glisser sur une rampe.
+
   Sont des percements : les symboles de la calculatrice, les points et le bandeau du
   calendrier, les graduations et aiguilles du réveil, l'objectif de l'appareil photo, le
   pli et les lignes des notes, le cœur de la fleur, l'écart entre les deux bulles de
@@ -108,7 +115,8 @@ un coin, et la pastille de notification ne suit pas toujours.
   couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
   rainures, et peintes du même dégradé les deux se confondraient.
 
-- **Famille bleue** (Gmail, Maps, Google, OneDrive) : les logos Google ramenés dans la
+- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator) : les logos Google
+  ramenés dans la
   gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
 
   Ces quatre-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
@@ -144,7 +152,10 @@ un coin, et la pastille de notification ne suit pas toujours.
 
   L'ombrage d'origine est reporté par une modulation de clarté centrée sur 1 et calée sur
   la clarté médiane de la marque — sinon le dessin s'aplatit, et toute la famille descend
-  d'un ton sous OneDrive.
+  d'un ton sous OneDrive. Son **taux est calibré sur l'étalement de clarté propre à chaque
+  marque** : les dégradés Google s'étalent sur 0,24, l'étoile d'Authenticator sur 0,14
+  seulement. À taux fixe, son triangle central — là où deux branches se croisent — sortait
+  plus clair que la branche elle-même, alors qu'il est plus sombre dans l'original.
 
 ### La règle pour les prochaines apps
 
