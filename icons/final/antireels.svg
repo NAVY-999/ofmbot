@@ -134,6 +134,26 @@
       <stop offset="1" stop-color="#02250A"></stop>
     </linearGradient>
 
+    <!-- Famille Instagram : la rampe du fond de l'app, du jaune au bleu-violet en
+         passant par l'orange, le rose et le pourpre. Axe relevé sur la capture —
+         le jaune est en bas à gauche, le violet en haut, d'où la diagonale. -->
+    <linearGradient id="igBase" gradientUnits="userSpaceOnUse" x1="10" y1="100" x2="90" y2="12">
+      <stop offset="0" stop-color="#FFD154"></stop>
+      <stop offset=".16" stop-color="#FCAF45"></stop>
+      <stop offset=".32" stop-color="#F77737"></stop>
+      <stop offset=".46" stop-color="#F35236"></stop>
+      <stop offset=".58" stop-color="#E1306C"></stop>
+      <stop offset=".72" stop-color="#C13584"></stop>
+      <stop offset=".86" stop-color="#833AB4"></stop>
+      <stop offset="1" stop-color="#4E4DD7"></stop>
+    </linearGradient>
+
+    <radialGradient id="igBloom" gradientUnits="userSpaceOnUse" cx="18" cy="94" r="52">
+      <stop offset="0" stop-color="#FFE486" stop-opacity=".55"></stop>
+      <stop offset=".5" stop-color="#FFC44D" stop-opacity=".18"></stop>
+      <stop offset="1" stop-color="#FFC44D" stop-opacity="0"></stop>
+    </radialGradient>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"></rect>
     </clipPath>
@@ -174,5 +194,5 @@
       <polygon points="144.5,-47.1 -34.5,155.1 -184.7,22.1 -5.7,-180.1"></polygon>
     </clipPath>
   <clipPath id="sqUser" clipPathUnits="userSpaceOnUse"><use href="#sqPath"/></clipPath></defs>
-  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="url(#gGlyphDim)" stroke="url(#gGlyphDim)" stroke-width="5" stroke-linejoin="round"/></g></g><g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="url(#gGlyph)" stroke="url(#gGlyph)" stroke-width="5" stroke-linejoin="round"/></g></g><path d="M78 28 L32 80" stroke="url(#gRed)" stroke-width="5.8" stroke-linecap="round" fill="none"/><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
+  <g clip-path="url(#sqUser)"><rect width="108" height="108" fill="url(#gTile1)"/><defs><mask id="mkAr" maskUnits="userSpaceOnUse" x="0" y="0" width="108" height="108"><g clip-path="url(#cutB)"><g transform="translate(-0.45,-0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round"/></g></g><g clip-path="url(#cutA)"><g transform="translate(0.45,0.4)"><path d="M37.5 35 L37.5 73 L71 54 Z" fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round"/></g></g><path d="M78 28 L32 80" stroke="#000" stroke-width="6.4" stroke-linecap="round" fill="none"/></mask></defs><g mask="url(#mkAr)"><rect width="108" height="108" fill="url(#igBase)"/><rect width="108" height="108" fill="url(#igBloom)"/></g><use href="#sqPath" fill="none" stroke="url(#gEdge)" stroke-width="2.6"/></g>
 </svg>

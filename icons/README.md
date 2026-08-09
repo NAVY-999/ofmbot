@@ -94,6 +94,18 @@ un coin, et la pastille de notification ne suit pas toujours.
   d'origine. Catawiki est décalé de 3 dp vers la gauche — géométriquement centré, sa grande
   arête droite tirait l'ensemble vers la droite.
 
+- **Famille Instagram** (X Icon Changer, Wallhabit, AntiReels) : la rampe du fond de
+  l'application — `#FFD154 → #FCAF45 → #F77737 → #F35236 → #E1306C → #C13584 → #833AB4 →
+  #4E4DD7` — plus une lueur jaune en bas à gauche. L'axe est relevé sur la capture fournie :
+  le jaune y est en bas à gauche et le violet en haut, d'où la diagonale plutôt qu'une
+  verticale.
+
+  Les deux formes sont extraites des captures. Le trou central de X Icon Changer garde la
+  couleur du fond de l'icône d'origine, donc il se perce tout seul. Pour Wallhabit, briques,
+  mortier et main sont séparés au seuillage sur le canal vert (115, 64 et 238), puis composés
+  en **un seul masque** avec un halo dilaté autour de la main — peintes du même dégradé, la
+  main et le mur se confondraient sinon.
+
 ### La règle pour les prochaines apps
 
 **La forme du logo ne bouge pas ; la palette devient celle du pack.** On ne redessine

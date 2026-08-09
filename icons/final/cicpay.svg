@@ -134,6 +134,26 @@
       <stop offset="1" stop-color="#02250A"></stop>
     </linearGradient>
 
+    <!-- Famille Instagram : la rampe du fond de l'app, du jaune au bleu-violet en
+         passant par l'orange, le rose et le pourpre. Axe relevé sur la capture —
+         le jaune est en bas à gauche, le violet en haut, d'où la diagonale. -->
+    <linearGradient id="igBase" gradientUnits="userSpaceOnUse" x1="10" y1="100" x2="90" y2="12">
+      <stop offset="0" stop-color="#FFD154"></stop>
+      <stop offset=".16" stop-color="#FCAF45"></stop>
+      <stop offset=".32" stop-color="#F77737"></stop>
+      <stop offset=".46" stop-color="#F35236"></stop>
+      <stop offset=".58" stop-color="#E1306C"></stop>
+      <stop offset=".72" stop-color="#C13584"></stop>
+      <stop offset=".86" stop-color="#833AB4"></stop>
+      <stop offset="1" stop-color="#4E4DD7"></stop>
+    </linearGradient>
+
+    <radialGradient id="igBloom" gradientUnits="userSpaceOnUse" cx="18" cy="94" r="52">
+      <stop offset="0" stop-color="#FFE486" stop-opacity=".55"></stop>
+      <stop offset=".5" stop-color="#FFC44D" stop-opacity=".18"></stop>
+      <stop offset="1" stop-color="#FFC44D" stop-opacity="0"></stop>
+    </radialGradient>
+
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">
       <rect x="18" y="28" width="72" height="56" rx="9"></rect>
     </clipPath>
