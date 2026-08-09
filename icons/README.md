@@ -109,7 +109,7 @@ un coin, et la pastille de notification ne suit pas toujours.
   rainures, et peintes du même dégradé les deux se confondraient.
 
 - **Famille bleue** (Gmail, Maps, Google, OneDrive) : les logos Google ramenés dans la
-  gamme OneDrive, `#0A3D91 → #1160D9 → #1E8FF5 → #2BC0FF → #63E4FF`.
+  gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
 
   Ces quatre-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
@@ -117,10 +117,30 @@ un coin, et la pastille de notification ne suit pas toujours.
   telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
   glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
 
-  La plage de teintes est prise **par centiles et non par min et max** : à la frontière
-  rouge/bleu, les pixels d'anticrénelage inventent des magentas qui élargissaient la plage
-  à presque tout le cercle et écrasaient le remappage. L'ombrage d'origine est reporté par
-  une modulation de clarté, sinon la marque s'aplatit.
+  Quatre points font tout le résultat :
+
+  1. **La rampe est relevée sur les pixels de OneDrive**, pas choisie à la main : son
+     histogramme de teinte donne les couleurs moyennes de 185° à 225°, du cyan `#2EDEF2`
+     au bleu `#1443BE`. La rampe reprend ces valeurs, remontées d'un cran en clarté.
+  2. **La teinte passe par la répartition cumulée de la marque**, pas par une règle de
+     trois entre ses extrêmes. Étalée linéairement, la plage de Gmail donnait presque le
+     même bleu au rose et au rouge, et toute la partie gauche du M paraissait unie ; la
+     répartition cumulée rend à chaque teinte une part de rampe proportionnelle à sa
+     surface, donc les couleurs voisines se séparent.
+  3. **Le sens de parcours est déduit de la marque.** On cherche le plus grand arc vide de
+     son histogramme de teinte : s'il existe, c'est là que la rampe se coupe, et la coupure
+     est invisible puisque aucun pixel ne s'y trouve — Gmail se coupe à 275°, Google à 285°.
+     Le dégradé de Maps, lui, fait **le tour complet du cercle** : il n'y a pas d'arc vide,
+     et une rampe droite y laissait forcément une cassure nette là où le rouge rejoignait
+     le magenta. Maps passe donc par un aller-retour — sombre, clair, sombre — qui n'a
+     aucune discontinuité.
+  4. **La teinte est lue sur une version floutée** (flou séparable de rayon 5, limité à la
+     marque). Le JPEG sous-échantillonne la chrominance par blocs de 8 ; la répartition
+     cumulée étant raide, elle transformerait ces blocs en taches.
+
+  L'ombrage d'origine est reporté par une modulation de clarté centrée sur 1 et calée sur
+  la clarté médiane de la marque — sinon le dessin s'aplatit, et toute la famille descend
+  d'un ton sous OneDrive.
 
 ### La règle pour les prochaines apps
 
