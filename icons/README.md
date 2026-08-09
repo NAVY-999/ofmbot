@@ -108,6 +108,20 @@ un coin, et la pastille de notification ne suit pas toujours.
   couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
   rainures, et peintes du même dégradé les deux se confondraient.
 
+- **Famille bleue** (Gmail, Maps, Google, OneDrive) : les logos Google ramenés dans la
+  gamme OneDrive, `#0A3D91 → #1160D9 → #1E8FF5 → #2BC0FF → #63E4FF`.
+
+  Ces quatre-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
+  même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
+  donc chaque pixel sur la rampe bleue selon sa teinte d'origine, et l'image est embarquée
+  telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
+  glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
+
+  La plage de teintes est prise **par centiles et non par min et max** : à la frontière
+  rouge/bleu, les pixels d'anticrénelage inventent des magentas qui élargissaient la plage
+  à presque tout le cercle et écrasaient le remappage. L'ombrage d'origine est reporté par
+  une modulation de clarté, sinon la marque s'aplatit.
+
 ### La règle pour les prochaines apps
 
 **La forme du logo ne bouge pas ; la palette devient celle du pack.** On ne redessine
