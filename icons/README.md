@@ -101,10 +101,12 @@ un coin, et la pastille de notification ne suit pas toujours.
   verticale.
 
   Les deux formes sont extraites des captures. Le trou central de X Icon Changer garde la
-  couleur du fond de l'icône d'origine, donc il se perce tout seul. Pour Wallhabit, briques,
-  mortier et main sont séparés au seuillage sur le canal vert (115, 64 et 238), puis composés
-  en **un seul masque** avec un halo dilaté autour de la main — peintes du même dégradé, la
-  main et le mur se confondraient sinon.
+  couleur du fond de l'icône d'origine, donc il se perce tout seul.
+
+  Pour Wallhabit, briques, mortier et main sont séparés au seuillage sur le canal vert
+  (115, 64 et 238), puis composés en **un seul masque**. C'est le **mortier** qui porte la
+  couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
+  rainures, et peintes du même dégradé les deux se confondraient.
 
 ### La règle pour les prochaines apps
 
