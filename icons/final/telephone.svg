@@ -112,7 +112,23 @@
     <!-- Famille verte : même construction que l'orangé — une diagonale du citron
          vert au vert profond, plus un halo clair en haut à gauche. Les teintes sont
          relevées sur les fonds d'écran fournis. -->
-<linearGradient id="vtBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
+<linearGradient id="blBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
+      <stop offset="0" stop-color="#4FE7F5"></stop>
+      <stop offset=".20" stop-color="#22C4FB"></stop>
+      <stop offset=".38" stop-color="#1585E8"></stop>
+      <stop offset=".54" stop-color="#25B6F7"></stop>
+      <stop offset=".72" stop-color="#1668DE"></stop>
+      <stop offset=".88" stop-color="#2196F2"></stop>
+      <stop offset="1" stop-color="#12409E"></stop>
+    </linearGradient>
+
+    <radialGradient id="blBloom" gradientUnits="userSpaceOnUse" cx="33" cy="28" r="54">
+      <stop offset="0" stop-color="#B7F2FF" stop-opacity=".55"></stop>
+      <stop offset=".45" stop-color="#44CBF8" stop-opacity=".20"></stop>
+      <stop offset="1" stop-color="#44CBF8" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <linearGradient id="vtBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
       <stop offset="0" stop-color="#62EC3C"></stop>
       <stop offset=".18" stop-color="#2FCE33"></stop>
       <stop offset=".36" stop-color="#0E9126"></stop>

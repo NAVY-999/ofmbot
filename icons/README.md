@@ -64,18 +64,11 @@ un coin, et la pastille de notification ne suit pas toujours.
   jaune `#FBBC05` à gauche, vert `#2FA75A` en bas, bleu `#3B82F6` à droite. Obtenue par trois
   nappes radiales sur une base bleue, appliquée à la marque via un masque : un masque et non
   un détourage, pour qu'il accepte aussi les tracés au trait comme le nœud OpenAI.
-- **Famille système** (16 icônes) : **blanc pur `#FFFFFF`**, sans dégradé ni gris.
+- **Famille système** (14 icônes) : **blanc pur `#FFFFFF`**, sans dégradé ni gris.
   Deux valeurs et rien entre les deux. Là où deux plans d'un même dessin se touchent, le
   second n'est pas grisé mais **percé** : on le remplit du même dégradé que la tuile
   (`url(#gTile1)`), ce qui le fait disparaître dedans. Aucun masque n'est nécessaire tant
   que la forme n'est pas transformée ; Wallhabit, qui l'est, passe par un masque.
-  Notion et Notion Calendar rejoignent cette famille sans rien coûter : leurs marques
-  sont noires sur blanc, donc **l'inversion de la luminance suffit** — le noir devient le
-  blanc du glyphe, le blanc devient la tuile. Les contre-formes se percent d'elles-mêmes :
-  la face du cube, le panneau du N, le panneau du 31, et l'écart entre les deux plans du
-  calendrier. Elles sont aussi les deux seules marques sans la moindre teinte, ce qui rend
-  la famille bleue inapplicable : il n'y a rien à faire glisser sur une rampe.
-
   Sont des percements : les symboles de la calculatrice, les points et le bandeau du
   calendrier, les graduations et aiguilles du réveil, l'objectif de l'appareil photo, le
   pli et les lignes des notes, le cœur de la fleur, l'écart entre les deux bulles de
@@ -115,14 +108,21 @@ un coin, et la pastille de notification ne suit pas toujours.
   couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
   rainures, et peintes du même dégradé les deux se confondraient.
 
-- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator) : les marques Google
-  ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
+- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator, Notion, Notion Calendar) :
+  les marques ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
 
-  Ces cinq-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
+  Les cinq marques polychromes **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
   donc chaque pixel sur la rampe bleue selon sa teinte d'origine, et l'image est embarquée
   telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
   glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
+
+  **Notion et Notion Calendar font exception** : noires sur blanc, elles n'ont pas la
+  moindre teinte, donc rien à reporter sur la rampe. C'est le dégradé de la famille qui
+  traverse leur masque, comme pour le vert ou l'Instagram. L'inversion de la luminance
+  fait le reste — le noir devient le glyphe, le blanc devient la tuile — et les
+  contre-formes se percent d'elles-mêmes : la face du cube, le panneau du N, celui du 31,
+  et l'écart entre les deux plans du calendrier.
 
   Cinq points font tout le résultat :
 
@@ -155,6 +155,15 @@ un coin, et la pastille de notification ne suit pas toujours.
   marque** : les dégradés Google s'étalent sur 0,24, l'étoile d'Authenticator sur 0,14
   seulement. À taux fixe, son triangle central — là où deux branches se croisent — sortait
   plus clair que la branche elle-même, alors qu'il est plus sombre dans l'original.
+
+  Reste que **le haut de la rampe est un cyan**, dont le vert et le bleu sont presque à
+  égalité. Clair, il se lit cyan ; assombri par une simple multiplication, il garde ce
+  rapport et tourne au vert-canard — c'est ce qui salissait le triangle d'Authenticator.
+  Un pixel que l'on assombrit **redescend donc la rampe** juste ce qu'il faut pour garder
+  au bleu une avance nette sur le vert, mesurée sur un échantillonnage de l'écart
+  bleu-vert le long de la rampe. Les pixels clairs, eux, gardent tout leur cyan : la
+  contrainte ne s'applique qu'à ce qui est assombri, sinon toute la famille perdrait sa
+  moitié claire.
 
 ### La règle pour les prochaines apps
 

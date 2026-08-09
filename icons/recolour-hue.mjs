@@ -228,6 +228,16 @@ for (const job of JOBS) {
       return [0,1,2].map(k => RAMP[i][k] + (RAMP[i+1][k] - RAMP[i][k]) * f);
     };
 
+    // Écart bleu-vert le long de la rampe, échantillonné une fois : il sert à
+    // trouver la position la plus haute qui reste assez bleue.
+    const GB = new Float64Array(257);
+    for (let i = 0; i <= 256; i++) { const c2 = ramp(i / 256); GB[i] = c2[1] - c2[2]; }
+    const descend = (t, target) => {
+      let i = Math.min(256, Math.max(0, Math.round(t * 256)));
+      while (i > 0 && GB[i] > target) i--;
+      return i / 256;
+    };
+
     const src = document.createElement('canvas');
     src.width = W; src.height = ch;
     const sctx = src.getContext('2d');
@@ -242,10 +252,21 @@ for (const job of JOBS) {
         const d = h === null ? 0 : (h - phase + 360) % 360;
         const j = Math.floor(d), f = d - j;
         const t = h === null ? 0.5 : cdf[j] + (cdf[j+1] - cdf[j]) * f;
-        const [rr, gg, bb] = ramp(t);
-        // l'ombrage d'origine est reporté, sinon la marque s'aplatit
+        // L'ombrage d'origine est reporté, sinon la marque s'aplatit. Un pixel plus
+        // sombre que la médiane redescend la rampe au lieu d'être seulement
+        // multiplié : multiplier un cyan clair donne un vert-canard sale, alors que
+        // la rampe, elle, ne contient que des bleus. C'est ce qui arrivait au
+        // triangle central d'Authenticator, là où deux branches se croisent.
         const L = (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
-        const k = Math.max(0.72, Math.min(1.28, 1.0 + (L - Lmed) * coef));
+        const sh = (L - Lmed) * coef;
+        const k = Math.max(0.78, Math.min(1.28, 1.0 + sh));
+        // Le haut de la rampe est un cyan, dont le vert et le bleu sont presque à
+        // égalité. Clair, il se lit cyan ; assombri, la multiplication garde le
+        // rapport et il tourne au vert-canard — c'est ce qui arrivait au triangle
+        // central d'Authenticator. Seuls les pixels qu'on assombrit redescendent
+        // donc la rampe, juste ce qu'il faut pour garder au bleu une avance nette
+        // sur le vert. Les pixels clairs gardent tout leur cyan.
+        const [rr, gg, bb] = ramp(k < 1 ? descend(t, -50 / k) : t);
         r = rr * k; g = gg * k; b = bb * k;
       }
       idata.data[p*4] = clamp(r); idata.data[p*4+1] = clamp(g);
