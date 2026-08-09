@@ -192,6 +192,24 @@ for (const job of JOBS) {
         cdf[i + 1] = acc;
       }
       for (let i = 0; i <= 360; i++) cdf[i] /= acc;
+      // la répartition cumulée monte par marches, une par couleur de la marque, et
+      // ces marches se voyaient comme des démarcations franches ; on l'adoucit pour
+      // que chaque passage d'une couleur à l'autre soit un fondu et non une arête
+      const soft = new Float64Array(361), S = 14;
+      for (let i = 0; i <= 360; i++) {
+        let a = 0, n = 0;
+        for (let k = -S; k <= S; k++) {
+          const j = i + k;
+          if (j < 0 || j > 360) continue;
+          a += cdf[j]; n++;
+        }
+        soft[i] = a / n;
+      }
+      // le lissage rogne les deux bouts ; on les rend en réétalant sur [0, 1],
+      // sinon la rampe perd ses extrêmes et la marque perd du contraste
+      const lo = soft[0], hi = soft[360];
+      for (let i = 0; i <= 360; i++) cdf[i] = (soft[i] - lo) / (hi - lo || 1);
+
       if (cyclic) for (let i = 0; i <= 360; i++) cdf[i] = 1 - Math.abs(2 * cdf[i] - 1);
     }
 

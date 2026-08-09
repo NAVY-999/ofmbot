@@ -137,6 +137,10 @@ un coin, et la pastille de notification ne suit pas toujours.
   4. **La teinte est lue sur une version floutée** (flou séparable de rayon 5, limité à la
      marque). Le JPEG sous-échantillonne la chrominance par blocs de 8 ; la répartition
      cumulée étant raide, elle transformerait ces blocs en taches.
+  5. **La répartition cumulée est elle-même adoucie** (boîte de ±14°, puis réétalement sur
+     `[0, 1]` pour rendre les extrêmes que le lissage rogne). Elle monte par marches, une
+     par couleur de la marque ; brutes, ces marches se voyaient sur Gmail comme des
+     démarcations franches au lieu de fondus.
 
   L'ombrage d'origine est reporté par une modulation de clarté centrée sur 1 et calée sur
   la clarté médiane de la marque — sinon le dessin s'aplatit, et toute la famille descend
