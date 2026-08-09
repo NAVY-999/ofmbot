@@ -112,22 +112,26 @@
     <!-- Famille verte : même construction que l'orangé — une diagonale du citron
          vert au vert profond, plus un halo clair en haut à gauche. Les teintes sont
          relevées sur les fonds d'écran fournis. -->
-    <linearGradient id="vtBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
-      <stop offset="0" stop-color="#7BFF4D"></stop>
-      <stop offset=".32" stop-color="#23DE33"></stop>
-      <stop offset=".66" stop-color="#0FA02A"></stop>
-      <stop offset="1" stop-color="#06561A"></stop>
+<linearGradient id="vtBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
+      <stop offset="0" stop-color="#62EC3C"></stop>
+      <stop offset=".18" stop-color="#2FCE33"></stop>
+      <stop offset=".36" stop-color="#0E9126"></stop>
+      <stop offset=".52" stop-color="#25BC32"></stop>
+      <stop offset=".70" stop-color="#0B7A20"></stop>
+      <stop offset=".86" stop-color="#14962A"></stop>
+      <stop offset="1" stop-color="#043A10"></stop>
     </linearGradient>
 
-    <radialGradient id="vtBloom" gradientUnits="userSpaceOnUse" cx="33" cy="28" r="56">
-      <stop offset="0" stop-color="#D6FFB4" stop-opacity=".78"></stop>
-      <stop offset=".45" stop-color="#63F05A" stop-opacity=".28"></stop>
-      <stop offset="1" stop-color="#63F05A" stop-opacity="0"></stop>
+    <radialGradient id="vtBloom" gradientUnits="userSpaceOnUse" cx="33" cy="28" r="54">
+      <stop offset="0" stop-color="#BDF897" stop-opacity=".62"></stop>
+      <stop offset=".45" stop-color="#4CD844" stop-opacity=".22"></stop>
+      <stop offset="1" stop-color="#4CD844" stop-opacity="0"></stop>
     </radialGradient>
 
     <linearGradient id="vtFold" gradientUnits="userSpaceOnUse" x1="30" y1="30" x2="92" y2="96">
-      <stop offset="0" stop-color="#0C7A24"></stop>
-      <stop offset="1" stop-color="#03330E"></stop>
+      <stop offset="0" stop-color="#0A6B1F"></stop>
+      <stop offset=".55" stop-color="#04430F"></stop>
+      <stop offset="1" stop-color="#02250A"></stop>
     </linearGradient>
 
     <clipPath id="holder" clipPathUnits="userSpaceOnUse">

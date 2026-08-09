@@ -78,11 +78,21 @@ un coin, et la pastille de notification ne suit pas toujours.
   triangle de YouTube, arcs de Spotify, P de Pinterest, combiné de WhatsApp — sont peintes en
   noir dans le masque, ce qui laisse voir la tuile à travers.
 
-- **Famille verte** (leboncoin, Catawiki, Vinted) : dégradé diagonal
-  `#7BFF4D → #23DE33 → #0FA02A → #06561A`, plus un halo clair en haut à gauche — même
-  construction que l'orangé, teintes relevées sur les fonds d'écran fournis. Les trois
-  formes sont extraites des pixels des captures. Le pli du leboncoin est extrait à part,
-  **sur le même cadre** que la forme pleine, pour se superposer au pixel près.
+- **Famille verte** (leboncoin, Catawiki, Vinted) : dégradé diagonal à sept arrêts,
+  `#62EC3C` à `#043A10`, qui **remonte deux fois** en cours de route (`#25BC32` à 52 %,
+  `#14962A` à 86 %) — c'est ce qui donne de la variation à l'intérieur d'une même marque
+  plutôt qu'un fondu uniforme. Plus un halo clair en haut à gauche.
+
+  Les trois formes sont extraites des pixels des captures. Deux points de méthode :
+  le **canal bleu** sépare l'orange du blanc pour leboncoin, là où la luminance échouait
+  (rouge 249 contre 255) ; et le pli est extrait à part en **réutilisant le cadre** de la
+  forme pleine, sinon chaque masque serait recadré sur ses propres limites et les deux se
+  décaleraient.
+
+  Le carré de leboncoin se cale dans l'**angle bas-droit**, pas au centre : c'est sa place
+  dans le logo, et la découpe de la tuile lui rogne le coin extérieur comme le fait l'icône
+  d'origine. Catawiki est décalé de 3 dp vers la gauche — géométriquement centré, sa grande
+  arête droite tirait l'ensemble vers la droite.
 
 ### La règle pour les prochaines apps
 
