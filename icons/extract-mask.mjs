@@ -3,22 +3,24 @@ import fs from 'fs';
 
 const UP = '/root/.claude/uploads/db7feb07-060c-50bf-9531-596232677000/';
 
-// rule : comment isoler la marque du fond, canal par canal
+// byBlue : le canal bleu sépare l'orange du blanc là où la luminance échoue.
+// byBlueDark : dans cet orange, isole en plus la moitié sombre du pli.
 const JOBS = [
-  { key: 'whatsapp',  file: '8d0fd36d-1000024514.jpg', rule: 'lightOnColor' },
-  { key: 'snapchat',  file: 'ab00fa5c-1000024516.jpg', rule: 'darkOnLight'  },
-  { key: 'pinterest', file: '0821f6ba-1000024518.jpg', rule: 'lightOnColor' }
+  { key: 'leboncoin',     file: '1d65c74e-1000024595.jpg', rule: 'byBlue' },
+  { key: 'leboncoinDark', file: '1d65c74e-1000024595.jpg', rule: 'byBlueDark', frameOf: 'leboncoin' },
+  { key: 'catawiki',      file: '5c54347b-1000024593.jpg', rule: 'lightOnColor' },
+  { key: 'vinted',        file: '2a74bbb0-1000024597.jpg', rule: 'lightOnColor' }
 ];
 
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
 const page = await browser.newPage();
 await page.goto('about:blank');
 
-const out = {};
+const out = {}, frames = {};
 
 for (const job of JOBS) {
   const b64 = fs.readFileSync(UP + job.file).toString('base64');
-  const res = await page.evaluate(async ({ b64, rule, key }) => {
+  const res = await page.evaluate(async ({ b64, rule, key, frame }) => {
     const img = new Image();
     img.src = 'data:image/jpeg;base64,' + b64;
     await img.decode();
@@ -32,8 +34,9 @@ for (const job of JOBS) {
 
     const at = (x, y) => { const i = (y * W + x) * 4; return [px[i], px[i + 1], px[i + 2]]; };
     const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+    const smooth = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
 
-    // 1. le panneau : la plage de lignes où la couleur de fond domine
+    // 1. le panneau qui entoure le logo
     const bg = at(Math.round(W * 0.06), Math.round(H * 0.5));
     const rowOk = [];
     for (let y = 0; y < H; y++) {
@@ -46,17 +49,20 @@ for (const job of JOBS) {
       if (y < H && rowOk[y]) { if (run < 0) run = y; }
       else if (run >= 0) { if (y - run > best[1] - best[0]) best = [run, y]; run = -1; }
     }
-    const [y0, y1] = best, ch = y1 - y0;
+    const y0 = frame ? frame.y0 : best[0];
+    const ch = frame ? frame.ch : best[1] - best[0];
 
     // 2. l'alpha de la marque
-    const smooth = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
     const alpha = new Float32Array(W * ch);
     for (let y = 0; y < ch; y++) {
       for (let x = 0; x < W; x++) {
         const [r, g, bl] = at(x, y + y0);
-        alpha[y * W + x] = rule === 'darkOnLight'
-          ? 1 - smooth(Math.max(r, g, bl), 70, 155)
-          : smooth(Math.min(r, g, bl), 95, 185);
+        let a;
+        if (rule === 'darkOnLight')      a = 1 - smooth(Math.max(r, g, bl), 70, 155);
+        else if (rule === 'byBlue')      a = 1 - smooth(bl, 90, 190);
+        else if (rule === 'byBlueDark')  a = (1 - smooth(bl, 90, 190)) * (1 - smooth(r, 200, 238));
+        else                             a = smooth(Math.min(r, g, bl), 95, 185);
+        alpha[y * W + x] = a;
       }
     }
 
@@ -91,9 +97,11 @@ for (const job of JOBS) {
       by0 = Math.min(by0, c.minY); by1 = Math.max(by1, c.maxY);
     }
 
-    // 4. carré + marge, puis rendu du masque en blanc sur noir
-    const cx = (bx0 + bx1) / 2, cy = (by0 + by1) / 2;
-    const half = Math.max(bx1 - bx0, by1 - by0) / 2 * 1.07;
+    // 4. cadre carré — repris tel quel si on superpose deux masques du même logo
+    const cx = frame ? frame.cx : (bx0 + bx1) / 2;
+    const cy = frame ? frame.cy : (by0 + by1) / 2;
+    const half = frame ? frame.half : Math.max(bx1 - bx0, by1 - by0) / 2 * 1.07;
+
     const N = 600;
     const src = document.createElement('canvas');
     src.width = W; src.height = ch;
@@ -116,16 +124,18 @@ for (const job of JOBS) {
 
     return {
       png: dst.toDataURL('image/png'),
-      info: key + ': panneau ' + y0 + '-' + y1 + ', ' + keep.length + '/' + comps.length +
-            ' composantes, cadre ' + Math.round(half * 2) + 'px'
+      frame: { y0, ch, cx, cy, half },
+      info: key + ' : ' + keep.length + '/' + comps.length + ' composantes, cadre ' +
+            Math.round(half * 2) + 'px'
     };
-  }, { b64, rule: job.rule, key: job.key });
+  }, { b64, rule: job.rule, key: job.key, frame: job.frameOf ? frames[job.frameOf] : null });
 
   if (res.error) { console.log(job.key, 'ERREUR', res.error); continue; }
   console.log(res.info);
   out[job.key] = res.png;
+  frames[job.key] = res.frame;
   fs.writeFileSync(`mask-${job.key}.png`, Buffer.from(res.png.split(',')[1], 'base64'));
 }
 
-fs.writeFileSync('masks.json', JSON.stringify(out));
+fs.writeFileSync('masks2.json', JSON.stringify(out));
 await browser.close();

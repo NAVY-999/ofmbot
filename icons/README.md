@@ -78,6 +78,12 @@ un coin, et la pastille de notification ne suit pas toujours.
   triangle de YouTube, arcs de Spotify, P de Pinterest, combiné de WhatsApp — sont peintes en
   noir dans le masque, ce qui laisse voir la tuile à travers.
 
+- **Famille verte** (leboncoin, Catawiki, Vinted) : dégradé diagonal
+  `#7BFF4D → #23DE33 → #0FA02A → #06561A`, plus un halo clair en haut à gauche — même
+  construction que l'orangé, teintes relevées sur les fonds d'écran fournis. Les trois
+  formes sont extraites des pixels des captures. Le pli du leboncoin est extrait à part,
+  **sur le même cadre** que la forme pleine, pour se superposer au pixel près.
+
 ### La règle pour les prochaines apps
 
 **La forme du logo ne bouge pas ; la palette devient celle du pack.** On ne redessine
