@@ -11,7 +11,7 @@ Dans `final/` :
 
 | Fichier | Usage |
 |---|---|
-| `maeva.png` `antireels.png` `cic.png` `cicpay.png` `paypal.png` | 512 × 512, fond transparent — **à utiliser par défaut** |
+| `<app>.png` | 512 × 512, fond transparent — **à utiliser par défaut** |
 | `*-192.png` | 192 × 192, pour les launchers qui redimensionnent mal |
 | `*.svg` | sources vectorielles, regénérables à n'importe quelle taille |
 
@@ -115,17 +115,16 @@ un coin, et la pastille de notification ne suit pas toujours.
   couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
   rainures, et peintes du même dégradé les deux se confondraient.
 
-- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator) : les logos Google
-  ramenés dans la
-  gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
+- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator) : les marques Google
+  ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
 
-  Ces quatre-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
+  Ces cinq-là **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
   donc chaque pixel sur la rampe bleue selon sa teinte d'origine, et l'image est embarquée
   telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
   glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
 
-  Quatre points font tout le résultat :
+  Cinq points font tout le résultat :
 
   1. **La rampe est relevée sur les pixels de OneDrive**, pas choisie à la main : son
      histogramme de teinte donne les couleurs moyennes de 185° à 225°, du cyan `#2EDEF2`
