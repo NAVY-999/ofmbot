@@ -199,7 +199,7 @@ for (const job of JOBS) {
       // fait donc l'aller-retour — sombre, clair, sombre — sans discontinuité.
       let gapLen = 0, gapEnd = 0, cur = 0;
       for (let i = 0; i < 720; i++) {
-        if (wide[i % 360] < peak * 0.02) { cur++; if (cur > gapLen && i >= 360) { gapLen = cur; gapEnd = i % 360; } }
+        if (wide[i % 360] < peak * 0.05) { cur++; if (cur > gapLen && i >= 360) { gapLen = cur; gapEnd = i % 360; } }
         else cur = 0;
       }
       gapLen = Math.min(gapLen, 360);
@@ -236,6 +236,33 @@ for (const job of JOBS) {
       // sinon la rampe perd ses extrêmes et la marque perd du contraste
       const lo = soft[0], hi = soft[360];
       for (let i = 0; i <= 360; i++) cdf[i] = (soft[i] - lo) / (hi - lo || 1);
+
+      // Une même couleur d'origine doit donner le même bleu d'une icône à l'autre.
+      // Or chaque marque calcule sa répartition sur ses seules teintes : le vert de
+      // Drive tombait à 0,40 de la rampe et celui de Play Store à 0,88, tout en haut,
+      // là où le bleu est le plus cyan — d'où l'impression de vert. La répartition est
+      // donc recalée sur des repères communs, les quatre couleurs Google, par une
+      // déformation monotone qui laisse intact l'étalement entre deux repères.
+      if (!cyclic) {
+        const ANCHORS = [[4.5, 0.16], [44.6, 0.36], [136.7, 0.58], [217, 0.88]];
+        const from = [0], to = [0];
+        for (const [h, target] of ANCHORS) {
+          const dd = (h - phase + 360) % 360, jj = Math.floor(dd), ff = dd - jj;
+          const tt = cdf[jj] + (cdf[jj + 1] - cdf[jj]) * ff;
+          if (tt > from[from.length - 1] + 0.01 && target > to[to.length - 1]) {
+            from.push(tt); to.push(target);
+          }
+        }
+        from.push(1); to.push(1);
+        const warp = t => {
+          let i = 1;
+          while (i < from.length - 1 && t > from[i]) i++;
+          const f = (t - from[i-1]) / Math.max(1e-6, from[i] - from[i-1]);
+          return to[i-1] + (to[i] - to[i-1]) * Math.max(0, Math.min(1, f));
+        };
+        for (let i = 0; i <= 360; i++) cdf[i] = warp(cdf[i]);
+        mode += ', recalé';
+      }
 
       if (cyclic) for (let i = 0; i <= 360; i++) cdf[i] = 1 - Math.abs(2 * cdf[i] - 1);
 

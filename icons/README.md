@@ -128,7 +128,7 @@ un coin, et la pastille de notification ne suit pas toujours.
   contre-formes se percent d'elles-mêmes : la face du cube, le panneau du N, celui du 31,
   et l'écart entre les deux plans du calendrier.
 
-  Cinq points font tout le résultat :
+  Six points font tout le résultat :
 
   1. **La rampe est relevée sur les pixels de OneDrive**, pas choisie à la main : son
      histogramme de teinte donne les couleurs moyennes de 185° à 225°, du cyan `#2EDEF2`
@@ -138,17 +138,27 @@ un coin, et la pastille de notification ne suit pas toujours.
      même bleu au rose et au rouge, et toute la partie gauche du M paraissait unie ; la
      répartition cumulée rend à chaque teinte une part de rampe proportionnelle à sa
      surface, donc les couleurs voisines se séparent.
-  3. **Le sens de parcours est déduit de la marque.** On cherche le plus grand arc vide de
+  3. **La répartition est recalée sur des repères communs à toute la famille.** Chaque
+     marque calcule la sienne sur ses seules teintes, donc le même vert ne tombait pas au
+     même endroit de la rampe d'une icône à l'autre : 0,40 sur Drive, 0,58 sur Google,
+     0,88 sur Play Store — tout en haut, là où le bleu est le plus cyan, d'où une
+     impression de vert. Les quatre couleurs Google servent maintenant de repères fixes
+     (rouge 0,16, jaune 0,36, vert 0,58, bleu 0,88) et la répartition de chaque marque y
+     est amenée par une **déformation monotone**, qui laisse intact l'étalement entre deux
+     repères. Le rouge de Chrome et celui de Gmail donnent donc exactement le même bleu.
+     Maps échappe seule à ce recalage : son dégradé fait le tour du cercle (point 4), et
+     l'y soumettre y ramènerait la cassure.
+  4. **Le sens de parcours est déduit de la marque.** On cherche le plus grand arc vide de
      son histogramme de teinte : s'il existe, c'est là que la rampe se coupe, et la coupure
      est invisible puisque aucun pixel ne s'y trouve — Gmail se coupe à 275°, Google à 285°.
      Le dégradé de Maps, lui, fait **le tour complet du cercle** : il n'y a pas d'arc vide,
      et une rampe droite y laissait forcément une cassure nette là où le rouge rejoignait
      le magenta. Maps passe donc par un aller-retour — sombre, clair, sombre — qui n'a
      aucune discontinuité.
-  4. **La teinte est lue sur une version floutée** (flou séparable de rayon 5, limité à la
+  5. **La teinte est lue sur une version floutée** (flou séparable de rayon 5, limité à la
      marque). Le JPEG sous-échantillonne la chrominance par blocs de 8 ; la répartition
      cumulée étant raide, elle transformerait ces blocs en taches.
-  5. **La répartition cumulée est elle-même adoucie** (boîte de ±14°, puis réétalement sur
+  6. **La répartition cumulée est elle-même adoucie** (boîte de ±14°, puis réétalement sur
      `[0, 1]` pour rendre les extrêmes que le lissage rogne). Elle monte par marches, une
      par couleur de la marque ; brutes, ces marches se voyaient sur Gmail comme des
      démarcations franches au lieu de fondus.
