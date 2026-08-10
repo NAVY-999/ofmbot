@@ -3,7 +3,7 @@
 Refonte des icônes de l'écran d'accueil. Traitement retenu : **M1 « Profondeur »** —
 tuile charbon en dégradé, liseré lumineux sur l'arête haute, marques en dégradé.
 
-Quarante-cinq apps, réparties en sept familles de couleur.
+Quarante-huit apps, réparties en sept familles de couleur.
 
 ## Fichiers à installer
 
@@ -108,14 +108,18 @@ un coin, et la pastille de notification ne suit pas toujours.
   couleur, les briques rejoignant le fond. Un halo dilaté entoure la main : elle croise les
   rainures, et peintes du même dégradé les deux se confondraient.
 
-- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator, Notion, Notion Calendar) :
-  les marques ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
+- **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator, Notion, Notion Calendar,
+  Drive, Chrome, Play Store) : les marques ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
 
-  Les cinq marques polychromes **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
+  Les huit marques polychromes **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
   donc chaque pixel sur la rampe bleue selon sa teinte d'origine, et l'image est embarquée
   telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
   glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
+
+  Deux contre-formes se percent au passage, sans rien demander : l'anneau blanc de Chrome
+  et le triangle intérieur de Drive sont plus clairs que le seuil de détection, donc ils
+  sortent transparents et laissent voir la tuile.
 
   **Notion et Notion Calendar font exception** : noires sur blanc, elles n'ont pas la
   moindre teinte, donc rien à reporter sur la rampe. C'est le dégradé de la famille qui
@@ -200,12 +204,19 @@ identiques sur l'écran d'accueil. La forme n'est pas touchée.
 Seule entorse à la forme, validée explicitement : CIC a perdu ses blocs pleins. Repassés
 en blanc, ils donnaient deux carrés dans lesquels les C disparaissaient à 48 dp.
 
-### Deux limites connues
+### Trois limites connues
 
 - **Les marques CIC dépassent le cercle de 72 dp.** Un « C I C » horizontal ramené à ce
   cercle deviendrait minuscule. Elles restent largement dans le squircle, donc rien n'est coupé —
   mais un launcher masquant en **cercle** les rognerait. Les trois autres icônes tiennent
   dans le cercle.
+- **Play Store est plus douce que les autres.** C'est la seule marque dont je n'ai pas de
+  capture en grand : elle est prise sur l'écran d'accueil, où le logo ne fait qu'une
+  centaine de pixels, puis agrandie. La forme et les proportions sont justes, mais les
+  arêtes sont molles. Une capture du logo en grand sur fond uni, comme pour Drive et
+  Chrome, permettrait de la refaire nette. Comme le fond d'écran est en niveaux de gris et
+  la pastille blanche, c'est la **saturation** qui isole la marque, et non le blanc du
+  panneau (`sat: true` dans `recolour-hue.mjs`).
 - **`cicpay.svg` et `burgerking.svg` dépendent d'une police** pour les mots « Pay » et
   « BURGER KING » (`Verdana`, repli `DejaVu Sans`). Les PNG, eux, sont rastérisés : ils ne
   dépendent de rien. C'est ce que tu installes.

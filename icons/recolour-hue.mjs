@@ -16,7 +16,14 @@ const JOBS = [
   { key: 'maps',     file: '943cd77a-1000024633.jpg', remap: true },
   { key: 'google',   file: 'd4ff4e30-1000024629.jpg', remap: true },
   { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: false },
-  { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true, flat: true }
+  { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true, flat: true },
+  { key: 'drive',    file: 'ad7b1e83-1000024667.jpg', remap: true },
+  { key: 'chrome',   file: '4d4ad800-1000024669.jpg', remap: true },
+  // Play Store n'a pas de capture en grand : elle est prise sur l'écran d'accueil.
+  // Le fond d'écran y est en niveaux de gris et la pastille est blanche, donc c'est
+  // la saturation qui isole la marque, et non le blanc du panneau.
+  { key: 'playstore', file: 'b46477ab-1000024665.jpg', remap: true,
+    box: [0, 0.30, 0.32, 0.80], sat: true }
 ];
 
 // rampe relevée sur les pixels mêmes de OneDrive, remontée d'un cran en clarté
@@ -30,16 +37,21 @@ const out = {};
 
 for (const job of JOBS) {
   const b64 = fs.readFileSync(UP + job.file).toString('base64');
-  const res = await page.evaluate(async ({ b64, remap, flat, key, RAMP }) => {
+  const res = await page.evaluate(async ({ b64, remap, flat, box, sat, key, RAMP }) => {
     const img = new Image();
     img.src = 'data:image/jpeg;base64,' + b64;
     await img.decode();
 
-    const W = img.naturalWidth, H = img.naturalHeight;
+    let W = img.naturalWidth, H = img.naturalHeight, sx = 0, sy = 0;
+    if (box) {
+      sx = Math.round(box[0] * W); sy = Math.round(box[1] * H);
+      W = Math.round((box[2] - box[0]) * img.naturalWidth);
+      H = Math.round((box[3] - box[1]) * img.naturalHeight);
+    }
     const c = document.createElement('canvas');
     c.width = W; c.height = H;
     const ctx = c.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(img, sx, sy, W, H, 0, 0, W, H);
     const px = ctx.getImageData(0, 0, W, H).data;
     const smooth = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
     const clamp = v => Math.max(0, Math.min(255, Math.round(v)));
@@ -54,18 +66,24 @@ for (const job of JOBS) {
       }
       rowOk.push(n / (W / 4) > 0.10);
     }
-    let best = [0, 0], run = -1;
-    for (let y = 0; y <= H; y++) {
-      if (y < H && rowOk[y]) { if (run < 0) run = y; }
-      else if (run >= 0) { if (y - run > best[1] - best[0]) best = [run, y]; run = -1; }
+    let best = [0, H], run = -1;
+    if (!sat) {
+      best = [0, 0];
+      for (let y = 0; y <= H; y++) {
+        if (y < H && rowOk[y]) { if (run < 0) run = y; }
+        else if (run >= 0) { if (y - run > best[1] - best[0]) best = [run, y]; run = -1; }
+      }
     }
     const [y0, y1] = best, ch = y1 - y0;
 
-    // la marque : tout ce qui n'est pas le blanc du fond
+    // la marque : tout ce qui n'est pas le blanc du fond — ou, sur une capture
+    // d'écran d'accueil, tout ce qui a de la couleur, le fond y étant gris
     const alpha = new Float32Array(W * ch);
     for (let y = 0; y < ch; y++) for (let x = 0; x < W; x++) {
       const i = ((y + y0) * W + x) * 4;
-      alpha[y * W + x] = 1 - smooth(Math.min(px[i], px[i+1], px[i+2]), 200, 246);
+      const mx = Math.max(px[i], px[i+1], px[i+2]), mn = Math.min(px[i], px[i+1], px[i+2]);
+      alpha[y * W + x] = sat ? smooth((mx - mn) / (mx || 1), 0.17, 0.33)
+                             : 1 - smooth(mn, 200, 246);
     }
 
     // composantes : écarte la barre d'état et les boutons
@@ -295,7 +313,7 @@ for (const job of JOBS) {
         // central d'Authenticator. Seuls les pixels qu'on assombrit redescendent
         // donc la rampe, juste ce qu'il faut pour garder au bleu une avance nette
         // sur le vert. Les pixels clairs gardent tout leur cyan.
-        const [rr, gg, bb] = ramp(k < 1 ? descend(t, -50 / k) : t);
+        const [rr, gg, bb] = ramp(k < 1 ? descend(t, -62 / k) : t);
         r = rr * k; g = gg * k; b = bb * k;
       }
       idata.data[p*4] = clamp(r); idata.data[p*4+1] = clamp(g);
@@ -316,7 +334,8 @@ for (const job of JOBS) {
       info: key.padEnd(9) + ' panneau ' + y0 + '-' + y1 + ', ' + keepIds.size + '/' + comps.length +
             ' comp' + (remap ? ', L méd ' + Lmed.toFixed(3) + ', ' + mode + ', ombrage ×' + coef.toFixed(2) : '')
     };
-  }, { b64, remap: job.remap, flat: !!job.flat, key: job.key, RAMP });
+  }, { b64, remap: job.remap, flat: !!job.flat, box: job.box || null,
+       sat: !!job.sat, key: job.key, RAMP });
 
   console.log(res.info);
   out[job.key] = res.png;
