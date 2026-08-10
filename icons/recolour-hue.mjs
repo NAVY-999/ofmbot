@@ -16,7 +16,7 @@ const JOBS = [
   { key: 'maps',     file: '943cd77a-1000024633.jpg', remap: true },
   { key: 'google',   file: 'd4ff4e30-1000024629.jpg', remap: true },
   { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: false },
-  { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true }
+  { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true, flat: true }
 ];
 
 // rampe relevée sur les pixels mêmes de OneDrive, remontée d'un cran en clarté
@@ -30,7 +30,7 @@ const out = {};
 
 for (const job of JOBS) {
   const b64 = fs.readFileSync(UP + job.file).toString('base64');
-  const res = await page.evaluate(async ({ b64, remap, key, RAMP }) => {
+  const res = await page.evaluate(async ({ b64, remap, flat, key, RAMP }) => {
     const img = new Image();
     img.src = 'data:image/jpeg;base64,' + b64;
     await img.decode();
@@ -136,7 +136,7 @@ for (const job of JOBS) {
       h *= 60; return h < 0 ? h + 360 : h;
     };
 
-    let cdf = null, phase = 0, mode = '', Lmed = 0.52, coef = 0.85;
+    let cdf = null, phase = 0, mode = '', Lmed = 0.52, coef = 0.85, peaks = [];
     const lums = [];
     if (remap) {
       const hist = new Float64Array(360);
@@ -220,6 +220,26 @@ for (const job of JOBS) {
       for (let i = 0; i <= 360; i++) cdf[i] = (soft[i] - lo) / (hi - lo || 1);
 
       if (cyclic) for (let i = 0; i <= 360; i++) cdf[i] = 1 - Math.abs(2 * cdf[i] - 1);
+
+      // Marque en aplats : ses branches n'ont pas de dégradé interne, et le triangle
+      // où deux d'entre elles se croisent n'est pas une couleur de plus — c'est le
+      // produit du recouvrement. Chaque pixel est donc ramené sur la couleur de
+      // marque la plus proche, et le recouvrement rejoint la branche dont il est à
+      // dix degrés. Sans quoi il occupe à lui seul le haut de la rampe, là où le
+      // bleu vire au cyan.
+      if (flat) {
+        const mx2 = Math.max(...blur);
+        const raw = [];
+        for (let i = 0; i < 360; i++) {
+          const a = blur[(i + 359) % 360], b = blur[i], d = blur[(i + 1) % 360];
+          if (b >= a && b > d && b > mx2 * 0.08) raw.push({ h: i, w: b });
+        }
+        raw.sort((a, b) => b.w - a.w);
+        const arc = (a, b) => { const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
+        for (const q of raw) if (!peaks.some(o => arc(o.h, q.h) < 28)) peaks.push(q);
+        peaks.sort((a, b) => a.h - b.h);
+        mode += ', aplats ' + peaks.map(q => q.h + '°').join(' ');
+      }
     }
 
     const ramp = t => {
@@ -248,7 +268,15 @@ for (const job of JOBS) {
       const i = at(p);
       let r = px[i], g = px[i+1], b = px[i+2];
       if (remap && a > 0.02) {
-        const h = hueOf(sm[p*3], sm[p*3+1], sm[p*3+2]);
+        let h = hueOf(sm[p*3], sm[p*3+1], sm[p*3+2]);
+        if (h !== null && peaks.length) {
+          let bi = 0, bd = 1e9;
+          for (let q = 0; q < peaks.length; q++) {
+            const e = Math.abs(h - peaks[q].h) % 360, dd = e > 180 ? 360 - e : e;
+            if (dd < bd) { bd = dd; bi = q; }
+          }
+          h = peaks[bi].h;
+        }
         const d = h === null ? 0 : (h - phase + 360) % 360;
         const j = Math.floor(d), f = d - j;
         const t = h === null ? 0.5 : cdf[j] + (cdf[j+1] - cdf[j]) * f;
@@ -258,7 +286,8 @@ for (const job of JOBS) {
         // la rampe, elle, ne contient que des bleus. C'est ce qui arrivait au
         // triangle central d'Authenticator, là où deux branches se croisent.
         const L = (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
-        const sh = (L - Lmed) * coef;
+        // en aplats, aucune modulation : une branche est d'une seule couleur
+        const sh = flat ? 0 : (L - Lmed) * coef;
         const k = Math.max(0.78, Math.min(1.28, 1.0 + sh));
         // Le haut de la rampe est un cyan, dont le vert et le bleu sont presque à
         // égalité. Clair, il se lit cyan ; assombri, la multiplication garde le
@@ -287,7 +316,7 @@ for (const job of JOBS) {
       info: key.padEnd(9) + ' panneau ' + y0 + '-' + y1 + ', ' + keepIds.size + '/' + comps.length +
             ' comp' + (remap ? ', L méd ' + Lmed.toFixed(3) + ', ' + mode + ', ombrage ×' + coef.toFixed(2) : '')
     };
-  }, { b64, remap: job.remap, key: job.key, RAMP });
+  }, { b64, remap: job.remap, flat: !!job.flat, key: job.key, RAMP });
 
   console.log(res.info);
   out[job.key] = res.png;

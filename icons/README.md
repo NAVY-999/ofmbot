@@ -158,12 +158,19 @@ un coin, et la pastille de notification ne suit pas toujours.
 
   Reste que **le haut de la rampe est un cyan**, dont le vert et le bleu sont presque à
   égalité. Clair, il se lit cyan ; assombri par une simple multiplication, il garde ce
-  rapport et tourne au vert-canard — c'est ce qui salissait le triangle d'Authenticator.
-  Un pixel que l'on assombrit **redescend donc la rampe** juste ce qu'il faut pour garder
-  au bleu une avance nette sur le vert, mesurée sur un échantillonnage de l'écart
-  bleu-vert le long de la rampe. Les pixels clairs, eux, gardent tout leur cyan : la
-  contrainte ne s'applique qu'à ce qui est assombri, sinon toute la famille perdrait sa
-  moitié claire.
+  rapport et tourne au vert-canard. Un pixel que l'on assombrit **redescend donc la rampe**
+  juste ce qu'il faut pour garder au bleu une avance nette sur le vert, mesurée sur un
+  échantillonnage de l'écart bleu-vert le long de la rampe. Les pixels clairs, eux, gardent
+  tout leur cyan : la contrainte ne s'applique qu'à ce qui est assombri, sinon toute la
+  famille perdrait sa moitié claire.
+
+  **Authenticator est traitée en aplats** (`flat: true`). Ses branches n'ont pas de dégradé
+  interne, et le triangle où deux d'entre elles se croisent n'est pas une couleur de plus :
+  c'est le produit du recouvrement, dix degrés plus loin et nettement plus sombre que la
+  branche bleue. Traité comme une teinte à part entière, il occupait à lui seul le haut de
+  la rampe et virait au vert. Chaque pixel est donc ramené sur le pic de teinte le plus
+  proche — les quatre couleurs de marque — et la modulation d'ombrage est coupée. Le
+  recouvrement rejoint ainsi exactement la couleur de la branche bleue.
 
 ### La règle pour les prochaines apps
 
