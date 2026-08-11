@@ -15,7 +15,7 @@ const JOBS = [
   { key: 'gmail',    file: '4367de47-1000024631.jpg', remap: true },
   { key: 'maps',     file: '943cd77a-1000024633.jpg', remap: true },
   { key: 'google',   file: 'd4ff4e30-1000024629.jpg', remap: true },
-  { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: false },
+  { key: 'onedrive', file: 'c4b89f50-1000024635.jpg', remap: true, byL: true },
   { key: 'authenticator', file: 'e51f167c-1000024647.jpg', remap: true, flat: true },
   { key: 'drive',    file: 'ad7b1e83-1000024667.jpg', remap: true },
   { key: 'chrome',   file: '4d4ad800-1000024669.jpg', remap: true },
@@ -26,8 +26,13 @@ const JOBS = [
     box: [0, 0.30, 0.32, 0.80], sat: true }
 ];
 
-// rampe relevée sur les pixels mêmes de OneDrive, remontée d'un cran en clarté
-const RAMP = [[26,86,208],[28,118,236],[25,152,250],[24,180,250],[32,203,251],[52,226,244]];
+// Rampe relevée sur les couleurs dominantes de OneDrive — ses pixels mêmes, pas des
+// moyennes par teinte. Le logo en contient deux familles : des bleus francs, dont le
+// bleu devance le vert de 90 à 130, et des cyans, où il ne le devance que de 30 à 50.
+// La rampe ne retient que les premiers : un cyan clair se lit vert, et c'est ce qui
+// salissait le haut de la gamme. Le plus clair des bleus francs de OneDrive, #47A7FE,
+// remplace l'ancien sommet turquoise #34E2F4.
+const RAMP = [[23,73,195],[24,104,230],[29,124,242],[35,137,248],[54,156,254],[71,167,254]];
 
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
 const page = await browser.newPage();
@@ -37,7 +42,7 @@ const out = {};
 
 for (const job of JOBS) {
   const b64 = fs.readFileSync(UP + job.file).toString('base64');
-  const res = await page.evaluate(async ({ b64, remap, flat, box, sat, key, RAMP }) => {
+  const res = await page.evaluate(async ({ b64, remap, flat, byL, box, sat, key, RAMP }) => {
     const img = new Image();
     img.src = 'data:image/jpeg;base64,' + b64;
     await img.decode();
@@ -155,6 +160,7 @@ for (const job of JOBS) {
     };
 
     let cdf = null, phase = 0, mode = '', Lmed = 0.52, coef = 0.85, peaks = [];
+    let Llo = 0.40, Lhi = 0.67;
     const lums = [];
     if (remap) {
       const hist = new Float64Array(360);
@@ -175,6 +181,8 @@ for (const job of JOBS) {
       // elle-même, alors qu'il est plus sombre dans l'original.
       const q10 = lums.length ? lums[Math.floor(lums.length * 0.10)] : 0.42;
       const q90 = lums.length ? lums[Math.floor(lums.length * 0.90)] : 0.64;
+      Llo = lums.length ? lums[Math.floor(lums.length * 0.02)] : 0.40;
+      Lhi = lums.length ? lums[Math.floor(lums.length * 0.98)] : 0.67;
       coef = Math.max(0.6, Math.min(2.2, 0.207 / Math.max(0.02, q90 - q10)));
 
       // deux lissages : un large pour trouver l'arc vide, un serré pour la
@@ -293,16 +301,6 @@ for (const job of JOBS) {
       return [0,1,2].map(k => RAMP[i][k] + (RAMP[i+1][k] - RAMP[i][k]) * f);
     };
 
-    // Écart bleu-vert le long de la rampe, échantillonné une fois : il sert à
-    // trouver la position la plus haute qui reste assez bleue.
-    const GB = new Float64Array(257);
-    for (let i = 0; i <= 256; i++) { const c2 = ramp(i / 256); GB[i] = c2[1] - c2[2]; }
-    const descend = (t, target) => {
-      let i = Math.min(256, Math.max(0, Math.round(t * 256)));
-      while (i > 0 && GB[i] > target) i--;
-      return i / 256;
-    };
-
     const src = document.createElement('canvas');
     src.width = W; src.height = ch;
     const sctx = src.getContext('2d');
@@ -312,7 +310,15 @@ for (const job of JOBS) {
       const a = on || alpha[p] < 0.5 ? alpha[p] : 0;
       const i = at(p);
       let r = px[i], g = px[i+1], b = px[i+2];
-      if (remap && a > 0.02) {
+      if (remap && byL && a > 0.02) {
+        // OneDrive rejoint la gamme par sa clarté et non par sa teinte : son dessin
+        // va du cyan clair au bleu sombre, donc reporter la teinte inverserait son
+        // ombrage — son bleu le plus foncé deviendrait le plus clair. Sa clarté, elle,
+        // suit exactement son dégradé, et la rampe la reprend telle quelle.
+        const L = (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
+        const [rr, gg, bb] = ramp((L - Llo) / Math.max(0.02, Lhi - Llo));
+        r = rr; g = gg; b = bb;
+      } else if (remap && a > 0.02) {
         let h = hueOf(sm[p*3], sm[p*3+1], sm[p*3+2]);
         if (h !== null && peaks.length) {
           let bi = 0, bd = 1e9;
@@ -334,24 +340,8 @@ for (const job of JOBS) {
         // en aplats, aucune modulation : une branche est d'une seule couleur
         const sh = flat ? 0 : (L - Lmed) * coef;
         const k = Math.max(0.78, Math.min(1.28, 1.0 + sh));
-        // Le haut de la rampe est un cyan, dont le vert et le bleu sont presque à
-        // égalité. Clair, il se lit cyan ; assombri, la multiplication garde le
-        // rapport et il tourne au vert-canard — c'est ce qui arrivait au triangle
-        // central d'Authenticator. Seuls les pixels qu'on assombrit redescendent
-        // donc la rampe, juste ce qu'il faut pour garder au bleu une avance nette
-        // sur le vert. Les pixels clairs gardent tout leur cyan.
-        const [rr, gg, bb] = ramp(k < 1 ? descend(t, -62 / k) : t);
+        const [rr, gg, bb] = ramp(t);
         r = rr * k; g = gg * k; b = bb * k;
-      }
-      // Le haut de la gamme était un cyan franc — vert et bleu à égalité, rouge
-      // quasi nul — et un cyan clair se lit vert. On lui rend du rouge et on lui
-      // retire un peu de vert, d'autant plus qu'il est cyan : le clair devient un
-      // bleu ciel pâle au lieu d'un turquoise. La correction est appliquée à toute
-      // la famille, OneDrive compris, sinon lui seul garderait le turquoise.
-      {
-        const cy = Math.max(0, Math.min(g, b) - r) / 255;
-        const w = Math.pow(cy, 2.2);
-        r += w * 170; g -= w * 34;
       }
       idata.data[p*4] = clamp(r); idata.data[p*4+1] = clamp(g);
       idata.data[p*4+2] = clamp(b); idata.data[p*4+3] = clamp(a * 255);
@@ -371,7 +361,7 @@ for (const job of JOBS) {
       info: key.padEnd(9) + ' panneau ' + y0 + '-' + y1 + ', ' + keepIds.size + '/' + comps.length +
             ' comp' + (remap ? ', L méd ' + Lmed.toFixed(3) + ', ' + mode + ', ombrage ×' + coef.toFixed(2) : '')
     };
-  }, { b64, remap: job.remap, flat: !!job.flat, box: job.box || null,
+  }, { b64, remap: job.remap, flat: !!job.flat, byL: !!job.byL, box: job.box || null,
        sat: !!job.sat, key: job.key, RAMP });
 
   console.log(res.info);

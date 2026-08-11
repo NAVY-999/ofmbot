@@ -113,19 +113,19 @@
          vert au vert profond, plus un halo clair en haut à gauche. Les teintes sont
          relevées sur les fonds d'écran fournis. -->
 <linearGradient id="blBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">
-      <stop offset="0" stop-color="#85DCF5"></stop>
-      <stop offset=".20" stop-color="#61B7FB"></stop>
-      <stop offset=".38" stop-color="#317FE8"></stop>
-      <stop offset=".54" stop-color="#56ACF7"></stop>
-      <stop offset=".72" stop-color="#2465DE"></stop>
-      <stop offset=".88" stop-color="#4090F2"></stop>
-      <stop offset="1" stop-color="#163F9E"></stop>
+      <stop offset="0" stop-color="#47A7FE"></stop>
+      <stop offset=".20" stop-color="#369CFE"></stop>
+      <stop offset=".38" stop-color="#1D7CF2"></stop>
+      <stop offset=".54" stop-color="#2389F8"></stop>
+      <stop offset=".72" stop-color="#1868E6"></stop>
+      <stop offset=".88" stop-color="#1D7CF2"></stop>
+      <stop offset="1" stop-color="#1749C3"></stop>
     </linearGradient>
 
     <radialGradient id="blBloom" gradientUnits="userSpaceOnUse" cx="33" cy="28" r="54">
-      <stop offset="0" stop-color="#BEF1FF" stop-opacity=".55"></stop>
-      <stop offset=".45" stop-color="#6EC3F8" stop-opacity=".20"></stop>
-      <stop offset="1" stop-color="#6EC3F8" stop-opacity="0"></stop>
+      <stop offset="0" stop-color="#A9CEFF" stop-opacity=".55"></stop>
+      <stop offset=".45" stop-color="#5AA3FE" stop-opacity=".20"></stop>
+      <stop offset="1" stop-color="#5AA3FE" stop-opacity="0"></stop>
     </radialGradient>
 
     <linearGradient id="vtBase" gradientUnits="userSpaceOnUse" x1="8" y1="2" x2="100" y2="106">

@@ -109,14 +109,17 @@ un coin, et la pastille de notification ne suit pas toujours.
   rainures, et peintes du même dégradé les deux se confondraient.
 
 - **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator, Notion, Notion Calendar,
-  Drive, Chrome, Play Store) : les marques ramenées dans la gamme OneDrive, corrigée
-  pour sortir le turquoise du haut — `#2155D0 → #2D73EC → #3E91FA → #52A8FA → #67BDFB → #7DD3F4`.
+  Drive, Chrome, Play Store) : les marques ramenées dans la gamme OneDrive —
+  `#1749C3 → #1868E6 → #1D7CF2 → #2389F8 → #369CFE → #47A7FE`.
 
   Les huit marques polychromes **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
   donc chaque pixel sur la rampe bleue selon sa teinte d'origine, et l'image est embarquée
   telle quelle. Le motif et l'étendue de chaque fondu sont conservés ; seule la teinte
-  glisse. OneDrive, déjà bleu, sert de gamme de référence et n'est pas retouché.
+  glisse. OneDrive donne la gamme, mais **rejoint la rampe par sa clarté et non par sa
+  teinte** : son dessin va du cyan clair au bleu sombre, si bien que reporter la teinte
+  inverserait son ombrage — son bleu le plus foncé deviendrait le plus clair. Sa clarté,
+  elle, suit exactement son dégradé.
 
   Deux contre-formes se percent au passage, sans rien demander : l'anneau blanc de Chrome
   et le triangle intérieur de Drive sont plus clairs que le seuil de détection, donc ils
@@ -131,17 +134,18 @@ un coin, et la pastille de notification ne suit pas toujours.
 
   Six points font tout le résultat :
 
-  1. **La rampe est relevée sur les pixels de OneDrive**, pas choisie à la main : son
-     histogramme de teinte donne les couleurs moyennes de 185° à 225°, du cyan `#2EDEF2`
-     au bleu `#1443BE`. La rampe reprend ces valeurs, remontées d'un cran en clarté.
+  1. **La rampe est relevée sur les couleurs dominantes de OneDrive** — ses pixels mêmes,
+     pas des moyennes par teinte, ce qui change tout. Le logo en contient **deux familles** :
+     des bleus francs, où le bleu devance le vert de 90 à 130, et des cyans, où il ne le
+     devance que de 30 à 50. La première rampe mélangeait les deux et se terminait sur le
+     cyan `#34E2F4` — vert et bleu à égalité, rouge quasi nul. Or un cyan clair **se lit
+     vert**, et comme c'était le haut de la rampe, il ressortait sur toute la famille.
 
-     Son extrémité claire demandait toutefois une correction. `#34E2F4`, c'est un cyan
-     franc : le vert et le bleu y sont à égalité et le rouge quasi nul — et un cyan clair
-     **se lit vert**. Un dernier passage lui rend du rouge et lui retire un peu de vert,
-     d'autant plus qu'il est cyan (`(min(g,b) − r) / 255`, élevé à la puissance 2,2). Le
-     clair devient un bleu ciel pâle au lieu d'un turquoise. La correction s'applique à
-     toute la famille, **OneDrive compris** — c'est la seule marque qui ne passe pas par
-     la rampe, et sans elle, lui seul garderait le turquoise.
+     La rampe ne retient donc plus que les bleus francs, et son sommet est `#47A7FE`, le
+     plus clair d'entre eux dans le logo OneDrive. Toutes les icônes de la famille ont
+     désormais moins de 7 % de pixels sous la barre des 55 d'avance du bleu sur le vert,
+     contre 42 % pour Authenticator et 37 % pour Drive auparavant.
+
   2. **La teinte passe par la répartition cumulée de la marque**, pas par une règle de
      trois entre ses extrêmes. Étalée linéairement, la plage de Gmail donnait presque le
      même bleu au rose et au rouge, et toute la partie gauche du M paraissait unie ; la
