@@ -343,6 +343,16 @@ for (const job of JOBS) {
         const [rr, gg, bb] = ramp(k < 1 ? descend(t, -62 / k) : t);
         r = rr * k; g = gg * k; b = bb * k;
       }
+      // Le haut de la gamme était un cyan franc — vert et bleu à égalité, rouge
+      // quasi nul — et un cyan clair se lit vert. On lui rend du rouge et on lui
+      // retire un peu de vert, d'autant plus qu'il est cyan : le clair devient un
+      // bleu ciel pâle au lieu d'un turquoise. La correction est appliquée à toute
+      // la famille, OneDrive compris, sinon lui seul garderait le turquoise.
+      {
+        const cy = Math.max(0, Math.min(g, b) - r) / 255;
+        const w = Math.pow(cy, 2.2);
+        r += w * 170; g -= w * 34;
+      }
       idata.data[p*4] = clamp(r); idata.data[p*4+1] = clamp(g);
       idata.data[p*4+2] = clamp(b); idata.data[p*4+3] = clamp(a * 255);
     }

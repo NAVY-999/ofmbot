@@ -109,7 +109,8 @@ un coin, et la pastille de notification ne suit pas toujours.
   rainures, et peintes du même dégradé les deux se confondraient.
 
 - **Famille bleue** (Gmail, Maps, Google, OneDrive, Authenticator, Notion, Notion Calendar,
-  Drive, Chrome, Play Store) : les marques ramenées dans la gamme OneDrive, `#1A56D0 → #1C76EC → #1998FA → #18B4FA → #20CBFB → #34E2F4`.
+  Drive, Chrome, Play Store) : les marques ramenées dans la gamme OneDrive, corrigée
+  pour sortir le turquoise du haut — `#2155D0 → #2D73EC → #3E91FA → #52A8FA → #67BDFB → #7DD3F4`.
 
   Les huit marques polychromes **ne passent pas par un masque peint** : leur couleur varie à l'intérieur
   même de la marque, ce qu'un dégradé unique ne sait pas rendre. `recolour-hue.mjs` reporte
@@ -133,6 +134,14 @@ un coin, et la pastille de notification ne suit pas toujours.
   1. **La rampe est relevée sur les pixels de OneDrive**, pas choisie à la main : son
      histogramme de teinte donne les couleurs moyennes de 185° à 225°, du cyan `#2EDEF2`
      au bleu `#1443BE`. La rampe reprend ces valeurs, remontées d'un cran en clarté.
+
+     Son extrémité claire demandait toutefois une correction. `#34E2F4`, c'est un cyan
+     franc : le vert et le bleu y sont à égalité et le rouge quasi nul — et un cyan clair
+     **se lit vert**. Un dernier passage lui rend du rouge et lui retire un peu de vert,
+     d'autant plus qu'il est cyan (`(min(g,b) − r) / 255`, élevé à la puissance 2,2). Le
+     clair devient un bleu ciel pâle au lieu d'un turquoise. La correction s'applique à
+     toute la famille, **OneDrive compris** — c'est la seule marque qui ne passe pas par
+     la rampe, et sans elle, lui seul garderait le turquoise.
   2. **La teinte passe par la répartition cumulée de la marque**, pas par une règle de
      trois entre ses extrêmes. Étalée linéairement, la plage de Gmail donnait presque le
      même bleu au rose et au rouge, et toute la partie gauche du M paraissait unie ; la
